@@ -1,0 +1,453 @@
+{
+  "name": "Vital Sign for Infants",
+  "description": "Captures vital signs, growth measurements and z-scores for infants, including blood pressure, oxygen saturation, weight, length, mid-upper arm circumference, random blood sugar and newborn reflexes such as Moro, grasp and sucking.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "1e98678b-00d2-4327-b27b-bcaf403acc9e",
+  "retired": false,
+  "encounter": "Vitals",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Vital Sign for Infants Assessment",
+      "sections": [
+        {
+          "label": "Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pulse Rate",
+              "type": "obs",
+              "id": "pulseRate",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue < 60 || myValue > 100)",
+                  "message": "Value is outside the normal range (60-100 bpm)."
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Respiratory Rate (breaths/min)",
+              "type": "obs",
+              "id": "respiratoryRate",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Breaths per minute.",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue < 16 || myValue > 24)",
+                  "message": "Value is outside the normal range (16-24 breaths/min)."
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Temperature",
+              "type": "obs",
+              "id": "temperature",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "step": 0.01
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue < 35 || myValue > 37.5)",
+                  "message": "Value is outside the normal range (35-37.5 deg C)."
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "SPO2",
+              "type": "obs",
+              "id": "spo2",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "0c5ec4fa-f41a-4a6d-bd07-969872b69165",
+                "min": "0",
+                "step": 0.01
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && myValue <= 90",
+                  "message": "SPO2 is below the normal range (>90%)."
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Weight (kg)",
+              "type": "obs",
+              "id": "weight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Kilograms.",
+              "hideSteppers": true
+            },
+            {
+              "label": "Length",
+              "type": "obs",
+              "id": "length",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "10",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Weight for age(Z-score)",
+              "type": "obs",
+              "id": "weightForAgeZScore",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "0e758f90-0819-012c-3450-123456789012",
+                "answers": [
+                  {
+                    "concept": "0f869001-1920-123d-4561-234567890123",
+                    "label": "Below -3"
+                  },
+                  {
+                    "concept": "10970112-2031-234e-5672-345678901234",
+                    "label": "[-3,-2)"
+                  },
+                  {
+                    "concept": "11081223-3142-345f-6783-456789012345",
+                    "label": "[-2,-1)"
+                  },
+                  {
+                    "concept": "12192334-4253-4560-7894-567890123456",
+                    "label": "[-1,0)"
+                  },
+                  {
+                    "concept": "13203445-5364-5671-8905-678901234567",
+                    "label": "[0,1)"
+                  },
+                  {
+                    "concept": "14314556-6475-6782-9016-789012345678",
+                    "label": "[1,2)"
+                  },
+                  {
+                    "concept": "15425667-7586-7893-0127-890123456789",
+                    "label": "[2,3]"
+                  },
+                  {
+                    "concept": "16536778-8697-890a-1238-901234567890",
+                    "label": "Above 3"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weight for Length",
+              "type": "obs",
+              "id": "weightForLength",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "17647889-9708-901b-2349-012345678901",
+                "answers": [
+                  {
+                    "concept": "0f869001-1920-123d-4561-234567890123",
+                    "label": "Below -3"
+                  },
+                  {
+                    "concept": "10970112-2031-234e-5672-345678901234",
+                    "label": "Between -3 and -2"
+                  },
+                  {
+                    "concept": "11081223-3142-345f-6783-456789012345",
+                    "label": "Between -2 and -1"
+                  },
+                  {
+                    "concept": "12192334-4253-4560-7894-567890123456",
+                    "label": "Between -1 and 0"
+                  },
+                  {
+                    "concept": "13203445-5364-5671-8905-678901234567",
+                    "label": "Between 0 and 1"
+                  },
+                  {
+                    "concept": "14314556-6475-6782-9016-789012345678",
+                    "label": "Between 1 and 2"
+                  },
+                  {
+                    "concept": "15425667-7586-7893-0127-890123456789",
+                    "label": "Between 2 and 3"
+                  },
+                  {
+                    "concept": "16536778-8697-890a-1238-901234567890",
+                    "label": "Above 3"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Length for age",
+              "type": "obs",
+              "id": "lengthForAge",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "26536778-8697-890a-1238-901234567890",
+                "answers": [
+                  {
+                    "concept": "0f869001-1920-123d-4561-234567890123",
+                    "label": "Below -3"
+                  },
+                  {
+                    "concept": "10970112-2031-234e-5672-345678901234",
+                    "label": "Between -3 and -2"
+                  },
+                  {
+                    "concept": "11081223-3142-345f-6783-456789012345",
+                    "label": "Between -2 and -1"
+                  },
+                  {
+                    "concept": "12192334-4253-4560-7894-567890123456",
+                    "label": "Between -1 and 0"
+                  },
+                  {
+                    "concept": "13203445-5364-5671-8905-678901234567",
+                    "label": "Between 0 and 1"
+                  },
+                  {
+                    "concept": "14314556-6475-6782-9016-789012345678",
+                    "label": "Between 1 and 2"
+                  },
+                  {
+                    "concept": "15425667-7586-7893-0127-890123456789",
+                    "label": "Between 2 and 3"
+                  },
+                  {
+                    "concept": "16536778-8697-890a-1238-901234567890",
+                    "label": "Above 3"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "MUAC",
+              "type": "obs",
+              "id": "muac",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "aae2be11-0e07-497d-8e7c-a5b74fbd7cb0",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "RBS",
+              "type": "obs",
+              "id": "rbs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "590ff73f-c56c-43ec-bf41-7a6148072b78"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vitals Infant Blood Pressure",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Systolic",
+              "type": "obs",
+              "id": "systolic",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue < 90 || myValue > 120)",
+                  "message": "Value is outside the normal range (90-120 mmHg)."
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Diastolic BP",
+              "type": "obs",
+              "id": "diastolicBp",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue < 60 || myValue > 90)",
+                  "message": "Value is outside the normal range (60-90 mmHg)."
+                }
+              ],
+              "hideSteppers": true
+            }
+          ]
+        },
+        {
+          "label": "Newborn Reflexes",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Moro",
+              "type": "obs",
+              "id": "moro",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "35425667-7586-7893-0127-890123456789",
+                "answers": [
+                  {
+                    "concept": "36536778-8697-890a-1238-901234567890",
+                    "label": "Exaggerated"
+                  },
+                  {
+                    "concept": "12ba0ee0-23cd-4e79-baef-a10c8bc5ea69",
+                    "label": "Complete"
+                  },
+                  {
+                    "concept": "581415ca-92aa-4e61-a4db-7f31c49d5787",
+                    "label": "Partial complete"
+                  },
+                  {
+                    "concept": "163747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Grasp",
+              "type": "obs",
+              "id": "grasp",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "40970112-2031-234e-5672-345678901234",
+                "answers": [
+                  {
+                    "concept": "78696882-91bd-43b1-b86f-c83b7e7f1c44",
+                    "label": "Strong"
+                  },
+                  {
+                    "concept": "750c7a46-03f0-4cba-aa58-f5dc0efca955",
+                    "label": "Weak"
+                  },
+                  {
+                    "concept": "163747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Suckling",
+              "type": "obs",
+              "id": "suckling",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "d1f6c750-fdb2-4424-bb47-91f7a9606394",
+                "answers": [
+                  {
+                    "concept": "c41b15a2-dc67-4a06-a536-1e9ddefce795",
+                    "label": "Sustained"
+                  },
+                  {
+                    "concept": "46536778-8697-890a-1238-901234567890",
+                    "label": "Unsustained"
+                  },
+                  {
+                    "concept": "163747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

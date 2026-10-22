@@ -1,0 +1,91 @@
+name: Build and Publish
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      MAVEN_SETTINGS_XML: ${{ secrets.MAVEN_SETTINGS_XML }}
+    strategy:
+      matrix:
+        java: ["8"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: ${{ matrix.java }}
+          cache: "maven"
+
+      - name: Write Maven settings (from secret)
+        if: ${{ env.MAVEN_SETTINGS_XML != '' }}
+        run: |
+          cat > /tmp/maven-settings.xml <<'EOF'
+          ${{ env.MAVEN_SETTINGS_XML }}
+          EOF
+
+      - name: Build and Test
+        run: |
+          MVN_SETTINGS_ARG=""
+          if [ -f /tmp/maven-settings.xml ]; then
+            MVN_SETTINGS_ARG="-s /tmp/maven-settings.xml"
+          fi
+          ./purge-volatile-maven-cache.sh
+          mvn --batch-mode --update-snapshots --activate-profiles distro clean package -Dskip.validation=true $MVN_SETTINGS_ARG
+          ./purge-volatile-maven-cache.sh
+
+  publish:
+    name: Publish Distribution
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "8"
+          cache: "maven"
+
+      - name: Set settings.xml
+        uses: s4u/maven-settings-action@v3.0.0
+        with:
+          servers: |
+            [{
+              "id": "mks-repo",
+              "username": "${{ secrets.MAVEN_USERNAME }}",
+              "password": "${{ secrets.MAVEN_TOKEN }}"
+            },
+            {
+              "id": "mks-repo-snapshots",
+              "username": "${{ secrets.MAVEN_USERNAME }}",
+              "password": "${{ secrets.MAVEN_TOKEN }}"
+            },
+            {
+              "id": "github-palladiumkennya-initializer",
+              "username": "${{ github.actor }}",
+              "password": "${{ secrets.PAT_ACCESS_TOKEN }}"
+            }]
+
+      - name: Publish Distribution
+        run: |
+          ./purge-volatile-maven-cache.sh
+          mvn --batch-mode --update-snapshots --activate-profiles distro clean deploy
+          ./purge-volatile-maven-cache.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

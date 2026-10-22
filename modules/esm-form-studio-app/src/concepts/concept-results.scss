@@ -1,0 +1,42 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.list {
+  max-height: 18rem;
+  overflow-y: auto;
+  border: 1px solid colors.$gray-20;
+  background-color: colors.$white;
+}
+
+.item,
+.blocked {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: layout.$spacing-03;
+  padding: layout.$spacing-03 layout.$spacing-04;
+  border-bottom: 1px solid colors.$gray-10;
+}
+
+.item {
+  cursor: pointer;
+
+  &:hover {
+    background-color: colors.$gray-10;
+  }
+}
+
+.blocked {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.name {
+  @include type.type-style('body-compact-01');
+}
+
+.meta {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+}

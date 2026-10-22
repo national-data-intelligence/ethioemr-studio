@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethioemr.local/schemas/form-studio/intake/1.0/intake.schema.json",
+  "title": "Form Studio intake shape (IntakeForm), template excel-template-v1",
+  "description": "The common shape a Bahmni export or the Excel template becomes before it is built into an O3 form (src/intake/intake-types.ts). Written from those TypeScript types; intake-schema.test.ts keeps the two in step and validates every real Bahmni export and the Excel example against it. Strict: unknown fields are refused, so a drift shows up as a failure.",
+  "type": "object",
+  "required": ["source", "name", "pages", "problems"],
+  "additionalProperties": false,
+  "properties": {
+    "source": { "enum": ["bahmni", "excel"] },
+    "name": { "type": "string", "description": "Form name (About sheet, or the Bahmni form name)" },
+    "description": { "type": "string" },
+    "encounter": { "type": "string", "description": "Encounter type name; one of the project's types" },
+    "replaces": { "type": "string", "description": "An existing form's name or uuid this rebuilds: its identity (uuid, name, encounter type) is kept" },
+    "version": { "type": "string" },
+    "pages": { "type": "array", "items": { "$ref": "#/$defs/page" } },
+    "problems": { "type": "array", "items": { "$ref": "#/$defs/issue" }, "description": "Problems found while reading the file" }
+  },
+  "$defs": {
+    "type": {
+      "enum": ["text", "long text", "number", "date", "date-time", "time", "yes/no", "one of", "many of", "dropdown", "calculated", "note"],
+      "description": "The template's plain-word question types (INTAKE_TYPES)"
+    },
+    "page": {
+      "type": "object",
+      "required": ["label", "sections"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string" },
+        "sections": { "type": "array", "items": { "$ref": "#/$defs/section" } }
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": ["label", "questions"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string" },
+        "questions": { "type": "array", "items": { "$ref": "#/$defs/question" } },
+        "repeat": { "type": "boolean", "description": "The source lets this block be filled many times (Bahmni allowAddMore on a set)" }
+      }
+    },
+    "match": {
+      "type": "object",
+      "required": ["uuid", "display", "how"],
+      "additionalProperties": false,
+      "description": "A concept chosen on the server, and how it was found",
+      "properties": {
+        "uuid": { "type": "string" },
+        "display": { "type": "string" },
+        "datatype": { "type": "string" },
+        "how": {
+          "enum": ["same question in the shipped form", "given uuid", "CIEL id", "exact name", "answer of the question concept", "standard yes/no"]
+        }
+      }
+    },
+    "option": {
+      "type": "object",
+      "required": ["label"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string" },
+        "concept": { "type": "string", "description": "A uuid or an exact concept name written in the source" },
+        "names": { "type": "array", "items": { "type": "string" }, "description": "Other names to try (e.g. the Bahmni concept name behind the label)" },
+        "cielHint": { "type": "string", "description": "A CIEL id from the source: used only if it exists on the server (no foreign uuids)" },
+        "match": { "$ref": "#/$defs/match" }
+      }
+    },
+    "question": {
+      "type": "object",
+      "required": ["label", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string" },
+        "id": { "type": "string" },
+        "type": {
+          "anyOf": [{ "$ref": "#/$defs/type" }, { "const": "group" }],
+          "description": "'group': questions saved together under one set concept (O3 obsGroup); repeat makes it a repeating group"
+        },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/question" }, "description": "The questions inside a group" },
+        "concept": { "type": "string" },
+        "names": { "type": "array", "items": { "type": "string" } },
+        "cielHint": { "type": "string" },
+        "options": { "type": "array", "items": { "$ref": "#/$defs/option" } },
+        "required": { "type": "boolean" },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "whole": { "type": "boolean" },
+        "unit": { "type": "string" },
+        "warnBelow": { "type": "number" },
+        "warnAbove": { "type": "number" },
+        "allowFutureDates": { "type": "boolean" },
+        "showIf": {
+          "type": "string",
+          "description": "Template rule words: <Question ID> = <option>, <Question ID> has <option>, <Question ID> is answered|empty, age > 5, sex = F"
+        },
+        "calculation": { "type": "string", "description": "BMI(<height id>, <weight id>), EDD(<LNMP id>), or an engine expression" },
+        "repeat": { "type": "boolean" },
+        "fromEmr": { "type": "boolean", "description": "Already in the patient record (name, MRN, age, sex): not built, listed for review" },
+        "notes": { "type": "array", "items": { "type": "string" }, "description": "Reviewer notes from the source; never built into the form" },
+        "match": { "$ref": "#/$defs/match" },
+        "unmatched": { "type": "string", "description": "Why no concept was chosen" }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "group" } } }, "then": { "required": ["children"] } }
+      ]
+    },
+    "issue": {
+      "type": "object",
+      "required": ["level", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "level": { "enum": ["error", "warning", "info"] },
+        "where": { "type": "string", "description": "Page › Section › Question, or a row number" },
+        "message": { "type": "string" }
+      }
+    }
+  }
+}

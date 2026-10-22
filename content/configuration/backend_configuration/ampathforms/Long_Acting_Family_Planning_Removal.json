@@ -1,0 +1,497 @@
+{
+  "name": "Long Acting Family Planning Removal",
+  "description": "Documents the removal of a long-acting family planning (LAFP) method such as an implant or intrauterine device (IUD), including insertion and removal dates, reason for removal, HIV testing and counseling, and any contraceptive provided afterwards.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "cd1ed6fb-93cc-43bc-9e94-297c90d5acdb",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              }
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Long Acting Family Planning Removal",
+      "sections": [
+        {
+          "label": "Basic Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date Form filled in",
+              "type": "obs",
+              "required": "true",
+              "id": "dateFormFilled",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "166848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "today()"
+                }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "questionInfo": "Date when this form was completed"
+            },
+            {
+              "label": "Date of insertion",
+              "type": "obs",
+              "required": "false",
+              "id": "dateOfInsertion",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "16e4f22a-3e7c-4ca0-a566-2d5cc064a33c"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "questionInfo": "Date when the LAFP method was originally inserted"
+            },
+            {
+              "label": "Type of LAFP used",
+              "type": "obs",
+              "required": "false",
+              "id": "lafpType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3b96324b-c6e9-4361-9709-9f7f25f7c131",
+                "answers": [
+                  {
+                    "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implant"
+                  },
+                  {
+                    "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "IUCD"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other Type"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Place of LAFP received",
+              "type": "obs",
+              "required": "false",
+              "id": "placeOfLAFP",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0d5e6f70-8192-0123-def4-456789012345",
+                "answers": [
+                  {
+                    "concept": "1e6f7081-9203-1234-ef56-789012345abc",
+                    "label": "Within facility (WI)"
+                  },
+                  {
+                    "concept": "2f708192-a314-2345-f678-90123456bcde",
+                    "label": "Hospital -Out of Facility"
+                  },
+                  {
+                    "concept": "3081920a-b425-3456-0789-123456cdefab",
+                    "label": "Health Center -Out of Facility"
+                  },
+                  {
+                    "concept": "4192031b-c536-4567-1890-23456defabcd",
+                    "label": "Health Post -Out of Facility"
+                  },
+                  {
+                    "concept": "5203142c-d647-5678-2901-3456efabcdef",
+                    "label": "Private Clinic  -Out of Facility"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Date of Removal service provided",
+              "type": "obs",
+              "required": "false",
+              "id": "dateOfRemoval",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5474bf3c-ab47-441f-848a-9640cb5c6056"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "questionInfo": "Date when the LAFP removal procedure was performed"
+            }
+          ]
+        },
+        {
+          "label": "LAFP Type Removed",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Implanon",
+              "type": "obs",
+              "required": "false",
+              "id": "implanon",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "6314253d-e758-6789-3012-456fabcdef01",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Number of Implanon implants removed (enter 0 if none)"
+            },
+            {
+              "label": "Sino-implant",
+              "type": "obs",
+              "required": "false",
+              "id": "sinoImplant",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "7425364e-f869-789a-4123-567abcdef012",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Number of Sino-implant devices removed (enter 0 if none)"
+            },
+            {
+              "label": "Jadelle",
+              "type": "obs",
+              "required": "false",
+              "id": "jadell",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "d2d5eaca-8fa4-463f-94b4-7e0a487dfd3f",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Number of Jadelle implants removed (enter 0 if none)"
+            },
+            {
+              "label": "IUD",
+              "type": "obs",
+              "required": "false",
+              "id": "iud",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5def6330-0816-4efb-a9e3-131aa6020392",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Number of IUDs removed (enter 0 if none)"
+            },
+            {
+              "label": "LAFP Others",
+              "type": "obs",
+              "required": "false",
+              "id": "lafpOthers",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "8536475f-0970-890b-5234-678bcdef0123",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Number of other LAFP devices removed not listed above (enter 0 if none)"
+            }
+          ]
+        },
+        {
+          "label": "Reason for Removal",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Reason for Family Planning removal",
+              "type": "obs",
+              "required": "false",
+              "id": "reasonForRemoval",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "a192b3c4-d5e6-f789-0123-456789abcdef",
+                "answers": [
+                  {
+                    "concept": "9647586a-1081-901c-6345-789cdef01234",
+                    "label": "On recommended time"
+                  },
+                  {
+                    "concept": "0758697b-2192-012d-7456-89def0123456",
+                    "label": "LAFP Side Effect"
+                  },
+                  {
+                    "concept": "50891b89-2d3d-4234-bb32-bfa13f381d70",
+                    "label": "Want to get Pregnant"
+                  },
+                  {
+                    "concept": "1869708c-3203-123e-8567-9ef012345678",
+                    "label": "Misconception"
+                  },
+                  {
+                    "concept": "2970819d-4314-234f-9678-0ef123456789",
+                    "label": "death other"
+                  }
+                ]
+              },
+              "questionInfo": "Primary reason why the LAFP method was removed"
+            }
+          ]
+        },
+        {
+          "label": "HIV Testing and Counseling",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "HIV test offered",
+              "type": "obs",
+              "required": "false",
+              "id": "hivTestOffered",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "questionInfo": "Whether HIV test was offered to the patient during this visit"
+            },
+            {
+              "label": "HIV test performed",
+              "type": "obs",
+              "required": "false",
+              "id": "hivTestPerformed",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "questionInfo": "Whether HIV test was actually performed on the patient"
+            },
+            {
+              "label": "HIV Test Result",
+              "type": "obs",
+              "required": "false",
+              "id": "hivTestResult",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "e16fa844-c5bf-4a85-9e01-d9a2b1b7528d",
+                "answers": [
+                  {
+                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Reactive"
+                  },
+                  {
+                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-Reactive"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTestPerformed) || hivTestPerformed !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "HIV Specific counseling/methods offered",
+              "type": "obs",
+              "required": "false",
+              "id": "hivCounselingOffered",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "af6b6a00-bcd9-4f86-9f7f-4735f3069669",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "questionInfo": "Whether HIV-specific counseling or prevention methods were offered"
+            },
+            {
+              "label": "HIV positive linked to ART",
+              "type": "obs",
+              "required": "false",
+              "id": "hivLinkedToART",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "e2dfa849-7927-485b-8005-075e1000e601",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "questionInfo": "Whether HIV positive patient was successfully linked to ART services"
+            }
+          ]
+        },
+        {
+          "label": "Target Population and Additional Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Target Population Category",
+              "type": "obs",
+              "required": "false",
+              "id": "targetPopulationCategory",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "4f8a2b1c-3d5e-4567-8901-234567890abc",
+                "answers": [
+                  {
+                    "label": "Female Commercial Sex Workers",
+                    "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Long Distance Drivers",
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Mobile Workers/Daily Laborers",
+                    "concept": "7e9f1a2b-4c6d-5678-9012-345678901de0"
+                  },
+                  {
+                    "label": "Prisoners",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "OVC",
+                    "concept": "1174AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Children of PLHIV",
+                    "concept": "1393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Partner of PLHIV",
+                    "concept": "8f0a2b3c-5d7e-6789-0123-456789012e0a"
+                  },
+                  {
+                    "label": "Other Marps",
+                    "concept": "9a1b3c4d-6e8f-7890-1234-567890123f0a"
+                  },
+                  {
+                    "label": "General Population",
+                    "concept": "0b2c4d5e-7f9a-8901-2345-678901234a0b"
+                  }
+                ]
+              },
+              "questionInfo": "Client target population category for reporting purposes"
+            },
+            {
+              "label": "Post removal Contraceptive provided",
+              "type": "obs",
+              "required": "false",
+              "id": "postRemovalContraceptive",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "809ed07d-803f-43b9-aa6a-1d11475fd08b",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "questionInfo": "Whether a contraceptive method was provided after LAFP removal"
+            },
+            {
+              "label": "Remark",
+              "type": "obs",
+              "required": "false",
+              "id": "remark",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

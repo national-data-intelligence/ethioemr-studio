@@ -1,0 +1,228 @@
+{
+  "name": "Gynecology and Obstetric Department Biopsy Request Form",
+  "description": "Request sent with a biopsy specimen from the gynecology and obstetrics department, giving the ward, clinical data, laboratory and imaging results, clinical diagnosis, treatment given, previous biopsy results, exact sample site and requesting obstetrician.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "500c4242-21e5-42de-89b9-d94f254c4487",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Gynecology and Obstetric Department Biopsy Request Form",
+      "sections": [
+        {
+          "label": "Gynecology and Obstetric Department Biopsy Request Form",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Ward",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "f5fce2bf-5570-4f1d-8485-f9f9379ec6d8"
+              },
+              "id": "ward"
+            },
+            {
+              "label": "Bed No.",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "ff805e0e-baf8-4871-8824-9836a79b16ce"
+              },
+              "id": "bedNo"
+            },
+            {
+              "label": "Clinical Data",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "clinicalData"
+            },
+            {
+              "label": "Laboratory Investigation Result",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "161577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "laboratoryInvestigationResult"
+            },
+            {
+              "label": "Radiologic/ Imaging Results",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "radiologicImagingResults"
+            },
+            {
+              "label": "Clinical Diagnosis",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "clinicalDiagnosis"
+            },
+            {
+              "label": "Treatment Given",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "f77ceb94-830f-4ef8-8433-b1bac7517b88"
+              },
+              "id": "treatmentGiven"
+            },
+            {
+              "label": "Previous FNAC/ Biopsy No. and Result",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "4597d16b-f4b7-4da6-9376-8b1bf546a1d4"
+              },
+              "id": "previousFnacBiopsyResult"
+            },
+            {
+              "label": "Exact site of sample taken",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "0ba402ff-69a6-471f-94fd-cb51a80e7055"
+              },
+              "id": "exactSiteSampleTaken"
+            },
+            {
+              "label": "Requesting Obstetrician",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "311d5d2b-4051-4e92-9ae2-bcd6af58cfa0"
+              },
+              "id": "requestingObstetricianGroup",
+              "questions": [
+                {
+                  "label": "Name",
+                  "type": "obsGroup",
+                  "questionOptions": {
+                    "rendering": "group",
+                    "concept": "5ad9e10a-d722-4709-82b0-f7befad425bb"
+                  },
+                  "id": "obstetricianNameGroup",
+                  "questions": [
+                    {
+                      "label": "Name",
+                      "type": "obs",
+                      "questionOptions": {
+                        "rendering": "textarea",
+                        "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      "id": "obstetricianName"
+                    }
+                  ]
+                },
+                {
+                  "label": "Telephone Number",
+                  "type": "obsGroup",
+                  "questionOptions": {
+                    "rendering": "group",
+                    "concept": "903fc9ec-06b7-49a0-87d2-13c2de5c70d8"
+                  },
+                  "id": "obstetricianTelephoneGroup",
+                  "questions": [
+                    {
+                      "label": "Telephone Number",
+                      "type": "obs",
+                      "questionOptions": {
+                        "rendering": "textarea",
+                        "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      "id": "obstetricianTelephone"
+                    }
+                  ]
+                },
+                {
+                  "label": "Email",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "437bbea6-1a72-4249-9e36-799f35d8351e"
+                  },
+                  "id": "obstetricianEmail"
+                },
+                {
+                  "label": "Date",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "obstetricianDate"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

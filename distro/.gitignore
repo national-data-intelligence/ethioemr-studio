@@ -1,0 +1,9 @@
+**/target/
+**/.DS_Store
+**/node_modules/
+.idea/
+**/*.sql
+**/.vscode
+/mysql-data/
+/docs/
+.env

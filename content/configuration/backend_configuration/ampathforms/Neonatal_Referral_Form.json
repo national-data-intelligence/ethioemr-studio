@@ -1,0 +1,940 @@
+{
+  "name": "Neonatal Referral Form",
+  "description": "Completed when referring a newborn to another facility, recording baby and mother details, maternal HIV, syphilis and hepatitis B results, risk factors, obstetric history, medications, labor and delivery events, newborn assessment and referral information.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "494ec55a-5eba-44ff-b92d-0c500dec1e3f",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient Information",
+      "sections": [
+        {
+          "label": "Baby Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Age at Admission",
+              "type": "obs",
+              "required": false,
+              "id": "ageAtAdmission",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "7b2c3d4e-5f60-7890-1234-567890abcd11",
+                "min": "0",
+                "step": 0.01
+              }
+            }
+          ]
+        },
+        {
+          "label": "Mother Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Name of Mother",
+              "type": "obs",
+              "required": false,
+              "id": "motherName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Mother Age",
+              "type": "obs",
+              "required": false,
+              "id": "motherAge",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "164168AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Gravida",
+              "type": "obs",
+              "required": false,
+              "id": "gravida",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Parity (Para)",
+              "type": "obs",
+              "required": false,
+              "id": "parity",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Previous Abortion",
+              "type": "obs",
+              "required": false,
+              "id": "previousAbortion",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Maternal Blood Group",
+              "type": "obs",
+              "required": false,
+              "id": "maternalBloodGroup",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "690AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "A Postive"
+                  },
+                  {
+                    "concept": "692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "A Negative"
+                  },
+                  {
+                    "concept": "694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "B Positive"
+                  },
+                  {
+                    "concept": "696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "B Negative"
+                  },
+                  {
+                    "concept": "1230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ab Positive"
+                  },
+                  {
+                    "concept": "1231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ab Negative"
+                  },
+                  {
+                    "concept": "699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "O Positive"
+                  },
+                  {
+                    "concept": "701AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "O Negative"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "LNMP",
+              "type": "obs",
+              "required": false,
+              "id": "lnmp",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Gestational Age (Wks.)",
+              "type": "obs",
+              "required": true,
+              "id": "gestationalAge",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "ANC Visit Number",
+              "type": "obs",
+              "required": false,
+              "id": "ancVisitNumber",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Medical History & Tests",
+      "sections": [
+        {
+          "label": "Hiv and Laboratory Tests",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "PICT",
+              "type": "obs",
+              "required": false,
+              "id": "pict",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ad858385-1e6a-4bbc-8bb7-d11756d4397f",
+                "answers": [
+                  {
+                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-reactive"
+                  },
+                  {
+                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Reactive"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If Reactive for Hiv Is the Mother on Haart",
+              "type": "obs",
+              "required": false,
+              "id": "motherOnHaart",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pict) || pict !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Rpr/Vdrl Result",
+              "type": "obs",
+              "required": false,
+              "id": "rprVdrlResult",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Reactive"
+                  },
+                  {
+                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-reactive"
+                  },
+                  {
+                    "concept": "c69067da-51bf-429c-8f6a-c3c41202bdf5",
+                    "label": "Inconclusive"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HBV RESULT",
+              "type": "obs",
+              "required": false,
+              "id": "hbvResult",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "2273174b-6081-7902-2456-789123abcd32",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hbv Reactive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hbv Non Reactive"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Viral Load",
+              "type": "obs",
+              "required": false,
+              "id": "viralLoad",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              }
+            }
+          ]
+        },
+        {
+          "label": "Risk Factors",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Diagnosed or Suspected Multiple Pregnancy?",
+              "type": "obs",
+              "required": false,
+              "id": "multiplePregnancy",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3384285c-7192-8013-3567-890234abcd33",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Age less than 18 years?",
+              "type": "obs",
+              "required": false,
+              "id": "ageLessThan18",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8c3d4e5f-6071-8901-2345-678901abcd12",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Age more than 35 years?",
+              "type": "obs",
+              "required": false,
+              "id": "ageMoreThan35",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "9d4e5f60-7182-9012-3456-789012abcd13",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Isoimmunization Rh (-)In Current or in Previous Pregnancy?",
+              "type": "obs",
+              "required": false,
+              "id": "rhIsoimmunization",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0e5f6071-8293-0123-4567-890123abcd14",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Vaginal Bleeding?",
+              "type": "obs",
+              "required": false,
+              "id": "vaginalBleeding",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "2416d91f-9c75-4854-915f-7d54d9fc6ead",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Pelvic Mass?",
+              "type": "obs",
+              "required": false,
+              "id": "pelvicMass",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1f607182-9304-1234-5678-901234abcd15",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Systolic >140 mm/Hg and/or Diastolic Blood pressure 90mmHg",
+              "type": "obs",
+              "required": false,
+              "id": "hypertension",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "2071a2b3-0415-2345-6789-012345abcd16",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Obstetric History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Previous Stillbirth or Neonatal Loss",
+              "type": "obs",
+              "required": false,
+              "id": "previousStillbirth",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "162587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "History of 3 or more consecutive spontaneous abortion",
+              "type": "obs",
+              "required": false,
+              "id": "consecutiveAbortions",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f1a2b3c4-d5e6-4f7a-8b90-1c2d3e4f5a6b",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Birth weight of last baby <2500g",
+              "type": "obs",
+              "required": false,
+              "id": "lastBabyLowWeight",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3182b3c4-1526-3456-7890-123456abcd17",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Birth weight of last baby >4000g",
+              "type": "obs",
+              "required": false,
+              "id": "lastBabyHighWeight",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "4293c4d5-2637-4567-8901-234567abcd18",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Last Pregnancy:Hospital Admission for Hypertension or Preeclampsia/Eclampsia",
+              "type": "obs",
+              "required": false,
+              "id": "lastPregnancyHypertension",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "5304d5e6-3748-5678-9012-345678abcd19",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "previous surgery on reproductive tract? (myomectomy,Removal of Septum,Fistula Repair,Cone Biopsy,c/S,Repaired Rapture,Cervical Circlage)",
+              "type": "obs",
+              "required": false,
+              "id": "previousReproductiveSurgery",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "6415e6f7-4859-6789-0123-456789abcd20",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Treatment & Delivery",
+      "sections": [
+        {
+          "label": "Medications Given",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Dexamethasone Given",
+              "type": "obs",
+              "required": false,
+              "id": "dexamethasoneGiven",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "4495396d-8203-9124-4678-901345abcd34",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Magnesium Sulphate Given",
+              "type": "obs",
+              "required": false,
+              "id": "magnesiumSulphateGiven",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "5506407e-9314-0235-5789-012456abcd35",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Prophylactic Antibiotics",
+              "type": "obs",
+              "required": false,
+              "id": "prophylacticAntibiotics",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "7526f708-5960-7890-1234-567890abcd21"
+              }
+            },
+            {
+              "label": "Other",
+              "type": "obs",
+              "required": false,
+              "id": "otherMedications",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "6617518f-0425-1346-6890-123567abcd36"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Labor and Delivery",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Labor Onset",
+              "type": "obs",
+              "required": false,
+              "id": "laborOnset",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8637081a-6071-8901-2345-678901abcd22",
+                "answers": [
+                  {
+                    "concept": "7728629a-1536-2457-7901-234678abcd37",
+                    "label": "Spontaneous"
+                  },
+                  {
+                    "concept": "8839730b-2647-3568-8012-345789abcd38",
+                    "label": "Induced"
+                  },
+                  {
+                    "concept": "974808b2-7182-9012-3456-789012abcd23",
+                    "label": "Augmented"
+                  },
+                  {
+                    "concept": "9940841c-3758-4679-9123-456890abcd39",
+                    "label": "Elective C/S"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Labor Duration",
+              "type": "obs",
+              "required": false,
+              "id": "laborDuration",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "159616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "ROM Hours Prior to Delivery",
+              "type": "obs",
+              "required": false,
+              "id": "romHours",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "a85909c3-8293-0123-4567-890123abcd24",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Method of Delivery",
+              "type": "obs",
+              "required": false,
+              "id": "deliveryMethod",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d9c51918-1b1e-4692-98bf-5f49584bbebc",
+                "answers": [
+                  {
+                    "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spontaneous Vaginal Delivery"
+                  },
+                  {
+                    "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Forceps or Vaccum Extractor Delivery"
+                  },
+                  {
+                    "concept": "159739AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Caesarean Section"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Indication for C/S or Instrumental Delivery",
+              "type": "obs",
+              "required": false,
+              "id": "deliveryIndication",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "b960a0d4-9304-1234-5678-901234abcd25"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(deliveryMethod) || deliveryMethod === '1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Assessment & Referral",
+      "sections": [
+        {
+          "label": "Newborn Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Is Inpatient",
+              "type": "obs",
+              "required": false,
+              "id": "isInpatient",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c071b1e5-0415-2345-6789-012345abcd26",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Birth Weight in Gram",
+              "type": "obs",
+              "required": false,
+              "id": "birthWeight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "500",
+                "max": "6000",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "APGAR Score at 1 Minute",
+              "type": "obs",
+              "required": false,
+              "id": "apgar1Min",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "159603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "APGAR Score at 5 Minutes",
+              "type": "obs",
+              "required": false,
+              "id": "apgar5Min",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "159604AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "APGAR Score at 10 min",
+              "type": "obs",
+              "required": false,
+              "id": "apgar10Min",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "159605AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Newborn Resuscitation Notes",
+              "type": "obs",
+              "required": false,
+              "id": "resuscitationNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "d182c2f6-1526-3456-7890-123456abcd27"
+              }
+            },
+            {
+              "label": "TTC Eye Ointment Given in Both Eyes Given",
+              "type": "obs",
+              "required": false,
+              "id": "ttcEyeOintment",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "e293d307-2637-4567-8901-234567abcd28",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Vitamin K Given",
+              "type": "obs",
+              "required": false,
+              "id": "vitaminKGiven",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f304e418-3748-5678-9012-345678abcd29",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Referral Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Reason for Referral",
+              "type": "obs",
+              "required": false,
+              "id": "reasonForReferral",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "0415f529-4859-6789-0123-456789abcd30"
+              }
+            },
+            {
+              "label": "Date & Time",
+              "type": "obs",
+              "required": false,
+              "id": "referralDateTime",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "1162063a-5960-7890-1234-567890abcd31"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

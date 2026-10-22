@@ -1,0 +1,2 @@
+Uuid,Void/Retire,Name,Description,Required,Format,Format description,Validator,Location behavior,Uniqueness behavior
+cce42242-9e55-40a6-8739-1e6be1369bbe,,Health ID,Identifier type for patient health ID given by MPI ,FALSE,,,,NOT_USED,

@@ -1,0 +1,6 @@
+{
+  "package": "@palladium-ethiopia/esm-ai-assistant-app",
+  "dist": "dist",
+  "entry": "palladium-ethiopia-esm-ai-assistant-app.js",
+  "//": "Built bundle 0.1.0 (from the AI quick-start image; built for app shell 9.x). Source and npm package are owned by Bini; replace with the published 10.x build when available."
+}

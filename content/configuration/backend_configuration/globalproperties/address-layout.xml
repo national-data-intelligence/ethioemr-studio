@@ -1,0 +1,49 @@
+<config>
+    <globalProperties>
+        <globalProperty>
+            <property>layout.address.format</property>
+            <value>
+                &lt;org.openmrs.layout.address.AddressTemplate&gt;
+                &lt;nameMappings class="linked-hash-map"&gt;
+                &lt;entry&gt;
+                &lt;string&gt;countyDistrict&lt;/string&gt;
+                &lt;string&gt;Region&lt;/string&gt;
+                &lt;/entry&gt;
+                &lt;entry&gt;
+                &lt;string&gt;stateProvince&lt;/string&gt;
+                &lt;string&gt;Zone&lt;/string&gt;
+                &lt;/entry&gt;
+                &lt;entry&gt;
+                &lt;string&gt;address4&lt;/string&gt;
+                &lt;string&gt;Woreda&lt;/string&gt;
+                &lt;/entry&gt;
+                &lt;/nameMappings&gt;
+                &lt;sizeMappings class="linked-hash-map"&gt;
+                &lt;entry&gt;
+                &lt;string&gt;countyDistrict&lt;/string&gt;
+                &lt;string&gt;40&lt;/string&gt;
+                &lt;/entry&gt;
+                &lt;entry&gt;
+                &lt;string&gt;stateProvince&lt;/string&gt;
+                &lt;string&gt;40&lt;/string&gt;
+                &lt;/entry&gt;
+                &lt;entry&gt;
+                &lt;string&gt;address4&lt;/string&gt;
+                &lt;string&gt;40&lt;/string&gt;
+                &lt;/entry&gt;
+                &lt;/sizeMappings&gt;
+                &lt;requiredElements class="java.util.ArrayList"&gt;
+                &lt;string&gt;countyDistrict&lt;/string&gt;
+                &lt;string&gt;stateProvince&lt;/string&gt;
+                &lt;string&gt;address4&lt;/string&gt;
+                &lt;/requiredElements&gt;
+                &lt;elementDefaults class="linked-hash-map"/&gt;
+                &lt;lineByLineFormat&gt;
+                &lt;string&gt;address4&lt;/string&gt;
+                &lt;string&gt;countyDistrict, stateProvince&lt;/string&gt;
+                &lt;/lineByLineFormat&gt;
+                &lt;/org.openmrs.layout.address.AddressTemplate&gt;
+            </value>
+        </globalProperty>
+    </globalProperties>
+</config>

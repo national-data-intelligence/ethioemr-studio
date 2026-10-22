@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compose:
+    name: Platform compose file is valid
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Merge and validate the distro and platform compose files
+        run: |
+          cp .env.example .env
+          mkdir -p ~/.m2 && touch ~/.m2/settings.xml   # the team compose references this build secret
+          docker compose --project-directory . -f distro/docker-compose.yml -f docker-compose.platform.yml config --quiet
+
+  form-studio:
+    name: Form Studio tests, type check, lint and production build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: modules/esm-form-studio-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node .yarn/releases/yarn-4.10.3.cjs install --immutable
+      - run: node .yarn/releases/yarn-4.10.3.cjs test
+      - run: node .yarn/releases/yarn-4.10.3.cjs typescript
+      - run: node .yarn/releases/yarn-4.10.3.cjs lint
+      - run: node .yarn/releases/yarn-4.10.3.cjs build
+
+  python:
+    name: Python services and tools compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m compileall -q services tools

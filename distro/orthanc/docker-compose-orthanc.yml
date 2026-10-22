@@ -1,0 +1,164 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: orthanc-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: orthanc
+      POSTGRES_USER: orthanc
+      POSTGRES_PASSWORD: Admin123
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U orthanc"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  orthanc:
+    image: orthancteam/orthanc:latest
+    container_name: orthanc
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${ORTHANC_DICOM_PORT:-4242}:4242"
+    environment:
+      # === Basic settings ===
+      ORTHANC__NAME: "${ORTHANC_NAME:-Orthanc PACS}"
+      ORTHANC__AUTHENTICATION_ENABLED: "true"
+      ORTHANC__REGISTERED_USERS: |
+        {"${ORTHANC_USERNAME:-admin}": "${ORTHANC_PASSWORD:-orthanc}"}
+      ORTHANC__DICOM_AET: "${ORTHANC_AET:-ORTHANC}"
+      ORTHANC__DICOM_PORT: "4242"
+      ORTHANC__DICOM_CHECK_CALLED_AET: "false"
+      ORTHANC__REMOTE_ACCESS_ALLOWED: "true"
+
+      # === CORS ===
+      ORTHANC__CORS_ENABLED: "${ORTHANC__CORS_ENABLED:-true}"
+
+      # === Allow unknown modalities to connect ===
+      ORTHANC__DICOM_MODALITIES_IN_DB: "true"
+      ORTHANC__UNKNOWN_SOPS_ARE_CONSIDERED_UNKNOWN: "false"
+
+      # === Registered modalities  ===
+      # ORTHANC__DICOM_MODALITIES: |
+      #   {
+      #     "DMWLT4": {
+      #       "AET": "DMWLT4",
+      #       "Host": "192.168.65.1",
+      #       "Port": 104,
+      #       "AllowFind": true,
+      #       "AllowMove": true,
+      #       "AllowStore": true
+      #     }
+      #   }
+
+      # === PostgreSQL Index ===
+      POSTGRESQL_PLUGIN_ENABLED: "true"
+      ORTHANC__POSTGRESQL__ENABLE_INDEX: "true"
+      ORTHANC__POSTGRESQL__ENABLE_STORAGE: "false"
+      ORTHANC__POSTGRESQL__HOST: "postgres"
+      ORTHANC__POSTGRESQL__PORT: "5432"
+      ORTHANC__POSTGRESQL__DATABASE: "orthanc"
+      ORTHANC__POSTGRESQL__USERNAME: "orthanc"
+      ORTHANC__POSTGRESQL__PASSWORD: "Admin123"
+      ORTHANC__POSTGRESQL__LOCK: "false"
+
+      # === Viewers & Plugins ===
+      STONE_WEB_VIEWER_PLUGIN_ENABLED: "true"
+      OHIF_PLUGIN_ENABLED: "true"
+      VOLVIEW_PLUGIN_ENABLED: "true"
+
+      # === DICOMweb ===
+      ORTHANC__OHIF__ROUTER_BASENAME: "/openmrs/ws/rest/v1/orthanc/ohif/"
+      ORTHANC__OHIF__DATA_SOURCE: "dicom-web"
+      DICOM_WEB_PLUGIN_ENABLED: "true"
+      ORTHANC__DICOM_WEB__ENABLE: "true"
+      ORTHANC__DICOM_WEB__ROOT: "/dicom-web/"
+      ORTHANC__DICOM_WEB__ENABLE_WADO: "true"
+      ORTHANC__DICOM_WEB__WADO_ROOT: "/wado"
+      ORTHANC__DICOM_WEB__SSL_ENABLED: "false"
+      ORTHANC__DICOM_WEB__SERVERS: |
+        {
+          "self": {
+            "Url": "http://orthanc:8042/dicom-web/",
+            "Username": "${ORTHANC_USERNAME:-admin}",
+            "Password": "${ORTHANC_PASSWORD:-orthanc}",
+            "HasDelete": true
+          }
+        }
+
+      # === Worklists Plugin ===
+      WORKLISTS_PLUGIN_ENABLED: "true"
+      ORTHANC__WORKLISTS__ENABLE: "true"
+      ORTHANC__WORKLISTS__DATABASE: "/var/lib/orthanc/worklists"
+
+      # === Lua: notify OpenMRS when a study becomes stable ===
+      # OnStableStudy fires once per study after StableAge seconds (default 60s)
+      # of inactivity, so the endpoint is called once regardless of slice count.
+      ORTHANC__LUA_SCRIPTS: '["/etc/orthanc/notify-openmrs.lua"]'
+      ORTHANC__STABLE_AGE: "${ORTHANC_STABLE_AGE:-30}"
+      OPENMRS_NOTIFICATION_ENDPOINT: "${OPENMRS_NOTIFICATION_ENDPOINT}"
+      OPENMRS_NOTIFICATION_USER: "${OPENMRS_NOTIFICATION_USER}"
+      OPENMRS_NOTIFICATION_PASSWORD: "${OPENMRS_NOTIFICATION_PASSWORD}"
+
+    volumes:
+      - orthanc-storage:/var/lib/orthanc/db
+      - orthanc-worklists:/var/lib/orthanc/worklists
+      - ./notify-openmrs.lua:/etc/orthanc/notify-openmrs.lua:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  nginx:
+    image: nginx:alpine
+    container_name: orthanc-nginx
+    restart: unless-stopped
+    ports:
+      - "${ORTHANC_HTTP_PORT:-8042}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - orthanc
+
+  # HL7 → Worklist converter
+  hl7-worklist:
+    image: orthancteam/python-orthanc-tools:0.10.0
+    container_name: orthanc-hl7-worklist
+    restart: unless-stopped
+    ports:
+      - "2575:2575"
+    volumes:
+      - orthanc-worklists:/worklists
+    environment:
+      WORKLISTS_DIR: "/worklists"
+    entrypoint:
+      ["python", "-m", "orthanc_tools.hl7_worklist_server_for_orthanc"]
+
+  # Worklist REST API writer (writes .wl files via script)
+  worklist-writer:
+    build: ./worklist-writer
+    container_name: orthanc-worklist-writer
+    restart: unless-stopped
+    volumes:
+      - orthanc-worklists:/worklists
+      - ./worklist-writer:/app
+    ports:
+      - "${WORKLIST_WRITER_PORT:-8000}:8000"
+    environment:
+      WORKLISTS_DIR: "/worklists"
+      ORTHANC_URL: "http://orthanc:8042"
+      ORTHANC_USERNAME: "${ORTHANC_USERNAME:-admin}"
+      ORTHANC_PASSWORD: "${ORTHANC_PASSWORD:-orthanc}"
+      WRITER_HOST: "0.0.0.0"
+      WRITER_PORT: "8000"
+    depends_on:
+      - orthanc
+
+volumes:
+  postgres-data:
+  orthanc-storage:
+  orthanc-worklists:

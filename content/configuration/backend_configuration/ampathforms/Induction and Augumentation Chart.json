@@ -1,0 +1,208 @@
+{
+  "name": "Induction and Augmentation Chart",
+  "description": "Monitors women during induction or augmentation of labor, charting maternal vital signs, fetal heart beat, uterine contractions, cervical dilatation and the oxytocin given at each check.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "cf72fb0e-37ce-416e-b9e8-f3a492fb971b",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Induction and Augmentation Chart",
+      "sections": [
+        {
+          "label": "Induction and Augmentation Chart",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date & Time",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "dateTime"
+            },
+            {
+              "label": "Blood Pressure",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "733aaf40-9c4c-41dd-8834-5f4fc72b538d"
+              },
+              "id": "bloodPressureGroup",
+              "questions": [
+                {
+                  "label": "Systolic BP",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "systolicBp"
+                },
+                {
+                  "label": "Diastolic BP",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "diastolicBp"
+                }
+              ]
+            },
+            {
+              "label": "Pulse rate",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "pulseRate"
+            },
+            {
+              "label": "Respiratory Rate",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "respiratoryRate"
+            },
+            {
+              "label": "Temperature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "temperature"
+            },
+            {
+              "label": "Fetal Heart Beat",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "fetalHeartBeat"
+            },
+            {
+              "label": "Uterine contraction",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "c6bc0638-ddcb-4919-954a-5851eedd0505"
+              },
+              "id": "uterineContraction"
+            },
+            {
+              "label": "Cervical Dilatation",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "19a6a04c-b193-4976-a270-21e1146505a6"
+              },
+              "id": "cervicalDilatation"
+            },
+            {
+              "label": "Description of Oxytocin",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "dfaf6b86-a36a-4260-be57-a84e343d64a5"
+              },
+              "id": "descriptionOxytocinGroup",
+              "questions": [
+                {
+                  "label": "Dose",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "4339c7da-816b-4f55-8bb7-3a987605153a"
+                  },
+                  "id": "oxytocinDose"
+                },
+                {
+                  "label": "Unit",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "d2d0d39b-a1d1-4d9f-bb70-315ae9d334df"
+                  },
+                  "id": "oxytocinUnit"
+                },
+                {
+                  "label": "Drop / min",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "eaf41281-d7e7-4add-9fef-496ca854bbba"
+                  },
+                  "id": "oxytocinDropPerMin"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

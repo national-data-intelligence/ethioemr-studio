@@ -1,0 +1,622 @@
+{
+  "name": "ED FOLLOW UP SHEET",
+  "description": "Used by emergency department nurses to chart vital signs, random blood sugar, and fluid intake and output by time period, with a calculated 24-hour fluid balance for each patient.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "d30e470c-935b-4480-b0cd-b6d19ffe48c6",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ED Follow up Sheet",
+      "sections": [
+        {
+          "label": "Vital Signs",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Blood Pressure",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "1114AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "bloodPressure",
+              "questions": [
+                {
+                  "label": "Systolic",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "min": "0",
+                    "max": "300"
+                  },
+                  "id": "systolic",
+                  "alert": {
+                    "alertWhenExpression": "myValue && (myValue >= 140 || myValue < 90)",
+                    "message": "Systolic BP is out of range (Normal range 90-139 mmHg)"
+                  }
+                },
+                {
+                  "label": "Diastolic",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "min": "0",
+                    "max": "200"
+                  },
+                  "id": "diastolic",
+                  "alert": {
+                    "alertWhenExpression": "myValue && (myValue >= 90 || myValue < 60)",
+                    "message": "Diastolic BP is out of range (Normal range 60-89 mmHg)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Mean Arterial Pressure",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "163187AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "200"
+              },
+              "id": "meanArterialPressure"
+            },
+            {
+              "label": "Pulse rate",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "230"
+              },
+              "id": "pulseRate",
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 100.5 || myValue < 59.5)",
+                "message": "Pulse Rate is out of range (Normal range 60-100)"
+              }
+            },
+            {
+              "label": "Respiratory Rate",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "999"
+              },
+              "id": "respiratoryRate",
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 25 || myValue < 12)",
+                "message": "Respiratory Rate is out of range (Normal range 12-24 breaths/min)"
+              }
+            },
+            {
+              "label": "ER, Temperature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "max": "43"
+              },
+              "id": "temperature",
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 37.5 || myValue < 35)",
+                "message": "Temperature is out of range (Normal range 35-37.5°C)"
+              }
+            },
+            {
+              "label": "Oxygen Saturation",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "100"
+              },
+              "id": "oxygenSaturation",
+              "alert": {
+                "alertWhenExpression": "myValue && myValue < 90",
+                "message": "Oxygen Saturation is critically low (Normal range >90%)"
+              }
+            },
+            {
+              "label": "RBS",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "500"
+              },
+              "id": "rbs"
+            }
+          ]
+        },
+        {
+          "label": "Fluid Balance Follow up Record",
+          "isExpanded": "true",
+          "questions": []
+        },
+        {
+          "label": "12 AM - 6AM Local Time",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Infusion",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "61a26390-40f2-49c6-ac55-228118303e8b",
+                "min": "0"
+              },
+              "id": "infusion1"
+            },
+            {
+              "label": "Enteral",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162658AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "enteral1"
+            },
+            {
+              "label": "Blood Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "2e5af552-ac44-4cde-aebb-0e7ad8772b7a",
+                "min": "0"
+              },
+              "id": "bloodOutput1"
+            },
+            {
+              "label": "Total Fluid Input",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "163036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidInput1"
+            },
+            {
+              "label": "Amount Urine output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "161929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "urineOutput1"
+            },
+            {
+              "label": "Drain Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "6aa3e317-a094-48d2-8239-4d7c450730b0",
+                "min": "0"
+              },
+              "id": "drainOutput1"
+            },
+            {
+              "label": "Stool Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "stoolOutput1"
+            },
+            {
+              "label": "Total Fluid Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidOutput1"
+            },
+            {
+              "label": "Total fluid Balance",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8e33f9f6-0ecf-4589-9a0c-91aedfb110b8"
+              },
+              "id": "totalFluidBalance1"
+            },
+            {
+              "label": "Nurse Name and Signature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "nurseName1"
+            }
+          ]
+        },
+        {
+          "label": "6 AM - 12PM Local Time",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Infusion",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "61a26390-40f2-49c6-ac55-228118303e8b",
+                "min": "0"
+              },
+              "id": "infusion2"
+            },
+            {
+              "label": "Enteral",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162658AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "enteral2"
+            },
+            {
+              "label": "Blood Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "2e5af552-ac44-4cde-aebb-0e7ad8772b7a",
+                "min": "0"
+              },
+              "id": "bloodOutput2"
+            },
+            {
+              "label": "Total Fluid Input",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "163036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidInput2"
+            },
+            {
+              "label": "Amount Urine output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "161929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "urineOutput2"
+            },
+            {
+              "label": "Drain Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "6aa3e317-a094-48d2-8239-4d7c450730b0",
+                "min": "0"
+              },
+              "id": "drainOutput2"
+            },
+            {
+              "label": "Stool Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "stoolOutput2"
+            },
+            {
+              "label": "Total Fluid Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidOutput2"
+            },
+            {
+              "label": "Total fluid Balance",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8e33f9f6-0ecf-4589-9a0c-91aedfb110b8"
+              },
+              "id": "totalFluidBalance2"
+            },
+            {
+              "label": "Nurse Name and Signature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "nurseName2"
+            }
+          ]
+        },
+        {
+          "label": "12 PM - 12AM Local Time",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Infusion",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "61a26390-40f2-49c6-ac55-228118303e8b",
+                "min": "0"
+              },
+              "id": "infusion3"
+            },
+            {
+              "label": "Enteral",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162658AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "enteral3"
+            },
+            {
+              "label": "Blood Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "2e5af552-ac44-4cde-aebb-0e7ad8772b7a",
+                "min": "0"
+              },
+              "id": "bloodOutput3"
+            },
+            {
+              "label": "Total Fluid Input",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "163036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidInput3"
+            },
+            {
+              "label": "Amount Urine output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "161929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "urineOutput3"
+            },
+            {
+              "label": "Drain Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "6aa3e317-a094-48d2-8239-4d7c450730b0",
+                "min": "0"
+              },
+              "id": "drainOutput3"
+            },
+            {
+              "label": "Stool Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "stoolOutput3"
+            },
+            {
+              "label": "Total Fluid Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidOutput3"
+            },
+            {
+              "label": "Total fluid Balance",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8e33f9f6-0ecf-4589-9a0c-91aedfb110b8"
+              },
+              "id": "totalFluidBalance3"
+            },
+            {
+              "label": "Nurse Name and Signature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "nurseName3"
+            }
+          ]
+        },
+        {
+          "label": "24 hours",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Infusion",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "61a26390-40f2-49c6-ac55-228118303e8b",
+                "min": "0"
+              },
+              "id": "infusion4"
+            },
+            {
+              "label": "Enteral",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162658AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "enteral4"
+            },
+            {
+              "label": "Blood Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "2e5af552-ac44-4cde-aebb-0e7ad8772b7a",
+                "min": "0"
+              },
+              "id": "bloodOutput4"
+            },
+            {
+              "label": "Total Fluid Input",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "163036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidInput4"
+            },
+            {
+              "label": "Amount Urine output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "161929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "urineOutput4"
+            },
+            {
+              "label": "Drain Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "6aa3e317-a094-48d2-8239-4d7c450730b0",
+                "min": "0"
+              },
+              "id": "drainOutput4"
+            },
+            {
+              "label": "Stool Output Amount",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "stoolOutput4"
+            },
+            {
+              "label": "Total Fluid Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "id": "totalFluidOutput4"
+            },
+            {
+              "label": "Total fluid Balance",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8e33f9f6-0ecf-4589-9a0c-91aedfb110b8"
+              },
+              "id": "totalFluidBalance4"
+            },
+            {
+              "label": "Nurse Name and Signature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "nurseName4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

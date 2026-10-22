@@ -1,0 +1,7 @@
+@use '@carbon/layout';
+
+.questionIdLabel {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+}

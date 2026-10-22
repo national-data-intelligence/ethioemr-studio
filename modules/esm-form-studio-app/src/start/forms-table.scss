@@ -1,0 +1,41 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: colors.$white;
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-04;
+  padding: layout.$spacing-03 0;
+  background-color: colors.$gray-10;
+}
+
+.toolbarWrapper {
+  position: relative;
+  height: layout.$spacing-09;
+}
+
+.toolbar {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: layout.$spacing-02;
+}
+
+.empty {
+  text-align: center;
+  padding: layout.$spacing-07;
+}
+
+.helper {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+}

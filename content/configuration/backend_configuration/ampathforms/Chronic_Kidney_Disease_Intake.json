@@ -1,0 +1,435 @@
+{
+  "name": "Chronic Kidney Disease, Intake",
+  "description": "Captures the initial assessment of a patient with chronic kidney disease, including diagnosis status and criteria, likely cause, past imaging findings, family history, smoking and other exposures, and current medications.",
+  "version": "1.2",
+  "published": true,
+  "uuid": "a1a77be7-8cfb-4c7c-957e-979285c1ccde",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Chronic Kidney Disease Intake",
+      "sections": [
+        {
+          "label": "Diagnosis Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Last Visit Date",
+              "type": "obs",
+              "required": false,
+              "id": "lastVisitDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "12d9b04e-17bf-4c20-a940-83eedb4f3037"
+              }
+            },
+            {
+              "label": "Previous followup location",
+              "type": "obs",
+              "required": false,
+              "id": "previousFollowupLocation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "2a50951c-bbc9-409b-a3ad-05d95b8acf03"
+              }
+            },
+            {
+              "label": "Diagnosis Status",
+              "type": "obs",
+              "required": false,
+              "id": "diagnosisStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "353f678f-fd7b-4d33-a096-e87f057cea31",
+                "answers": [
+                  {
+                    "concept": "0c15c9f0-c6a5-4030-8849-4e4ebb8010cf",
+                    "label": "Patient S/P Surgical Resection"
+                  },
+                  {
+                    "concept": "8035248d-63b2-4d7f-bf10-22223a711fd3",
+                    "label": "Confirmed Elsewhere"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Date Confirmed",
+              "type": "obs",
+              "required": false,
+              "id": "dateConfirmed",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Diagnosis Location",
+              "type": "obs",
+              "required": false,
+              "id": "diagnosisLocation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "e0db4995-56bd-4ce3-a590-87041957922d"
+              }
+            },
+            {
+              "label": "Last known CR",
+              "type": "obs",
+              "required": false,
+              "id": "lastKnownCR",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "51842046-c7c8-492b-8a66-5c9f148f5206"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Diagnostic Criteria",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Diagnostic Criteria",
+              "type": "obs",
+              "required": false,
+              "id": "diagnosticCriteria",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "3839536d-0e78-41f3-b547-39161f8ef408",
+                "answers": [
+                  {
+                    "concept": "873987e8-9f09-4c00-a699-f81e7d2d7e04",
+                    "label": "Greater than 3 months presence of kidney damage"
+                  },
+                  {
+                    "concept": "24b07a85-d93d-4161-b26b-cb624693a0f7",
+                    "label": "Decreased kidney function"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Known or likely cause of CKD",
+              "type": "obs",
+              "required": false,
+              "id": "likelyCauseOfCKD",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "89841663-c7c8-4aa2-a9c6-cb4a265fbced",
+                "answers": [
+                  {
+                    "concept": "dbb84962-8aa9-4d7a-806d-d1d1b356d1fb",
+                    "label": "Glomerular diseases"
+                  },
+                  {
+                    "concept": "d6ec1058-6e4b-4b9e-a87b-e9d9ec0eb070",
+                    "label": "Vascular Diseases"
+                  },
+                  {
+                    "concept": "c8a09cc0-6984-5b65-b2e3-645a9453f278",
+                    "label": "Tubulointerstitial Diseases"
+                  },
+                  {
+                    "concept": "b5af80be-698f-45a2-905a-538d8a1f08ec",
+                    "label": "Cystic Disease"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other Likely cause of CKD",
+              "type": "obs",
+              "required": false,
+              "id": "otherLikelyCause",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "e1526374-5869-7890-1234-567890456789"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Past Diagnostic Findings",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Polycystic Kidney",
+              "type": "obs",
+              "required": false,
+              "id": "polycysticKidney",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "56d5711c-e441-4d1f-a87e-03527b26a909"
+              }
+            },
+            {
+              "label": "Hydronephrosis due to obstruction",
+              "type": "obs",
+              "required": false,
+              "id": "hyderonephrosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "0b3cdb52-d093-4851-afc8-303f6a4fd4e3"
+              }
+            },
+            {
+              "label": "Cortical Scarring",
+              "type": "obs",
+              "required": false,
+              "id": "corticalScarring",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "d1aed05b-9523-42b9-8313-0ba871a8b45e"
+              }
+            },
+            {
+              "label": "Renal Masses",
+              "type": "obs",
+              "required": false,
+              "id": "renalMasses",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "3c4c4fe7-859d-40ae-92fe-c4e33fed31aa"
+              }
+            },
+            {
+              "label": "Small and echogenic kidneys",
+              "type": "obs",
+              "required": false,
+              "id": "smallEchogenicKidneys",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "01ee51ce-4f50-4e92-a682-a916f5345039"
+              }
+            },
+            {
+              "label": "Renal artery stenosis",
+              "type": "obs",
+              "required": false,
+              "id": "renalArteryStenosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "524fec30-5210-4edb-a712-eecf4929ea2e"
+              }
+            },
+            {
+              "label": "Family History Of Renal Disease",
+              "type": "obs",
+              "required": false,
+              "id": "familyHistoryRenalDisease",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ca06fdee-d605-4c9d-895e-44b25b3dcf05",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Exposures",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Smoking History",
+              "type": "obs",
+              "required": false,
+              "id": "smokingHistory",
+              "questionOptions": {
+                "rendering": "toggle",
+                "concept": "e3f4a5b6-7c8d-9e0f-1a2b-3c4d5e6f7a8b",
+                "toggleOptions": {
+                  "labelTrue": "Yes",
+                  "labelFalse": "No"
+                }
+              }
+            },
+            {
+              "label": "Packs per day",
+              "type": "obs",
+              "required": false,
+              "id": "packsPerDay",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "165595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Number of years",
+              "type": "obs",
+              "required": false,
+              "id": "numberOfYears",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "159931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Tobacco use status",
+              "type": "obs",
+              "required": false,
+              "id": "tobaccoUseStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Never"
+                  },
+                  {
+                    "concept": "159452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "In the past"
+                  },
+                  {
+                    "concept": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Currently"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Quit Smoking Since",
+              "type": "obs",
+              "required": false,
+              "id": "quitSmokingSince",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "2028f4d1-3b30-41fe-9928-789435484fc3"
+              }
+            },
+            {
+              "label": "Alcohol Abuse",
+              "type": "obs",
+              "required": false,
+              "id": "alcoholAbuse",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c7f8e9d0-b1a2-4c3d-8e5f-6a7b8c9d0e1f",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Current Medications",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Current Home Medications",
+              "type": "obs",
+              "required": false,
+              "id": "currentHomeMedications",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "ac532150-9953-46c1-ba76-a809a0d59236",
+                "answers": [
+                  {
+                    "concept": "47dae80f-50ee-4d9c-ad4b-6ca3856158cc",
+                    "label": "Ace Inhibitor"
+                  },
+                  {
+                    "concept": "76734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Furosemide"
+                  },
+                  {
+                    "concept": "84239AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spironolactone"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "All Other Medicines",
+              "type": "obs",
+              "required": false,
+              "id": "allOtherMedicines",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "20398de2-0093-42f8-ae69-fc95af1734ab"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8",
+  "referencedForms": []
+}

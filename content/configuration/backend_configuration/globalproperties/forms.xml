@@ -1,0 +1,8 @@
+<config>
+    <globalProperties>
+        <globalProperty>
+            <property>kenyaemr.enable.forms</property>
+		    <value>false</value>
+        </globalProperty>
+    </globalProperties>
+</config>

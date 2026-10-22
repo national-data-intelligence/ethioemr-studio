@@ -1,0 +1,43 @@
+# Secrets: real values live in .env (copy .env.example); never commit keys
+.env
+.env.*
+!.env.example
+*.key
+
+# Database dumps (180+ MB): fetched by scripts/get-initial-db.ps1, not versioned
+database/initial-db/*.sql
+
+# Held-out answer keys for the Q&A golden cases: never in a repository shared with the AI team
+private/
+
+# Generated
+work/
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+*.log
+*.webm
+
+# Local speech-service recordings and video build output
+services/asr-service/recordings/
+tools/demo-video/build/
+tools/demo-video/out/*
+!tools/demo-video/out/*.mp4
+!tools/demo-video/out/*.srt
+
+# Team distro runtime folders (never in the distro repo either)
+distro/mysql-data/
+distro/mysql-dump/
+
+# Machine-local path overrides
+*.local.json
+# Third-party repos cloned for study only
+/reference-repos/
+# Secrets never live in the repo: keys stay in %USERPROFILE%\.secrets
+*.env
+!example.env
+*secret*
+
+# Snapshots of the loaded database and OpenMRS data (platform.ps1 snapshot); large, machine-local
+database/snapshots/

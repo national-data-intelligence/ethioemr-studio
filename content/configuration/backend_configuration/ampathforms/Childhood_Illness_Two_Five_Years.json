@@ -1,0 +1,1426 @@
+{
+  "name": "Childhood Illness (Children aged 2 months to 5 years)",
+  "description": "Guides the integrated assessment of sick children aged 2 months to 5 years, covering danger signs, cough, diarrhoea, fever, ear problems, anemia, malnutrition, HIV, TB, immunisation, vitamin A, deworming, feeding, classification and treatment.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "68e7ce9d-bf99-4bfd-9673-2728ad2c5cd2",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Primary Assessment",
+      "sections": [
+        {
+          "label": "Presenting Complaint",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Presenting Compliant",
+              "type": "obs",
+              "required": false,
+              "id": "presentingCompliant",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Patient Signs and Symptoms",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "General Danger Signs Present",
+              "type": "obs",
+              "required": false,
+              "id": "presenceOfGeneralDangerSigns",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "1880AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "General Danger Signs",
+              "type": "obs",
+              "required": false,
+              "id": "generalDangerSignsSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "10718293-a415-2345-6789-abcdef012345",
+                "answers": [
+                  {
+                    "label": "Unable to Drink or Breastfeed",
+                    "concept": "11829304-b526-3456-789a-bcdef0123456"
+                  },
+                  {
+                    "label": "Vomiting Everything",
+                    "concept": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Convulsion History",
+                    "concept": "12930415-c637-4567-890b-cdef01234567"
+                  },
+                  {
+                    "label": "Convulsing Now",
+                    "concept": "13a41526-d748-5678-901c-def012345678"
+                  },
+                  {
+                    "label": "Lethargic/Unconscious",
+                    "concept": "14b52637-e859-6789-012d-ef0123456789"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfGeneralDangerSigns) || !presenceOfGeneralDangerSigns"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Cough or Difficulty Breathing",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Cough or Difficulty Breathing",
+              "type": "obs",
+              "required": false,
+              "id": "acuteRespiratoryInfectionPresent",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "6b7c8d9e-0f1a-2b3c-4d5e-6f7890123456"
+              }
+            },
+            {
+              "label": "Respiratory Rate",
+              "type": "obs",
+              "required": false,
+              "id": "respiratoryRate",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(acuteRespiratoryInfectionPresent) || !acuteRespiratoryInfectionPresent"
+              },
+              "questionInfo": "Normal range for school age: 18-25 breaths/min"
+            },
+            {
+              "label": "Duration Units",
+              "type": "obs",
+              "required": false,
+              "id": "idDurationUnits",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "89142717-7297-53d3-909e-79df117e7695",
+                "answers": [
+                  {
+                    "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "days"
+                  },
+                  {
+                    "concept": "1822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hours"
+                  },
+                  {
+                    "concept": "1733AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Minutes"
+                  },
+                  {
+                    "concept": "1074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Months"
+                  },
+                  {
+                    "concept": "162583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Seconds"
+                  },
+                  {
+                    "concept": "1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "weeks"
+                  },
+                  {
+                    "concept": "1734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Years"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(acuteRespiratoryInfectionPresent) || !acuteRespiratoryInfectionPresent"
+              }
+            },
+            {
+              "label": "Duration",
+              "type": "obs",
+              "required": false,
+              "id": "durationAcuteRespiratory",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(acuteRespiratoryInfectionPresent) || !acuteRespiratoryInfectionPresent"
+              }
+            },
+            {
+              "label": "Symptoms",
+              "type": "obs",
+              "required": false,
+              "id": "acuteRespiratoryIllnessSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "15c63748-f96a-789b-123e-f01234567890",
+                "answers": [
+                  {
+                    "label": "Chest Indrawing",
+                    "concept": "16d7485a-0a7b-890c-234f-012345678901"
+                  },
+                  {
+                    "label": "Strider",
+                    "concept": "17e8596b-1b8c-901d-345f-123456789012"
+                  },
+                  {
+                    "label": "Fast Breathing",
+                    "concept": "18f96a7c-2c9d-012e-456f-234567890123"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(acuteRespiratoryInfectionPresent) || !acuteRespiratoryInfectionPresent"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Diarrhea",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Diarrhea Present",
+              "type": "obs",
+              "required": false,
+              "id": "presenceOfDiarrhea",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "a1b2c3d4-e5f6-7890-1234-56789abcdef0"
+              }
+            },
+            {
+              "label": "Duration Units",
+              "type": "obs",
+              "required": false,
+              "id": "durationUnitsDiarrhea",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "89142717-7297-53d3-909e-79df117e7695",
+                "answers": [
+                  {
+                    "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "days"
+                  },
+                  {
+                    "concept": "1822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hours"
+                  },
+                  {
+                    "concept": "1733AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Minutes"
+                  },
+                  {
+                    "concept": "1074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Months"
+                  },
+                  {
+                    "concept": "162583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Seconds"
+                  },
+                  {
+                    "concept": "1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "weeks"
+                  },
+                  {
+                    "concept": "1734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Years"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfDiarrhea) || presenceOfDiarrhea !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Duration",
+              "type": "obs",
+              "required": false,
+              "id": "durationDiarrhea",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfDiarrhea) || presenceOfDiarrhea !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Symptoms",
+              "type": "obs",
+              "required": false,
+              "id": "diarrhoeaSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "19a7b8c9-3d0e-123f-567a-345678901234",
+                "answers": [
+                  {
+                    "label": "Blood in Stool",
+                    "concept": "1aa8c9d0-4e1f-234a-678b-456789012345"
+                  },
+                  {
+                    "label": "Restless/Irritable",
+                    "concept": "1bb9d0e1-5f2a-345b-789c-567890123456"
+                  },
+                  {
+                    "label": "Drinks Eagerly",
+                    "concept": "1cc0e1f2-6a3b-456c-890d-678901234567"
+                  },
+                  {
+                    "label": "Sunken Eyes",
+                    "concept": "1dd1f2a3-7b4c-567d-901e-789012345678"
+                  },
+                  {
+                    "label": "Lethargic/Unconscious",
+                    "concept": "14b52637-e859-6789-012d-ef0123456789"
+                  },
+                  {
+                    "label": "Unable to Drink or Breastfeed",
+                    "concept": "11829304-b526-3456-789a-bcdef0123456"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfDiarrhea) || presenceOfDiarrhea !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Turgor/Skin Pinch",
+              "type": "obs",
+              "required": false,
+              "id": "turgorSkinPinch",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1ee2f3a4-8c5d-678e-012f-890123456789"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfDiarrhea) || presenceOfDiarrhea !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Fever",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Fever",
+              "type": "obs",
+              "required": false,
+              "id": "presenceOfFever",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "b2c3d4e5-f607-8901-2345-6789abcdef33"
+              }
+            },
+            {
+              "label": "Fever Detected on",
+              "type": "obs",
+              "required": false,
+              "id": "feverDetectedOn",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "b2cb5463-77fb-4484-9d68-5c4d60f0f129",
+                "answers": [
+                  {
+                    "label": "History",
+                    "concept": "1ff3a4b5-9d6e-789f-123a-901234567890"
+                  },
+                  {
+                    "label": "Feel",
+                    "concept": "2aa4b5c6-0e7f-890a-234b-012345678901"
+                  },
+                  {
+                    "label": "Temperature Measured",
+                    "concept": "3bb5c6d7-1f8a-901b-345c-123456789012"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            },
+            {
+              "label": "Duration Units",
+              "type": "obs",
+              "required": false,
+              "id": "durationUnitsFever",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "89142717-7297-53d3-909e-79df117e7695",
+                "answers": [
+                  {
+                    "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "days"
+                  },
+                  {
+                    "concept": "1822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hours"
+                  },
+                  {
+                    "concept": "1733AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Minutes"
+                  },
+                  {
+                    "concept": "1074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Months"
+                  },
+                  {
+                    "concept": "162583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Seconds"
+                  },
+                  {
+                    "concept": "1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "weeks"
+                  },
+                  {
+                    "concept": "1734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Years"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            },
+            {
+              "label": "Duration",
+              "type": "obs",
+              "required": false,
+              "id": "durationFever",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            },
+            {
+              "label": "Malaria Risk",
+              "type": "obs",
+              "required": false,
+              "id": "malariaRisk",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Low",
+                    "concept": "1407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "High",
+                    "concept": "1408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            },
+            {
+              "label": "BF/ RDT",
+              "type": "obs",
+              "required": false,
+              "id": "rapidDiagnosticTests",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0a1b2c3d-4e5f-6789-0123-456789abcdef",
+                "answers": [
+                  {
+                    "label": "Positive",
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Negative",
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            },
+            {
+              "label": "Microscopic",
+              "type": "obs",
+              "required": false,
+              "id": "microscopicMalariaTestResult",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "4cc6d7e8-2a9b-012c-456d-234567890123",
+                "answers": [
+                  {
+                    "label": "Falciparum",
+                    "concept": "5dd7e8f9-3b0c-123d-567e-345678901234"
+                  },
+                  {
+                    "label": "Vivex",
+                    "concept": "6ee8f9a0-4c1d-234e-678f-456789012345"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            },
+            {
+              "label": "History of Measles with in 3 months",
+              "type": "obs",
+              "required": false,
+              "id": "historyOfMeaslesWithin3Months",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "164486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            },
+            {
+              "label": "Symptoms",
+              "type": "obs",
+              "required": false,
+              "id": "feverSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "73ffc7dc-b550-47af-b7e8-39655bf8a3c1",
+                "answers": [
+                  {
+                    "label": "Stiff Neck",
+                    "concept": "5170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Bulged Fontanel (<1 yr)",
+                    "concept": "8bb0c1d2-6e3f-456a-890b-678901234567"
+                  },
+                  {
+                    "label": "General Rash,Cough",
+                    "concept": "9cc1d2e3-7f4a-567b-901c-789012345678"
+                  },
+                  {
+                    "label": "Cough",
+                    "concept": "0dd2e3f4-8a5b-678c-012d-890123456789"
+                  },
+                  {
+                    "label": "Red Eyes",
+                    "concept": "1ee3f4a5-9b6c-789d-123e-901234567890"
+                  },
+                  {
+                    "label": "Runny Nose",
+                    "concept": "2ff4a5b6-0c7d-890e-234f-012345678901"
+                  },
+                  {
+                    "label": "Mouth Ulcer/Deep or Extensive",
+                    "concept": "3aa5b6c7-1d8e-901f-345a-123456789012"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFever) || !presenceOfFever"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Ear Problem",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Ear Problem",
+              "type": "obs",
+              "required": false,
+              "id": "presenceOfEarProblem",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "0f607182-9304-1234-5678-9abcdef01234"
+              }
+            },
+            {
+              "label": "Duration Units",
+              "type": "obs",
+              "required": false,
+              "id": "durationUnitsEar",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "89142717-7297-53d3-909e-79df117e7695",
+                "answers": [
+                  {
+                    "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "days"
+                  },
+                  {
+                    "concept": "1822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hours"
+                  },
+                  {
+                    "concept": "1733AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Minutes"
+                  },
+                  {
+                    "concept": "1074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Months"
+                  },
+                  {
+                    "concept": "162583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Seconds"
+                  },
+                  {
+                    "concept": "1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "weeks"
+                  },
+                  {
+                    "concept": "1734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Years"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfEarProblem) || !presenceOfEarProblem"
+              }
+            },
+            {
+              "label": "Ear Discharge",
+              "type": "obs",
+              "required": false,
+              "id": "earDischargeDays",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfEarProblem) || !presenceOfEarProblem"
+              }
+            },
+            {
+              "label": "Symptoms",
+              "type": "obs",
+              "required": false,
+              "id": "earSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "03c4d5e6-f708-901b-2345-6789abcd0000",
+                "answers": [
+                  {
+                    "label": "Ear Pain",
+                    "concept": "4aa6b7c8-2d9e-012f-456a-345678901234"
+                  },
+                  {
+                    "label": "Pus Draining",
+                    "concept": "5bb7c8d9-3e0f-123a-567b-456789012345"
+                  },
+                  {
+                    "label": "Tender Swelling Behind the Ear",
+                    "concept": "6cc8d9e0-4f1a-234b-678c-567890123456"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfEarProblem) || !presenceOfEarProblem"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Screening & Nutrition",
+      "sections": [
+        {
+          "label": "Check Anemia",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Check Anemia",
+              "type": "obs",
+              "required": false,
+              "id": "checkAnemia",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0c3d4e5f-6071-890b-2345-6789abcdef01",
+                "answers": [
+                  {
+                    "label": "Severe Pallor",
+                    "concept": "7dd9e0f1-5a2b-345c-789d-678901234567"
+                  },
+                  {
+                    "label": "Some Pallor",
+                    "concept": "8ee0f1a2-6b3c-456d-890e-789012345678"
+                  },
+                  {
+                    "label": "No Pallor",
+                    "concept": "9ff1a2b3-7c4d-567e-901f-890123456789"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Check Malnutrition",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Grade",
+              "type": "obs",
+              "required": false,
+              "id": "edemaGrade",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8b3c4d5e-6f70-8901-bcde-f23456789222",
+                "answers": [
+                  {
+                    "label": "+",
+                    "concept": "54d6e7f8-9a0b-1c2d-3e4f-567890123456"
+                  },
+                  {
+                    "label": "++",
+                    "concept": "65e7f890-ab1c-2d3e-4f56-78901234567a"
+                  },
+                  {
+                    "label": "+++",
+                    "concept": "76f89012-bc3d-4e5f-6789-012345678abc"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "WFL/H",
+              "type": "obs",
+              "required": false,
+              "id": "weightForLengthHeight",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "17647889-9708-901b-2349-012345678901",
+                "answers": [
+                  {
+                    "label": "< -3",
+                    "concept": "18758990-0819-012c-3450-123456789012"
+                  },
+                  {
+                    "label": "= -3 to <-2",
+                    "concept": "19869001-1920-123d-4561-234567890123"
+                  },
+                  {
+                    "label": "=-2",
+                    "concept": "20970112-2031-234e-5672-345678901234"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Visible Severe Wasting",
+              "type": "obs",
+              "required": false,
+              "id": "visibleSevereWasting",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "9c4d5e6f-7081-9012-cdef-345678901777"
+              }
+            },
+            {
+              "label": "MUAC",
+              "type": "obs",
+              "required": false,
+              "id": "muac",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0b2c3d4e-5f60-789a-1234-56789abcdef0",
+                "answers": [
+                  {
+                    "label": "<11",
+                    "concept": "ad5e6f70-8192-0123-def4-56789012345a"
+                  },
+                  {
+                    "label": "11-12",
+                    "concept": "be6f7081-9203-1234-ef56-789012345abc"
+                  },
+                  {
+                    "label": "12",
+                    "concept": "cf708192-a314-2345-f678-90123456bcde"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Any Medical Complications",
+              "type": "obs",
+              "required": false,
+              "id": "anyMedicalComplications",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "0aa2b3c4-8d5e-678f-012a-901234567890",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Dermatosis",
+              "type": "obs",
+              "required": false,
+              "id": "dermatosisGrading",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0d4e5f60-7182-901c-3456-789abcdef012",
+                "answers": [
+                  {
+                    "label": "+",
+                    "concept": "54d6e7f8-9a0b-1c2d-3e4f-567890123456"
+                  },
+                  {
+                    "label": "++",
+                    "concept": "65e7f890-ab1c-2d3e-4f56-78901234567a"
+                  },
+                  {
+                    "label": "+++",
+                    "concept": "76f89012-bc3d-4e5f-6789-012345678abc"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Appetite",
+              "type": "obs",
+              "required": false,
+              "id": "appetiteTestResult",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d0819203-b425-3456-0789-123456cdefab",
+                "answers": [
+                  {
+                    "label": "Failed",
+                    "concept": "2e3d4c5b-6a79-8091-def1-23456789abcd"
+                  },
+                  {
+                    "label": "Passed",
+                    "concept": "1f2e3d4c-5b6a-7980-cdef-123456789abc"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "HIV/AIDS",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Mother Ab Test",
+              "type": "obs",
+              "required": false,
+              "id": "motherHivAbTest",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ca573c39-0dae-4482-9d3e-f53c715a4dae",
+                "answers": [
+                  {
+                    "label": "Positive",
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Negative",
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Unknown",
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Child Ab Test",
+              "type": "obs",
+              "required": false,
+              "id": "childAbTest",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "9647586c-7081-9012-6789-345678901234",
+                "answers": [
+                  {
+                    "label": "Positive",
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Negative",
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Unknown",
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Child Dna/Pcr Test",
+              "type": "obs",
+              "required": false,
+              "id": "childDnaPcrTestResult",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "2ecf630a-a156-4883-a3a0-4051e1a9cdd4",
+                "answers": [
+                  {
+                    "label": "Positive",
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Negative",
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Unknown",
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Breast Feeding in the last 6 mo?",
+              "type": "obs",
+              "required": false,
+              "id": "breastFeedingInLast6Mo",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "e192a314-c536-4567-1890-23456defabcd"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Tuberculosis (TB)",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Screened for Tuberculosis",
+              "type": "obs",
+              "required": false,
+              "id": "tuberculosisScreened",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Tb Symptoms and Risk Factors",
+              "type": "obs",
+              "required": false,
+              "id": "tuberculosisSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "f2a3b425-d647-5678-2901-3456efabcdef",
+                "answers": [
+                  {
+                    "label": "Fever",
+                    "concept": "85822a93-0801-4787-8ec3-4f3d04e87e35"
+                  },
+                  {
+                    "label": "Night Sweat",
+                    "concept": "4c2a0bc4-6280-4695-b8fe-f44e1417e5ee"
+                  },
+                  {
+                    "label": "Close Contact History with Known Tb Pt.",
+                    "concept": "cb3719c5-239c-475a-ae8f-88c9b996bfa1"
+                  },
+                  {
+                    "label": "Contact with Mdr Tb",
+                    "concept": "d746e6f4-1620-467e-9053-0f7e96f46912"
+                  },
+                  {
+                    "label": "Swelling or Discharging Wound",
+                    "concept": "82228be2-e916-4428-9aef-478c28a76844"
+                  },
+                  {
+                    "label": "Signs of acute malnutrition (MAM/Sam)",
+                    "concept": "4148ad41-be02-443d-b748-ff95f2f84eeb"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(tuberculosisScreened) || tuberculosisScreened !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Prevention & Care Planning",
+      "sections": [
+        {
+          "label": "Check Immunization Status (<24mo)",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Check Immunization Status (<24mo)",
+              "type": "obs",
+              "required": false,
+              "id": "immunizationStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0e5f6071-8293-012d-4567-89abcdef0123",
+                "answers": [
+                  {
+                    "label": "Completed",
+                    "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Up-to-date",
+                    "concept": "ae23be45-1581-40eb-9aad-771e58729802"
+                  },
+                  {
+                    "label": "Not Up-to-date",
+                    "concept": "256813f5-9123-42cb-a456-d51db0f0d8b3"
+                  },
+                  {
+                    "label": "Defaulted",
+                    "concept": "d57ad0b9-5f5f-4887-a407-3d882b753cf3"
+                  },
+                  {
+                    "label": "Not Started",
+                    "concept": "34c6a35c-beb9-4d79-99ec-aa880fb067e5"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vitamin A (=6mo)",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Vitamin A (=6mo)",
+              "type": "obs",
+              "required": false,
+              "id": "vitaminA",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Up-to-date",
+                    "concept": "164497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Not Up-to-date",
+                    "concept": "164496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Mebendazole/ Albendazole (=24 mo)",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Mebendazole/ Albendazole (=24 mo)",
+              "type": "obs",
+              "required": false,
+              "id": "mebendazoleAlbendazole",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Unknown",
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Assess for Feeding",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Feeding Problem",
+              "type": "obs",
+              "required": false,
+              "id": "presenceOfFeedingProblem",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "42f34832-df1c-4585-948f-7e8d9681173f"
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "required": false,
+              "id": "specifyFeedingProblem",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "04d5e6f7-0819-012c-3456-789abcd01111"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfFeedingProblem) || !presenceOfFeedingProblem"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Other Problems",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Other Problems",
+              "type": "obs",
+              "required": false,
+              "id": "presenceOfOtherProblems",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "03b4c536-e758-6789-3012-456fabcdef01"
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "required": false,
+              "id": "specifyOtherProblems",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "cc177191-2c36-4f22-89a0-9cfba86ad2fb"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(presenceOfOtherProblems) || !presenceOfOtherProblems"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Classification & Treatment",
+      "sections": [
+        {
+          "label": "Classification",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Classification",
+              "type": "obs",
+              "required": false,
+              "id": "classificationNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "05e6f708-1920-123d-4567-89abcd002222",
+                "rows": "4"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Treatment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Medication",
+              "type": "obs",
+              "required": false,
+              "id": "medicationNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1f96f08e-741e-4d00-a82c-dd4c1a5874d2",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Counsel Mother About",
+              "type": "obs",
+              "required": false,
+              "id": "counselMotherAbout",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "14c5d647-f869-789a-4123-567abcdef012",
+                "answers": [
+                  {
+                    "label": "Food",
+                    "concept": "25d6e758-0970-890b-5234-678bcdef0123"
+                  },
+                  {
+                    "label": "Fluid",
+                    "concept": "36e7f869-1a81-901c-6345-789cdef01234"
+                  },
+                  {
+                    "label": "When to Return",
+                    "concept": "58f9a2b3-4c5d-6e7f-8901-234567890def"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referred to",
+              "type": "obs",
+              "required": false,
+              "id": "referredTo",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8d0d0bff-3d1b-4450-b7df-a208fbe7b4a4"
+              }
+            },
+            {
+              "label": "Next Date",
+              "type": "obs",
+              "required": false,
+              "id": "nextDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Outcome",
+              "type": "obs",
+              "required": false,
+              "id": "outcome",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "47f8091a-2b92-a12d-7456-89def0123456",
+                "answers": [
+                  {
+                    "label": "Improved",
+                    "concept": "88c89230-d2c4-454f-9214-7bc6fe103a78"
+                  },
+                  {
+                    "label": "Same",
+                    "concept": "ed585ad2-bd12-4f27-afe1-773701997176"
+                  },
+                  {
+                    "label": "Worse",
+                    "concept": "e4d4ae0b-df2b-468c-b690-8793fcc50a13"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Hmis Diagnosis",
+              "type": "obs",
+              "required": false,
+              "id": "hmisDiagnosisNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "5809a2b3-3ca3-b23e-8567-9ef012345678",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Remark",
+              "type": "obs",
+              "required": false,
+              "id": "acifIfsRemark",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

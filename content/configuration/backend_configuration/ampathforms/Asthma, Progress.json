@@ -1,0 +1,213 @@
+{
+  "name": "Asthma, Progress",
+  "description": "Tracks asthma control at follow-up visits, recording peak flow, exacerbations and hospitalisations in the past year, weekly rescue inhaler use, night-time awakenings and the current asthma category.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "fe0b2622-dc21-4c37-841b-36c234329cb0",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Asthma Progress",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": []
+        },
+        {
+          "label": "Asthma Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "What is peak flow today?",
+              "type": "obs",
+              "required": false,
+              "id": "peakFlowToday",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5c2c5f15-4f0e-491f-a439-d799841ddacd"
+              }
+            },
+            {
+              "label": "Number of Exacerbations this year",
+              "type": "obs",
+              "required": false,
+              "id": "exacerbationsThisYear",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "e0f5b535-5a62-4823-9202-1440cee1dd98",
+                "answers": [
+                  {
+                    "concept": "162d74f2-4960-403a-b465-7ceef6ac5243",
+                    "label": "Zero"
+                  },
+                  {
+                    "concept": "ef5bfb17-a751-4eaf-ae45-966f472e788a",
+                    "label": "One"
+                  },
+                  {
+                    "concept": "309865fb-fe2b-427a-ac6c-ab23c9e04c75",
+                    "label": "Two"
+                  },
+                  {
+                    "concept": "6af2bd95-23ff-4a38-bb5f-c261ab7d298a",
+                    "label": "Greater than or 3"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Number of Hospitalizations in last year",
+              "type": "obs",
+              "required": false,
+              "id": "hospitalizationsLastYear",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "2fd211c8-bedd-4849-8aeb-4dd4532d1687",
+                "answers": [
+                  {
+                    "concept": "162d74f2-4960-403a-b465-7ceef6ac5243",
+                    "label": "Zero"
+                  },
+                  {
+                    "concept": "ef5bfb17-a751-4eaf-ae45-966f472e788a",
+                    "label": "One"
+                  },
+                  {
+                    "concept": "309865fb-fe2b-427a-ac6c-ab23c9e04c75",
+                    "label": "Two"
+                  },
+                  {
+                    "concept": "6af2bd95-23ff-4a38-bb5f-c261ab7d298a",
+                    "label": "Greater than or 3"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue && myValue !== '162d74f2-4960-403a-b465-7ceef6ac5243'",
+                "message": "If more than 2 consider step-up current therapy to next level of treatment"
+              }
+            },
+            {
+              "label": "How many times per week does patient utilize rescue inhaler",
+              "type": "obs",
+              "required": false,
+              "id": "weeklyRescueInhaler",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "3ae3fb0f-6304-4d8b-93f3-154d719bb4dc"
+              },
+              "alert": {
+                "alertWhenExpression": "myValue && myValue > 2",
+                "message": "If patient using more than 2 days/week, consider step-up therapy to next level of treatment"
+              }
+            },
+            {
+              "label": "Times per week does patient have nighttime awakenings secondary to shortness of breath",
+              "type": "obs",
+              "required": false,
+              "id": "weeklyNighttimeAwakenings",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "30d0c864-7b5d-4f34-8569-28eed73d824d"
+              },
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 1 && myValue <= 3)",
+                "message": "If 1-3x/week consider step-up therapy to next level of treatment"
+              }
+            },
+            {
+              "label": "Category of Asthma",
+              "type": "obs",
+              "required": false,
+              "id": "categoryOfAsthma",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8ae7fa5e-f6c0-473b-b247-00c0ae4efa2f",
+                "answers": [
+                  {
+                    "concept": "f5d75ce4-f460-4bd2-ada9-4fe0ea0a9075",
+                    "label": "Intermittent"
+                  },
+                  {
+                    "concept": "5838d8ed-ef22-4827-86a6-1c36482fba84",
+                    "label": "Mild persistent"
+                  },
+                  {
+                    "concept": "5efa8ffa-d0eb-401c-aadf-468755b16add",
+                    "label": "Moderate persistent"
+                  },
+                  {
+                    "concept": "0ecf806a-37b4-457d-998c-0b985d114f4d",
+                    "label": "Severe persistent"
+                  },
+                  {
+                    "concept": "3a905f84-7889-49d2-b37c-dad86dde5e2d",
+                    "label": "Severe asthma"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

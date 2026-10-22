@@ -1,0 +1,48 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.heading {
+  @include type.type-style('heading-compact-02');
+  margin-bottom: layout.$spacing-02;
+}
+
+.help {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+  margin-bottom: layout.$spacing-04;
+}
+
+.conditions {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-04;
+  margin-top: layout.$spacing-04;
+}
+
+.condition {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr) auto;
+  gap: layout.$spacing-04;
+  align-items: start;
+  padding: layout.$spacing-04;
+  background-color: colors.$gray-10;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: layout.$spacing-04;
+}
+
+.sentence {
+  @include type.type-style('body-compact-01');
+  padding: layout.$spacing-03 layout.$spacing-04;
+  border-left: 3px solid colors.$teal-40;
+  background-color: colors.$teal-10;
+}

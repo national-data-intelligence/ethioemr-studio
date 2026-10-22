@@ -1,0 +1,338 @@
+{
+  "name": "Routine Immunization Register",
+  "description": "Register of routine childhood immunisation recording dates of BCG, polio, hepatitis B, pentavalent, pneumococcal, rotavirus and measles vaccines, full immunisation status, protection at birth, nutrition and development screening, and tetanus-diphtheria doses for women.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "4ab5c6d7-e8f9-4012-3901-4c5d6e7f8901",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Antigens Received",
+      "sections": [
+        {
+          "label": "Dose Number",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Dose Number",
+              "type": "obs",
+              "id": "doseNumberRir",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "91ab23cd-45ef-4678-9a01-b234cdef5678"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vaccines",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "BCG Date",
+              "type": "obs",
+              "id": "bcgRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "4182b3c4-1526-3456-7890-123456abcde7"
+              }
+            },
+            {
+              "label": "OPV Date",
+              "type": "obs",
+              "id": "opvRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "a2bc34de-56f7-4890-ab12-c345def67890"
+              }
+            },
+            {
+              "label": "Hep B Birth Dose Within 24 Hours",
+              "type": "obs",
+              "id": "hepBirthDoseWithin24hrsRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "f1a2b3c4-d5e6-4f70-8a9b-bcdef0123456"
+              }
+            },
+            {
+              "label": "Hep B Birth Dose After 24 Hours and Below 14 Days",
+              "type": "obs",
+              "id": "hepBirthDoseAfter24hrsBelow14DaysRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "a2b3c4d5-e6f7-4801-9b0c-cdef01234567"
+              }
+            },
+            {
+              "label": "DPT-HepB-Hib (Pentavalent)",
+              "type": "obs",
+              "id": "dptHepHibPentavalentRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "b3cd45ef-6789-4a01-bc23-d456ef789012"
+              }
+            },
+            {
+              "label": "PCV Date",
+              "type": "obs",
+              "id": "pcvRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "c4de56f7-7890-4b12-cd34-e567f8901234"
+              }
+            },
+            {
+              "label": "Rota Date",
+              "type": "obs",
+              "id": "rotaRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "d5ef6789-8901-4c23-de45-f67890123456"
+              }
+            },
+            {
+              "label": "IPV Date",
+              "type": "obs",
+              "id": "ipvRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "9637081a-6071-8901-2345-678901abcdec"
+              }
+            },
+            {
+              "label": "Measles Date",
+              "type": "obs",
+              "id": "measlesRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "9637081e-6071-8901-2345-678901abcdf6"
+              }
+            },
+            {
+              "label": "Fully Immunized",
+              "type": "obs",
+              "id": "fullyImmunizedRir",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3071425c-0415-2345-6789-012345abcdfa",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Neonatal Tetanus Protection",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Number of TD Doses Mother Received in Last Pregnancy",
+              "type": "obs",
+              "id": "numberOfTdDosesMotherLastPregnancyRir",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "160055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Total Number of TD Doses Mother Received",
+              "type": "obs",
+              "id": "totalNumberOfTdDosesMotherRir",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "e6f78901-9012-4d34-ef56-a78901234567"
+              }
+            },
+            {
+              "label": "Protected at Birth",
+              "type": "obs",
+              "id": "protectedAtBirthRir",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Associated Services",
+      "sections": [
+        {
+          "label": "Associated Services",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Nutritional Screening Date",
+              "type": "obs",
+              "id": "nutritionalScreeningDateRir",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "cad12345-d456-4178-c39a-e123456789ab"
+              }
+            },
+            {
+              "label": "Screened and Linked to Nutrition Support",
+              "type": "obs",
+              "id": "screenedAndLinkedToCinusRir",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "db234567-e567-4289-d4ab-f23456789abc",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Development Milestones Assessment",
+              "type": "obs",
+              "id": "developmentMilestonesAssessmentRirOld",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "e6f7a8b9-c0d1-4c45-9f20-0123456789ab",
+                "answers": [
+                  {
+                    "concept": "f7a8b9c0-d1e2-4d56-8031-123456789abc",
+                    "label": "No developmental delay"
+                  },
+                  {
+                    "concept": "a8b9c0d1-e2f3-4e67-9142-23456789abcd",
+                    "label": "Suspected developmental delay"
+                  },
+                  {
+                    "concept": "b9c0d1e2-f3a4-4f78-a253-3456789abcde",
+                    "label": "Developmental delay"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Tetanus Immunization",
+      "sections": [
+        {
+          "label": "Tetanus Immunization",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Total Number of TD Doses Woman Received",
+              "type": "obs",
+              "id": "totalNumberOfTdDosesWomanRir",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "e6f78901-9012-4d34-ef56-a78901234567"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Remarks",
+      "sections": [
+        {
+          "label": "Remarks",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Remarks",
+              "type": "obs",
+              "id": "remarkRir",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "6f789012-3456-7890-6f78-901234567890"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

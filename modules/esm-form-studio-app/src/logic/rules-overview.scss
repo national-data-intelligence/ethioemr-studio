@@ -1,0 +1,55 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-04;
+  padding: layout.$spacing-05;
+  background-color: colors.$white;
+  min-height: 30rem;
+}
+
+.intro {
+  @include type.type-style('body-compact-01');
+}
+
+.summary {
+  display: flex;
+  gap: layout.$spacing-03;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: layout.$spacing-04;
+  border: 1px solid colors.$gray-20;
+}
+
+.where {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+}
+
+.label {
+  @include type.type-style('heading-compact-01');
+  margin-bottom: layout.$spacing-02;
+}
+
+.sentence,
+.custom {
+  @include type.type-style('body-compact-01');
+  padding-left: layout.$spacing-03;
+  border-left: 2px solid colors.$teal-40;
+}
+
+.custom {
+  border-left-color: colors.$gray-40;
+  font-style: italic;
+  color: colors.$gray-70;
+}
+
+.tile {
+  text-align: center;
+}

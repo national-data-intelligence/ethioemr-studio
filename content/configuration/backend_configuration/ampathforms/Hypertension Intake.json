@@ -1,0 +1,402 @@
+{
+  "name": "Hypertension - Intake",
+  "description": "Records the initial hypertension assessment, including diagnosis details, any hypertensive emergency, previous investigations, likely cause, relevant exposures and the patient's current home medications.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "c8170765-95bf-4e1e-a8f3-164e3010a58a",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Hypertension - Intake",
+      "sections": [
+        {
+          "label": "Hypertension - Intake",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Diagnosis Details",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "90ab12cd-34ef-45a6-89b0-c1d2e3f45670"
+              },
+              "id": "diagnosisDetailsGroup",
+              "questions": [
+                {
+                  "label": "Last Visit Date",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "01bc23de-45f6-47a8-9abc-d1e2f3a45671"
+                  },
+                  "id": "lastVisitDate"
+                },
+                {
+                  "label": "Previous Followup Location",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "12cd34ef-56a7-48b9-abcd-e2f3a4b56772"
+                  },
+                  "id": "previousFollowupLocation"
+                },
+                {
+                  "label": "Diagnosis Status",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "23de45f6-67a8-49cb-bcde-f3a4b5c67873",
+                    "answers": [
+                      {
+                        "concept": "34ef56a7-78b9-4adc-cdef-04b5c6d78974",
+                        "label": "No Previous Diagnosis"
+                      },
+                      {
+                        "concept": "45f667a8-89bc-4bed-def0-15c6d7e89075",
+                        "label": "Confirmed Elsewhere"
+                      }
+                    ]
+                  },
+                  "id": "diagnosisStatus"
+                },
+                {
+                  "label": "Date Confirmed",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "56f778a9-9bcd-4cfe-ef01-26d7e8f90176"
+                  },
+                  "id": "dateConfirmed"
+                }
+              ]
+            },
+            {
+              "label": "Hypertensive Emergency",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "2c9d8e7f-1a2b-4c3d-8e9f-0a1b2c3d4e5f"
+              },
+              "id": "hypertensiveEmergencyGroup",
+              "questions": [
+                {
+                  "label": "Hypertensive Emergency or Cardiac Hospitalization in 12 Months",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "67f889ba-abcd-4d0f-f012-37e8f9a01277",
+                    "answers": [
+                      {
+                        "concept": "78f99abc-bcde-4e10-0013-48f9a0b12378",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "89f00bcd-cdef-4f21-1124-59a0b1c23479",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "emergencyHospitalization12months"
+                },
+                {
+                  "label": "Hypertensive Emergency or Cardiac Hospitalization For",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "checkbox",
+                    "concept": "9af01cde-def0-4032-2235-6a0b1cd34580",
+                    "answers": [
+                      {
+                        "concept": "ab012def-ef01-4143-3346-7b1c2de45681",
+                        "label": "Hypertension"
+                      },
+                      {
+                        "concept": "bc123f01-f012-4254-4457-8c2d3ef56782",
+                        "label": "Congestive Heart Failure"
+                      },
+                      {
+                        "concept": "cd234012-0013-4365-5568-9d3e4f067883",
+                        "label": "Myocardiac infarction"
+                      },
+                      {
+                        "concept": "de345123-1124-4476-6679-ae4f50178984",
+                        "label": "Chest Pain"
+                      }
+                    ]
+                  },
+                  "id": "emergencyHospitalizationFor"
+                }
+              ]
+            },
+            {
+              "label": "Past Diagnostics",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "ef456234-2235-4587-778a-bf5061289a85"
+              },
+              "id": "pastDiagnosticsGroup",
+              "questions": [
+                {
+                  "label": "EKG",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "f0673456-3346-4698-889b-c0617239ab86"
+                  },
+                  "id": "ekg"
+                },
+                {
+                  "label": "Echocardiogram",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "01684567-4457-47a9-99ac-d172834abc87"
+                  },
+                  "id": "echocardiogram"
+                },
+                {
+                  "label": "Lipids",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "12795678-5568-48ba-aabd-e283945bcd88"
+                  },
+                  "id": "lipids"
+                }
+              ]
+            },
+            {
+              "label": "Etiology",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "238a6789-6679-49cb-bbce-f394a56cde89"
+              },
+              "id": "etiologyGroup",
+              "questions": [
+                {
+                  "label": "Primary / Essential Hypertension",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "349b789a-778a-4adc-ccdf-0495b67def90"
+                  },
+                  "id": "primaryEssentialHypertension"
+                },
+                {
+                  "label": "Secondary Hypertension",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "checkbox",
+                    "concept": "45ac89ab-889b-4bed-ddef-15a6c78ef091",
+                    "answers": [
+                      {
+                        "concept": "56bd9abc-99ac-4cfe-ee01-26b7d89f0092",
+                        "label": "Primary Renal Disease"
+                      },
+                      {
+                        "concept": "67ce0bcd-aabd-4d0f-ff12-37c8e90a1193",
+                        "label": "Obstructive Sleep Apnea"
+                      },
+                      {
+                        "concept": "78df1cde-bbce-4e10-0013-48d9011b2294",
+                        "label": "OCP"
+                      },
+                      {
+                        "concept": "89e02def-ccdf-4f21-1124-59ea122c3395",
+                        "label": "Drug Induced"
+                      },
+                      {
+                        "concept": "9af130f0-ddf0-4032-2235-6afb233d4496",
+                        "label": "Pain Due To Other Illness"
+                      },
+                      {
+                        "concept": "ab024101-eef1-4143-3346-7b0c344e5597",
+                        "label": "Endocrine Hypothyroidism"
+                      },
+                      {
+                        "concept": "bc135212-ff02-4254-4457-8c1d455f6698",
+                        "label": "Hyperthyroidism"
+                      },
+                      {
+                        "concept": "cd246323-0013-4365-5568-9d2e56607799",
+                        "label": "Hyperparathyroidism"
+                      },
+                      {
+                        "concept": "de357434-1124-4476-6679-ae3f67718800",
+                        "label": "Coarctation Of Aorta"
+                      },
+                      {
+                        "concept": "ef468545-2235-4587-778a-bf4088569901",
+                        "label": "Renovascular Disease"
+                      }
+                    ]
+                  },
+                  "id": "secondaryHypertension"
+                }
+              ]
+            },
+            {
+              "label": "Exposures",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "f0576567-3346-4698-889b-c0607679aa02"
+              },
+              "id": "exposuresGroup",
+              "questions": [
+                {
+                  "label": "Smoking History",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "toggle",
+                    "concept": "e3f4a5b6-7c8d-9e0f-1a2b-3c4d5e6f7a8b",
+                    "toggleOptions": {
+                      "labelTrue": "Yes",
+                      "labelFalse": "No"
+                    }
+                  },
+                  "id": "smokingHistory"
+                },
+                {
+                  "label": "Smokes Packs Per Day",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "1279899a-5568-48ba-aabd-e282989bcc04"
+                  },
+                  "id": "smokesPacksPerDay"
+                },
+                {
+                  "label": "Number of years since smoking",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "159931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "numberOfYearsSinceSmoking"
+                },
+                {
+                  "label": "Alcohol Abuse",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "c7f8e9d0-b1a2-4c3d-8e5f-6a7b8c9d0e1f",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "alcoholAbuse"
+                },
+                {
+                  "label": "Alcohol Abuse Details",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "45acbccd-889b-4bed-ddef-1595caceef07"
+                  },
+                  "id": "alcoholAbuseDetails"
+                }
+              ]
+            },
+            {
+              "label": "Current Home Medications",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "ac532150-9953-46c1-ba76-a809a0d59236",
+                "answers": [
+                  {
+                    "concept": "47dae80f-50ee-4d9c-ad4b-6ca3856158cc",
+                    "label": "Ace inhibitor"
+                  },
+                  {
+                    "concept": "76734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Furosemide"
+                  },
+                  {
+                    "concept": "84239AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spironolactone"
+                  },
+                  {
+                    "concept": "79651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HCTZ"
+                  },
+                  {
+                    "concept": "104904AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Beta Blocker"
+                  }
+                ]
+              },
+              "id": "currentHomeMedications"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

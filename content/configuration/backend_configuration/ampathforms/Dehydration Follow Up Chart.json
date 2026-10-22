@@ -1,0 +1,264 @@
+{
+  "name": "Dehydration Follow Up Chart",
+  "description": "Charts repeated monitoring of patients being treated for dehydration, recording pulse, respiratory rate, temperature, oxygen saturation, weight, consciousness level, skin turgor, and signs of fluid overload such as rales and liver size.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "5c4f2c79-0ace-4852-82a7-ba69c1d1529c",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Dehydration Follow Up Chart",
+      "sections": [
+        {
+          "label": "Dehydration Follow Up Chart",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date & Time",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "dateTime"
+            },
+            {
+              "label": "Pulse",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "pulse"
+            },
+            {
+              "label": "RR",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "rr"
+            },
+            {
+              "label": "Temperature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "max": "43",
+                "step": 0.01
+              },
+              "id": "temperature"
+            },
+            {
+              "label": "SPO2",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "100",
+                "step": 0.01
+              },
+              "id": "spo2"
+            },
+            {
+              "label": "WEIGHT",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "weight"
+            },
+            {
+              "label": "GCS",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "160347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "3",
+                "max": "15",
+                "step": 1
+              },
+              "id": "gcs"
+            },
+            {
+              "label": "Rales Present",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8f75cda1-0b6e-4795-8a17-f05c0a26e3a1",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "rales"
+            },
+            {
+              "label": "S3 Gallop",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c114b0d8-14a0-4e2d-9684-ca287e97c34f",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "s3Gallop"
+            },
+            {
+              "label": "Liver span",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "163422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "liverSpan"
+            },
+            {
+              "label": "Turgor/skin pinch",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "4e138c89-fafb-4646-b4b0-42c1665c5383"
+              },
+              "id": "turgorSkinPinchGroup",
+              "questions": [
+                {
+                  "label": "Sunken eye balls",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "164457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "sunkenEyeBalls"
+                },
+                {
+                  "label": "Capillary Refilling time",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "162513AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "min": "0",
+                    "step": 0.1
+                  },
+                  "id": "capillaryRefillingTime"
+                },
+                {
+                  "label": "Fluid Input",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "163036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "min": "0"
+                  },
+                  "id": "fluidInput"
+                },
+                {
+                  "label": "Total Fluid Output",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "162659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "min": "0"
+                  },
+                  "id": "totalFluidOutput"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

@@ -1,0 +1,196 @@
+{
+  "name": "Midwives Vital Sign Sheet",
+  "description": "Vital sign sheet used by midwives to record pulse, respiratory rate, temperature, weight, total fluid input and output, and pain score at each check.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "dc8c79f1-067e-4fe3-9a86-1a6c787dde5a",
+  "retired": false,
+  "encounter": "Vitals",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Vital Sign for Midwives",
+      "sections": [
+        {
+          "label": "Vitals",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "WHO Date and Time",
+              "type": "obs",
+              "id": "midwivesDateTime",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Pulse Rate",
+              "type": "obs",
+              "required": false,
+              "id": "midwivesPulseRate",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range: 60-100 bpm",
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 100.5 || myValue < 59.5)",
+                "message": "Pulse is out of range (Normal range 60-100)"
+              }
+            },
+            {
+              "label": "RR (Respiratory Rate)",
+              "type": "obs",
+              "required": false,
+              "id": "midwivesRR",
+              "questionOptions": {
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Respiratory Rate. Normal range: 16-24 breaths/min",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 24.5 || myValue < 15.5)",
+                "message": "Respiratory Rate is out of range (Normal range 16-24)"
+              }
+            },
+            {
+              "label": "Temperature",
+              "type": "obs",
+              "required": false,
+              "id": "midwivesTemperature",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "max": "43",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range: 36.5-37.5°C",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 37.5 || myValue < 35)",
+                "message": "Temperature is out of range (Normal range 35-37.5°C)"
+              }
+            },
+            {
+              "label": "Weight (kg)",
+              "type": "obs",
+              "required": false,
+              "id": "midwivesWeight",
+              "questionOptions": {
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "step": 0.01
+              },
+              "questionInfo": "Patient weight measurement in kilograms",
+              "validators": []
+            },
+            {
+              "label": "Total Fluid Inputs (ml)",
+              "type": "obs",
+              "required": false,
+              "id": "midwivesFluidInputs",
+              "questionOptions": {
+                "concept": "163036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "step": 0.01
+              },
+              "questionInfo": "Total fluid intake in milliliters over specified time period"
+            },
+            {
+              "label": "Total Fluid Outputs (ml)",
+              "type": "obs",
+              "required": false,
+              "id": "midwivesFluidOutputs",
+              "questionOptions": {
+                "concept": "162659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "step": 0.01
+              },
+              "questionInfo": "Total fluid output in milliliters over specified time period"
+            },
+            {
+              "label": "Pain Score",
+              "type": "obs",
+              "required": true,
+              "id": "midwivesPainScore",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "166082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "questionInfo": "Pain scale 0-10. 0=No pain, 10=Severe pain",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && myValue > 10",
+                "message": "Pain score cannot exceed 10."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

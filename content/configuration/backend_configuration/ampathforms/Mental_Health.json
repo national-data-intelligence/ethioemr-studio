@@ -1,0 +1,154 @@
+{
+  "name": "Mental Health",
+  "description": "Records an outpatient mental health consultation, including the chief complaint, diagnosis, medicines provided, psychosocial counseling, disposition, reason for any referral and remarks.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "fec90bd6-5d2a-4577-8247-4cae93316fc1",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Mental Health",
+      "sections": [
+        {
+          "label": "Mental Health Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Chief Complaint",
+              "type": "obs",
+              "id": "mentalHealthChiefComplaint",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Diagnosis",
+              "type": "obs",
+              "id": "mentalHealthDiagnosis",
+              "questionOptions": {
+                "concept": "5809a2b3-3ca3-b23e-8567-9ef012345678",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Drugs Provided",
+              "type": "obs",
+              "id": "mentalHealthDrugsProvided",
+              "questionOptions": {
+                "concept": "a2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Psychosocial Counseling",
+              "type": "obs",
+              "id": "mentalHealthPsychosocialCounseling",
+              "questionOptions": {
+                "concept": "b3c4d5e6-f7a8-4b9c-0d1e-2f3a4b5c6d7e",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Disposition",
+              "type": "obs",
+              "id": "mentalHealthDisposition",
+              "questionOptions": {
+                "concept": "159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "159491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Treatment complete"
+                  },
+                  {
+                    "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred out"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Reason for Referral",
+              "type": "obs",
+              "id": "mentalHealthReasonForReferral",
+              "questionOptions": {
+                "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "mentalHealthDisposition !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Remarks",
+              "type": "obs",
+              "id": "mentalHealthRemarks",
+              "questionOptions": {
+                "concept": "162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

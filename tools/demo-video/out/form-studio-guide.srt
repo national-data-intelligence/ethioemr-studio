@@ -1,0 +1,254 @@
+1
+00:00:00,058 --> 00:00:04,884
+Form Studio is where you build and fix the
+EMR's clinical forms in the browser,
+
+2
+00:00:04,884 --> 00:00:06,167
+without writing code.
+
+3
+00:00:06,167 --> 00:00:08,122
+This guide shows the main steps.
+
+4
+00:00:08,629 --> 00:00:11,525
+Open it from the app menu at the top right.
+
+5
+00:00:11,525 --> 00:00:12,805
+Choose Form Studio.
+
+6
+00:00:19,174 --> 00:00:21,224
+The start page has two halves.
+
+7
+00:00:21,224 --> 00:00:24,368
+On the left are three ways to make a new form:
+
+8
+00:00:24,368 --> 00:00:28,606
+from scratch, from a Bahmni export,
+or from an Excel template.
+
+9
+00:00:29,112 --> 00:00:33,713
+On the right is the table of all three
+hundred forms in this EMR.
+
+10
+00:00:33,713 --> 00:00:36,261
+Type in the search box to narrow it.
+
+11
+00:00:36,261 --> 00:00:37,464
+Here, gynecology.
+
+12
+00:00:37,974 --> 00:00:42,502
+Press Edit schema on Emergency
+Triage Form, Gynecology.
+
+13
+00:00:42,502 --> 00:00:43,902
+The editor opens.
+
+14
+00:00:44,405 --> 00:00:46,256
+On the left are three views:
+
+15
+00:00:46,256 --> 00:00:49,364
+Preview and edit, Rules, and
+the Schema editor.
+
+16
+00:00:49,364 --> 00:00:54,653
+On the right are the live form preview and a
+panel for the checks and downloads.
+
+17
+00:00:55,166 --> 00:01:00,208
+Every page, section and question has a pencil
+to edit it and a bin to delete it.
+
+18
+00:01:00,208 --> 00:01:02,918
+Press the pencil on a section to rename it.
+
+19
+00:01:03,430 --> 00:01:07,846
+The new name shows in the form straight
+away, and in the form's JSON.
+
+20
+00:01:14,177 --> 00:01:16,805
+To add a question, press Add question.
+
+21
+00:01:16,805 --> 00:01:21,161
+Give it a label, an ID and a type,
+then search for its concept.
+
+22
+00:01:27,221 --> 00:01:30,372
+Concepts are listed with the best match first.
+
+23
+00:01:30,372 --> 00:01:31,605
+Pick one and save.
+
+24
+00:01:31,605 --> 00:01:33,797
+The new question is in the form.
+
+25
+00:01:35,021 --> 00:01:35,837
+Now a rule.
+
+26
+00:01:35,837 --> 00:01:40,588
+The question PV should appear only
+when Vaginal Bleeding is Yes.
+
+27
+00:01:40,588 --> 00:01:42,221
+Open the rules for PV.
+
+28
+00:01:42,726 --> 00:01:44,074
+Choose Only when.
+
+29
+00:01:44,074 --> 00:01:47,406
+Pick Vaginal Bleeding, tick Yes, and save.
+
+30
+00:01:49,485 --> 00:01:52,675
+The rule is written under PV as
+a plain sentence.
+
+31
+00:01:52,675 --> 00:01:54,693
+There is no expression to type.
+
+32
+00:01:55,199 --> 00:01:56,895
+The preview obeys it.
+
+33
+00:01:56,895 --> 00:01:57,946
+PV is hidden.
+
+34
+00:01:57,946 --> 00:02:01,823
+Choose Yes for Vaginal
+Bleeding, and PV appears.
+
+35
+00:02:02,328 --> 00:02:06,795
+Before a form leaves Form Studio, press
+Check concepts on the server.
+
+36
+00:02:06,795 --> 00:02:09,384
+It looks up every concept the form uses.
+
+37
+00:02:09,895 --> 00:02:10,765
+Zero errors.
+
+38
+00:02:10,765 --> 00:02:13,519
+Download content files is now enabled.
+
+39
+00:02:13,519 --> 00:02:16,999
+It gives a zip with the form
+and a short README.
+
+40
+00:02:17,511 --> 00:02:21,409
+Back on the start page, a new form
+from an Excel template.
+
+41
+00:02:21,409 --> 00:02:25,105
+You can download an empty template
+or a filled example.
+
+42
+00:02:25,105 --> 00:02:26,919
+Here we upload the example.
+
+43
+00:02:27,428 --> 00:02:32,024
+Form Studio reads the sheet and matches
+its concepts on the server.
+
+44
+00:02:32,024 --> 00:02:36,620
+Nine pages, twenty-three sections, one
+hundred and sixty questions.
+
+45
+00:02:37,132 --> 00:02:39,936
+Open it in the editor and run the Check.
+
+46
+00:02:39,936 --> 00:02:43,300
+Forty-four errors, under Must
+fix before export.
+
+47
+00:02:46,612 --> 00:02:50,262
+Each one is a question whose concept
+still has to be picked.
+
+48
+00:02:50,262 --> 00:02:54,094
+Pick it with the question's pencil, or
+use Create new concepts.
+
+49
+00:02:54,094 --> 00:02:57,196
+The download stays blocked until
+the list is empty.
+
+50
+00:02:57,745 --> 00:02:59,901
+Last, the concept dictionary.
+
+51
+00:02:59,901 --> 00:03:03,841
+It holds every concept read from
+this EMR's database.
+
+52
+00:03:04,356 --> 00:03:06,287
+Search weight, in kilograms.
+
+53
+00:03:06,287 --> 00:03:12,012
+Weight first, with its synonyms, its datatype,
+and the number of forms that use it.
+
+54
+00:03:15,499 --> 00:03:20,826
+Open the row to see its names, answers and
+mappings, and the list of forms that use
+
+55
+00:03:20,826 --> 00:03:21,019
+it.
+
+56
+00:03:22,837 --> 00:03:23,739
+Form Studio:
+
+57
+00:03:23,739 --> 00:03:29,605
+edit forms, write rules in plain words, and
+check every concept before export.
+

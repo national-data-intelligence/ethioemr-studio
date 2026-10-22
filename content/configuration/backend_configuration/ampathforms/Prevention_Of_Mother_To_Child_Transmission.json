@@ -1,0 +1,795 @@
+{
+  "name": "Prevention of Mother-to-child Transmission",
+  "description": "Tracks women and infants in prevention of mother-to-child transmission (PMTCT) care, recording risk group, maternal and partner HIV status, ART eligibility and treatment, CD4 count, TB treatment, infant prophylaxis, feeding choice and follow-up outcomes.",
+  "version": "1.3",
+  "published": true,
+  "uuid": "bffd9cda-53dc-4355-83ee-4ecc9d841df8",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Risk Assessment & Baby Outcomes",
+      "sections": [
+        {
+          "label": "Risk Group",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Risk Group",
+              "type": "obs",
+              "required": false,
+              "id": "riskGroup",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "a1b2c3d4-5e6f-7890-1234-567890abcdef",
+                "answers": [
+                  {
+                    "concept": "b2c3d4e5-6f70-8901-2345-678901bcdef0",
+                    "label": "Sex Worker"
+                  },
+                  {
+                    "concept": "c3d4e5f6-7081-9012-3456-789012cdef01",
+                    "label": "People WHO Inject Drugs"
+                  },
+                  {
+                    "concept": "d4e5f607-8192-0123-4567-890123def012",
+                    "label": "Msm and Transgenders"
+                  },
+                  {
+                    "concept": "e5f60718-9203-1234-5678-901234ef0123",
+                    "label": "Blood or Organ Recipient"
+                  },
+                  {
+                    "concept": "f6071829-0314-2345-6789-012345f01234",
+                    "label": "Client of Sex Worker"
+                  },
+                  {
+                    "concept": "07182930-1425-3456-7890-123456012345",
+                    "label": "Migrant"
+                  },
+                  {
+                    "concept": "18293041-2536-4567-8901-234567123456",
+                    "label": "Spouse/Partner of Migrant"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Hiv Positive Born Babies",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Live Births",
+              "type": "obs",
+              "required": false,
+              "id": "liveBirth",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "29304152-3647-5678-9012-345678234567",
+                "step": 0.01
+              },
+              "questionInfo": "Number of live births. Enter the count of babies born alive"
+            },
+            {
+              "label": "Birth Weight (g)",
+              "type": "obs",
+              "required": false,
+              "id": "birthWeight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "30415263-4758-6789-0123-456789345678",
+                "step": 0.01
+              },
+              "questionInfo": "Birth weight in grams. Normal range: 2500-4000g"
+            },
+            {
+              "label": "Started ARV Prophylaxis for Baby",
+              "type": "obs",
+              "required": false,
+              "id": "startedArvProphylaxisBaby",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "41526374-5869-7890-1234-567890456789",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Breast Feeding Options Opted by Hiv +ve Mother",
+              "type": "obs",
+              "required": false,
+              "id": "breastFeedingOptions",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Exclusive Breast Feeding"
+                  },
+                  {
+                    "concept": "1595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Replacement Breast Feeding"
+                  },
+                  {
+                    "concept": "6046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mixed Breast Feeding"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Fp Services Provided Postpartum",
+              "type": "obs",
+              "required": false,
+              "id": "fpServicesPostpartum",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "96071829-0314-2345-6789-012345901234",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "End of Follow-up",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Transferred Out During Pregnancy",
+              "type": "obs",
+              "required": false,
+              "id": "transferredOutDuringPregnancy",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "a7182930-1425-3456-7890-123456012345"
+              }
+            },
+            {
+              "label": "Date of Death",
+              "type": "obs",
+              "required": false,
+              "id": "dateOfDeath",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Date and Place of Transfer Out for Continuum",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Place",
+              "type": "obs",
+              "required": false,
+              "id": "transferPlace",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "b8293041-2536-4567-8901-234567123456",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Date",
+              "type": "obs",
+              "required": false,
+              "id": "transferDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "c9304152-3647-5678-9012-345678234567"
+              }
+            },
+            {
+              "label": "Remarks",
+              "type": "obs",
+              "required": false,
+              "id": "transferRemarks",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "d0415263-4758-6789-0123-456789345678",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Others (Specify)",
+              "type": "obs",
+              "required": false,
+              "id": "othersSpecify",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "e1526374-5869-7890-1234-567890456789",
+                "rows": "3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "HIV Status Assessment",
+      "sections": [
+        {
+          "label": "Women Identified Hiv Positive",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "During",
+              "type": "obs",
+              "required": false,
+              "id": "hivPositiveIdentifiedDuring",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "f2637485-6970-8901-2345-678901567890",
+                "answers": [
+                  {
+                    "concept": "03748596-7081-9012-3456-789012678901",
+                    "label": "Before Pregnancy"
+                  },
+                  {
+                    "concept": "14859607-8192-0123-4567-890123789012",
+                    "label": "Antenatal Period"
+                  },
+                  {
+                    "concept": "25960718-9203-1234-5678-901234890123",
+                    "label": "Intrapartum"
+                  },
+                  {
+                    "concept": "36071829-0314-2345-6789-012345901234",
+                    "label": "Postpartum"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Diagnosed HIV +ve Date",
+              "type": "obs",
+              "required": false,
+              "id": "diagnosedHivPositiveDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "47182930-1425-3456-7890-123456012345"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Hiv Status of Male Partner",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "WHO Already Knows Their Hiv Status as:",
+              "type": "obs",
+              "required": false,
+              "id": "malePartnerHivStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "58293041-2536-4567-8901-234567123456",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referred If the Status Is Unknown",
+              "type": "obs",
+              "required": false,
+              "id": "malePartnerReferred",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "69304152-3647-5678-9012-345678234567",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "malePartnerHivStatus !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ART Eligibility & Treatment",
+      "sections": [
+        {
+          "label": "ART Eligibility and Date for First",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "WHO Clinical Staging",
+              "type": "obs",
+              "required": false,
+              "id": "whoClinicalStaging",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "70415263-4758-6789-0123-456789345678",
+                "answers": [
+                  {
+                    "concept": "1204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "I"
+                  },
+                  {
+                    "concept": "1205AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "II"
+                  },
+                  {
+                    "concept": "1206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "III"
+                  },
+                  {
+                    "concept": "1207AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "IV"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "CD4 count",
+              "type": "obs",
+              "required": false,
+              "id": "cd4Count",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "questionInfo": "CD4 T-cell count in cells/mm³. Normal range: 500-1200 cells/mm³. Critical if <200 cells/mm³"
+            },
+            {
+              "label": "Date",
+              "type": "obs",
+              "required": false,
+              "id": "artEligibilityDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "81526374-5869-7890-1234-567890456789"
+              }
+            }
+          ]
+        },
+        {
+          "label": "ART Treatment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Started ART During",
+              "type": "obs",
+              "required": false,
+              "id": "startedArtDuring",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "92637485-6970-8901-2345-678901567890",
+                "answers": [
+                  {
+                    "concept": "03748596-7081-9012-3456-789012678901",
+                    "label": "Before Pregnancy"
+                  },
+                  {
+                    "concept": "14859607-8192-0123-4567-890123789012",
+                    "label": "Antenatal Period"
+                  },
+                  {
+                    "concept": "25960718-9203-1234-5678-901234890123",
+                    "label": "Intrapartum"
+                  },
+                  {
+                    "concept": "a3748596-7081-9012-3456-789012678901",
+                    "label": "Postnatal"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "ART Start Date",
+              "type": "obs",
+              "required": false,
+              "id": "artStartDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Regimen",
+              "type": "obs",
+              "required": false,
+              "id": "artRegimen",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "c5960718-9203-1234-5678-901234890123",
+                "answers": [
+                  {
+                    "concept": "d6071829-0314-2345-6789-012345901234",
+                    "label": "Azt/3TC/Nvp"
+                  },
+                  {
+                    "concept": "e7182930-1425-3456-7890-123456012345",
+                    "label": "Azt/3TC/Lpv/R"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  },
+                  {
+                    "concept": "f8293041-2536-4567-8901-234567123456",
+                    "label": "Azt/3TC/Nvp-paediatric"
+                  },
+                  {
+                    "concept": "09304152-3647-5678-9012-345678234567",
+                    "label": "Azt/3TC/Efv"
+                  },
+                  {
+                    "concept": "10415263-4758-6789-0123-456789345678",
+                    "label": "Azt/3TC/Efv-paediatric"
+                  },
+                  {
+                    "concept": "21526374-5869-7890-1234-567890456789",
+                    "label": "Tdf/3TC/Nvp"
+                  },
+                  {
+                    "concept": "32637485-6970-8901-2345-678901567890",
+                    "label": "Tdf/3TC/Nvp-paediatric"
+                  },
+                  {
+                    "concept": "43748596-7081-9012-3456-789012678901",
+                    "label": "Tdf/3TC/Efv"
+                  },
+                  {
+                    "concept": "54859607-8192-0123-4567-890123789012",
+                    "label": "Tdf/3TC/Efv-paediatric"
+                  },
+                  {
+                    "concept": "65960718-9203-1234-5678-901234890123",
+                    "label": "Tdf/3TC/Lpv/R"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "CD4 Count After",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "After 6 months",
+              "type": "obs",
+              "required": false,
+              "id": "cd4After6Months",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "76071829-0314-2345-6789-012345901234",
+                "step": 0.01
+              },
+              "questionInfo": "CD4 T-cell count in cells/mm³ after 6 months of ART. Normal range: 500-1200 cells/mm³"
+            },
+            {
+              "label": "After 12 months",
+              "type": "obs",
+              "required": false,
+              "id": "cd4After12Months",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "87182930-1425-3456-7890-123456012345",
+                "step": 0.01
+              },
+              "questionInfo": "CD4 T-cell count in cells/mm³ after 12 months of ART. Normal range: 500-1200 cells/mm³"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Treatment Follow-up & Monitoring",
+      "sections": [
+        {
+          "label": "Tb Treatment During",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pregnancy Category",
+              "type": "obs",
+              "required": false,
+              "id": "pregnancyCategory",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "98293041-2536-4567-8901-234567123456",
+                "answers": [
+                  {
+                    "concept": "a9304152-3647-5678-9012-345678234567",
+                    "label": "Category a"
+                  },
+                  {
+                    "concept": "b0415263-4758-6789-0123-456789345678",
+                    "label": "Category B"
+                  },
+                  {
+                    "concept": "c1526374-5869-7890-1234-567890456789",
+                    "label": "Category C"
+                  },
+                  {
+                    "concept": "d2637485-6970-8901-2345-678901567890",
+                    "label": "Category D"
+                  },
+                  {
+                    "concept": "e3748596-7081-9012-3456-789012678901",
+                    "label": "Category X"
+                  },
+                  {
+                    "concept": "f4859607-8192-0123-4567-890123789012",
+                    "label": "Category N"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Tb Treatment Start Date",
+              "type": "obs",
+              "required": false,
+              "id": "tbTreatmentStartDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "05960718-9203-1234-5678-901234890123"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Follow-up on ART",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Antepartum",
+              "type": "obs",
+              "required": false,
+              "id": "antepartumStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "16071829-0314-2345-6789-012345901234",
+                "answers": [
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On Treatment"
+                  },
+                  {
+                    "concept": "38293041-2536-4567-8901-234567123456",
+                    "label": "Stopped Treatment"
+                  },
+                  {
+                    "concept": "49304152-3647-5678-9012-345678234567",
+                    "label": "Transferred Out"
+                  },
+                  {
+                    "concept": "50415263-4758-6789-0123-456789345678",
+                    "label": "Missing"
+                  },
+                  {
+                    "concept": "61526374-5869-7890-1234-567890456789",
+                    "label": "Lost to Follow-up"
+                  },
+                  {
+                    "concept": "6b6ac4cd-923f-5888-a62b-695f9ecd6237",
+                    "label": "Death"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Adherence Level",
+              "type": "obs",
+              "required": false,
+              "id": "adherenceLevel",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "72637485-6970-8901-2345-678901567890",
+                "answers": [
+                  {
+                    "concept": "83748596-7081-9012-3456-789012678901",
+                    "label": "A"
+                  },
+                  {
+                    "concept": "94859607-8192-0123-4567-890123789012",
+                    "label": "B"
+                  },
+                  {
+                    "concept": "a5960718-9203-1234-5678-901234890123",
+                    "label": "C"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Delivery",
+              "type": "obs",
+              "required": false,
+              "id": "deliveryType",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "b6071829-0314-2345-6789-012345901234",
+                "answers": [
+                  {
+                    "concept": "c7182930-1425-3456-7890-123456012345",
+                    "label": "Normal Delivery"
+                  },
+                  {
+                    "concept": "159902AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaccum Delivery"
+                  },
+                  {
+                    "concept": "e9304152-3647-5678-9012-345678234567",
+                    "label": "Forceps Delivery"
+                  },
+                  {
+                    "concept": "f0415263-4758-6789-0123-456789345678",
+                    "label": "Cesarean Section Delivery"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Baby Birth Status",
+              "type": "obs",
+              "required": false,
+              "id": "babyBirthStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "01526374-5869-7890-1234-567890456789",
+                "answers": [
+                  {
+                    "concept": "12637485-6970-8901-2345-678901567890",
+                    "label": "Livebirth"
+                  },
+                  {
+                    "concept": "23748596-7081-9012-3456-789012678901",
+                    "label": "Stillbirth"
+                  },
+                  {
+                    "concept": "34859607-8192-0123-4567-890123789012",
+                    "label": "Stillbirth Macerated"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Postpartum",
+              "type": "obs",
+              "required": false,
+              "id": "postpartumStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "45960718-9203-1234-5678-901234890123",
+                "answers": [
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On Treatment"
+                  },
+                  {
+                    "concept": "38293041-2536-4567-8901-234567123456",
+                    "label": "Stopped Treatment"
+                  },
+                  {
+                    "concept": "49304152-3647-5678-9012-345678234567",
+                    "label": "Transferred Out"
+                  },
+                  {
+                    "concept": "50415263-4758-6789-0123-456789345678",
+                    "label": "Missing"
+                  },
+                  {
+                    "concept": "61526374-5869-7890-1234-567890456789",
+                    "label": "Lost to Follow-up"
+                  },
+                  {
+                    "concept": "6b6ac4cd-923f-5888-a62b-695f9ecd6237",
+                    "label": "Death"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

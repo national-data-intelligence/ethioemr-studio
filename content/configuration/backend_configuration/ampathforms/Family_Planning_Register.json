@@ -1,0 +1,457 @@
+{
+  "name": "Family Planning Register",
+  "description": "Register entry for each family planning client, recording user type, marital and educational status, HIV testing and linkage to ART, target population, tetanus toxoid status, intrauterine device eligibility, contraceptive provided and next appointment.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "70577a57-5ec5-48b5-b15c-8d580fd6181d",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Family Planning Register",
+      "sections": [
+        {
+          "label": "Registration Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "User Type",
+              "type": "obs",
+              "required": false,
+              "id": "userType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1e6f7081-9203-1234-ef01-56789012345a",
+                "answers": [
+                  {
+                    "concept": "763a1d59-f3b5-492a-ba63-f0a1562ce441",
+                    "label": "New"
+                  },
+                  {
+                    "concept": "6bee05c0-d9e0-4c5f-9a8a-3cbad70fdc9d",
+                    "label": "Existing"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Registration Date",
+              "type": "obs",
+              "required": true,
+              "id": "registrationDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Marital Status",
+              "type": "obs",
+              "required": false,
+              "id": "maritalStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Single",
+                    "concept": "1057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Married",
+                    "concept": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Divorced",
+                    "concept": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Widowed",
+                    "concept": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Educational Status",
+              "type": "obs",
+              "required": false,
+              "id": "educationalStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Hiv Testing",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Hiv Test Offered",
+              "type": "obs",
+              "required": false,
+              "id": "hivTestOffered",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "164163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Hiv Test Performed",
+              "type": "obs",
+              "required": false,
+              "id": "hivTestPerformed",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTestOffered) || hivTestOffered !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hiv Result",
+              "type": "obs",
+              "required": false,
+              "id": "hivTestResult",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Positive",
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Negative",
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTestPerformed) || hivTestPerformed !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hiv Specific Contraceptive Counseling Offered",
+              "type": "obs",
+              "required": false,
+              "id": "hivSpecificContraceptiveCounselingOffered",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "95c36e45-f734-4a0a-9eb8-b1e14cd79ee7"
+              }
+            },
+            {
+              "label": "Hiv Positive Linked to ART",
+              "type": "obs",
+              "required": false,
+              "id": "hivPositiveLinkedToArt",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "164849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTestResult) || hivTestResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Target Population",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Target Population Category",
+              "type": "obs",
+              "required": false,
+              "id": "targetPopulationCategory",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "4f8a2b1c-3d5e-4567-8901-234567890abc",
+                "answers": [
+                  {
+                    "label": "Female Commercial Sex Workers",
+                    "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Long Distance Drivers",
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Mobile Workers/Daily Laborers",
+                    "concept": "7e9f1a2b-4c6d-5678-9012-345678901de0"
+                  },
+                  {
+                    "label": "Prisoners",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "OVC",
+                    "concept": "1174AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Children of PLHIV",
+                    "concept": "1393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Partner of PLHIV",
+                    "concept": "8f0a2b3c-5d7e-6789-0123-456789012e0a"
+                  },
+                  {
+                    "label": "Other Marps",
+                    "concept": "9a1b3c4d-6e8f-7890-1234-567890123f0a"
+                  },
+                  {
+                    "label": "General Population",
+                    "concept": "0b2c4d5e-7f9a-8901-2345-678901234a0b"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Visit Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Tt Status Checked",
+              "type": "obs",
+              "required": false,
+              "id": "ttStatusChecked",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "cd3336af-8aa6-4a3a-a79d-bbbb84b2247c"
+              }
+            },
+            {
+              "label": "Contraindication for Iucd",
+              "type": "obs",
+              "required": false,
+              "id": "contraindicationForIucd",
+              "questionOptions": {
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ],
+                "concept": "b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e"
+              }
+            },
+            {
+              "label": "Visit Number",
+              "type": "obs",
+              "required": false,
+              "id": "visitNumber",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "164812AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "Contraceptive Provided",
+              "type": "obs",
+              "required": false,
+              "id": "contraceptiveProvided",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "3b96324b-c6e9-4361-9709-9f7f25f7c131",
+                "answers": [
+                  {
+                    "label": "Male Condom",
+                    "concept": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Female Condom",
+                    "concept": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Oral Contraceptive",
+                    "concept": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Emergency Contraception",
+                    "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Injectable",
+                    "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Implanon",
+                    "concept": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "IUCD",
+                    "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Tubal Ligation",
+                    "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Vasectomy",
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Diaphragm",
+                    "concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Sinoplant",
+                    "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Jadelle",
+                    "concept": "1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Other",
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Appointment Date",
+              "type": "obs",
+              "required": false,
+              "id": "appointmentDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Remark",
+              "type": "obs",
+              "required": false,
+              "id": "remark",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "4"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

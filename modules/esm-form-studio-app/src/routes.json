@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": ">=2.2.0"
+  },
+  "pages": [
+    {
+      "component": "root",
+      "route": "form-studio",
+      "online": true,
+      "offline": false
+    }
+  ],
+  "extensions": [
+    {
+      "name": "form-studio-nav-link",
+      "slot": "navbar-items-slot",
+      "component": "formStudioNavTile",
+      "privileges": [
+        "o3: View Form Builder Dashboard"
+      ],
+      "online": true,
+      "offline": false,
+      "meta": {
+        "search": [
+          "form studio",
+          "Form Studio",
+          "forms",
+          "form builder",
+          "ampath"
+        ]
+      }
+    },
+    {
+      "name": "concept-dictionary-nav-link",
+      "slot": "navbar-items-slot",
+      "component": "conceptDictionaryNavTile",
+      "privileges": [
+        "o3: View Form Builder Dashboard"
+      ],
+      "online": true,
+      "offline": false,
+      "meta": {
+        "search": [
+          "concept",
+          "concepts",
+          "dictionary",
+          "Concept dictionary",
+          "CIEL"
+        ]
+      }
+    }
+  ],
+  "modals": [
+    {
+      "name": "form-studio-new-form-modal",
+      "component": "formStudioNewFormModal"
+    },
+    {
+      "name": "form-studio-new-page-modal",
+      "component": "formStudioNewPageModal"
+    },
+    {
+      "name": "form-studio-delete-page-modal",
+      "component": "formStudioDeletePageModal"
+    },
+    {
+      "name": "form-studio-new-section-modal",
+      "component": "formStudioNewSectionModal"
+    },
+    {
+      "name": "form-studio-delete-section-modal",
+      "component": "formStudioDeleteSectionModal"
+    },
+    {
+      "name": "form-studio-add-form-reference-modal",
+      "component": "formStudioAddFormReferenceModal"
+    },
+    {
+      "name": "form-studio-question-modal",
+      "component": "formStudioQuestionModal"
+    },
+    {
+      "name": "form-studio-delete-question-modal",
+      "component": "formStudioDeleteQuestionModal"
+    },
+    {
+      "name": "form-studio-restore-draft-schema-modal",
+      "component": "formStudioRestoreDraftSchemaModal"
+    },
+    {
+      "name": "form-studio-edit-translation-modal",
+      "component": "formStudioEditTranslationModal"
+    },
+    {
+      "name": "form-studio-form-metadata-modal",
+      "component": "formStudioFormMetadataModal"
+    },
+    {
+      "name": "form-studio-page-label-modal",
+      "component": "formStudioPageLabelModal"
+    },
+    {
+      "name": "form-studio-new-concepts-modal",
+      "component": "formStudioNewConceptsModal"
+    },
+    {
+      "name": "form-studio-question-rules-modal",
+      "component": "formStudioQuestionRulesModal"
+    }
+  ]
+}

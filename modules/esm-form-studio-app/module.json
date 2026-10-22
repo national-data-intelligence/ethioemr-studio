@@ -1,0 +1,6 @@
+{
+  "package": "@palladium-ethiopia/esm-form-studio-app",
+  "dist": "dist",
+  "entry": "palladium-ethiopia-esm-form-studio-app.js",
+  "//": "Form Studio source lives here (migrated from ethioemr-form-studio). Production build: scripts/build-form-studio.ps1"
+}

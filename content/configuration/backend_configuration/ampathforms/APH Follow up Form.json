@@ -1,0 +1,370 @@
+{
+  "name": "APH Follow up Form",
+  "description": "Records serial monitoring of women with antepartum hemorrhage (APH), including vital signs, fetal heart rate and movements, abdominal pain or tenderness, vaginal bleeding, hemoglobin results and pain management.",
+  "version": "2.0",
+  "published": true,
+  "uuid": "e622fa9a-cff9-4525-afad-cc094a6ce04d",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "APH Follow up Form",
+      "sections": [
+        {
+          "label": "General Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date & Time",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "9e71e964-a2b1-4a91-b3bd-96dd54689723"
+              },
+              "id": "date___time"
+            }
+          ]
+        },
+        {
+          "label": "Blood Pressure",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Systolic BP (mmHg)",
+              "type": "obs",
+              "required": false,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 90-120 mmHg",
+              "id": "systolic_bp",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue >= 120.5 || myValue < 89.5)",
+                  "message": "Systolic is out of range (Normal range 90-120)"
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Diastolic BP (mmHg)",
+              "type": "obs",
+              "required": false,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 60-90 mmHg",
+              "id": "diastolic_bp",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue >= 90.5 || myValue < 59.5)",
+                  "message": "Diastolic is out of range (Normal range 60-90)"
+                }
+              ],
+              "hideSteppers": true
+            }
+          ]
+        },
+        {
+          "label": "Additional Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pulse (beats/min)",
+              "type": "obs",
+              "required": false,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 60-100 bpm",
+              "id": "pulse",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue >= 100.5 || myValue < 59.5)",
+                  "message": "Pulse is out of range (Normal range 60-100)"
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "RR (breaths/min)",
+              "type": "obs",
+              "required": false,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 16-24 breaths/min",
+              "id": "respiratory_rate_numeric",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue >= 24.5 || myValue < 15.5)",
+                  "message": "Respiratory Rate is out of range (Normal range 16-24)"
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Temperature (°C)",
+              "type": "obs",
+              "required": false,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "max": "43",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range: 36.5-37.5°C",
+              "id": "temperature",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue >= 37.5 || myValue < 35)",
+                  "message": "Temperature is out of range (Normal range 35-37.5°C)"
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Fetal Heart Beat (beats/min)",
+              "type": "obs",
+              "required": false,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "40",
+                "step": 0.01
+              },
+              "questionInfo": "Typical fetal heart rate range: 110-160 bpm",
+              "id": "fetal_heart_beat",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue >= 160.5 || myValue < 109.5)",
+                  "message": "Fetal Heart Beat is out of range (Normal range 110-160)"
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "BPP",
+              "type": "obs",
+              "required": false,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "6a4c6e3c-4e6a-4e9b-9e86-9a4b8a3e5a11",
+                "min": "0",
+                "max": "10",
+                "step": 0.01
+              },
+              "questionInfo": "Biophysical profile score (0-10)",
+              "id": "bpp",
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "warnsWhenExpression": "myValue && (myValue > 10 || myValue < 0)",
+                  "message": "BPP score should be between 0 and 10"
+                }
+              ],
+              "hideSteppers": true
+            },
+            {
+              "label": "Abdominal pain",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ad3e5f70-1b2c-4d6e-9f01-23456789abcd",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "presence_of_abdominal_pain"
+            },
+            {
+              "label": "Abdominal Tenderness",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "9c1d2e3f-4a5b-6c7d-8e9f-0a1b2c3d4e5f",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "presence_of_abdominal_tenderness"
+            },
+            {
+              "label": "Vaginal bleeding?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3071425e-0415-2345-6789-012345abcd10",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "vaginal_bleeding_"
+            },
+            {
+              "label": "Fetal kick",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "8f2c9b71-9d8f-4a42-9a40-1e6e4bb7c822"
+              },
+              "id": "fetal_kick",
+              "hideSteppers": true
+            },
+            {
+              "label": "Hgb/ Hct Result Notes",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1194fec8-4093-4479-bee5-f791012f544b"
+              },
+              "id": "hgb__hct_result_notes"
+            },
+            {
+              "label": "Remark",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "remark"
+            }
+          ]
+        },
+        {
+          "label": "Pain Management",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pain Score",
+              "type": "obs",
+              "id": "painScore",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "166082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Anti pain given?",
+              "type": "obs",
+              "id": "antiPainGiven",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "649de9d2-6718-5dec-9382-5c7f33cabcd4",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

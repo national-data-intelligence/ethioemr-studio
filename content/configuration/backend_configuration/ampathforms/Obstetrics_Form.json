@@ -1,0 +1,149 @@
+{
+  "name": "Emergency Labor(Obstetrics) Form",
+  "description": "Used at emergency triage for women in labor to record the abdominal examination, including fundal height, presenting part, fetal heart sounds and amount of liquor, along with the last menstrual period.",
+  "version": "1.2",
+  "published": true,
+  "uuid": "e16b3e3a-c33c-47b6-aec8-864398c6b802",
+  "retired": false,
+  "encounter": "Triage",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "P/A (PER ABDOMEN)",
+      "sections": [
+        {
+          "label": "Physical Examination - Per Abdomen",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Fundal Height (Weeks)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "id": "fundal_height_weeks"
+            },
+            {
+              "label": "P/A Presenting Part",
+              "type": "obs",
+              "required": "false",
+              "id": "presentingPart",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "497e92fa-f5e8-51b6-883a-10b673ce1227",
+                "answers": [
+                  {
+                    "concept": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cephalic"
+                  },
+                  {
+                    "concept": "0909b9fc-5107-42dc-b434-a29afeb43ca1",
+                    "label": "Breech"
+                  },
+                  {
+                    "concept": "9ca8b4a5-63c1-4710-abcf-68e962742293",
+                    "label": "Transverse"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "FHS",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "cefe2cf4-eace-442a-8ca6-730997ce1eb5",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Present"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent"
+                  }
+                ]
+              },
+              "id": "fhs"
+            },
+            {
+              "label": "LMP",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "lmp"
+            },
+            {
+              "label": "Amount of Liquor",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "ffdae04b-b351-4a8d-9368-4658c4e52f49"
+              },
+              "id": "amount_of_liquor"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

@@ -1,0 +1,486 @@
+{
+  "name": "EPI",
+  "description": "Records a child's routine immunization under the Expanded Programme on Immunization (EPI), including family and address details, vaccines given, appointments, adverse events following immunization, maternal tetanus protection and developmental milestones.",
+  "version": "1.2",
+  "published": true,
+  "uuid": "60f7b754-63e4-4ca9-8bd3-09abb1978c14",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "EPI",
+      "sections": [
+        {
+          "label": "EPI",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of birth",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "7a1b2c3d-4e5f-6789-0123-456789abcde0"
+              },
+              "id": "dateOfBirth"
+            },
+            {
+              "label": "Name of Mother",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "8b2c3d4e-5f60-7890-1234-567890abcde1"
+              },
+              "id": "nameOfMother"
+            },
+            {
+              "label": "Name of father",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "9c3d4e5f-6071-8901-2345-678901abcde2"
+              },
+              "id": "nameOfFather"
+            },
+            {
+              "label": "Woreda",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "25677889-9001-7893-1237-9012345f0123"
+              },
+              "id": "woreda"
+            },
+            {
+              "label": "Kebele",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1e5f6071-8293-0123-4567-890123abcde4"
+              },
+              "id": "kebele"
+            },
+            {
+              "label": "Gott",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "2f607182-9304-1234-5678-901234abcde5"
+              },
+              "id": "gott"
+            },
+            {
+              "label": "House No",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "3071a2b3-0415-2345-6789-012345abcde6"
+              },
+              "id": "houseNo"
+            },
+            {
+              "label": "Infant vaccines",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "e0a1b2c3-d4e5-4890-9abc-def012345670"
+              },
+              "id": "infantVaccinesGroup",
+              "questions": [
+                {
+                  "label": "BCG",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "4182b3c4-1526-3456-7890-123456abcde7"
+                  },
+                  "id": "bcg"
+                },
+                {
+                  "label": "Hep birth dose within 24hrs",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "f1a2b3c4-d5e6-4f70-8a9b-bcdef0123456"
+                  },
+                  "id": "hepBirthDoseWithin24hrs"
+                },
+                {
+                  "label": "Hep birth dose after 24hrs and below 14 days",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "a2b3c4d5-e6f7-4801-9b0c-cdef01234567"
+                  },
+                  "id": "hepBirthDoseAfter24hrsBelow14days"
+                },
+                {
+                  "label": "OPV 0",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "5293c4d5-2637-4567-8901-234567abcde8"
+                  },
+                  "id": "opv0"
+                },
+                {
+                  "label": "OPV1",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "6304d5e6-3748-5678-9012-345678abcde9"
+                  },
+                  "id": "opv1"
+                },
+                {
+                  "label": "OPV 2",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "7415e6f7-4859-6789-0123-456789abcdea"
+                  },
+                  "id": "opv2"
+                },
+                {
+                  "label": "OPV 3",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "8526f708-5960-7890-1234-567890abcdeb"
+                  },
+                  "id": "opv3"
+                },
+                {
+                  "label": "IPV",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "9637081a-6071-8901-2345-678901abcdec"
+                  },
+                  "id": "ipv"
+                },
+                {
+                  "label": "DPT-HepB-Hib 1",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "0748192b-7182-9012-3456-789012abcded"
+                  },
+                  "id": "dptHepbHib1"
+                },
+                {
+                  "label": "DPT-HepB-Hib 2",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "1859203c-8293-0123-4567-890123abcdee"
+                  },
+                  "id": "dptHepbHib2"
+                },
+                {
+                  "label": "DPT-HepB-Hib 3",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "2960314d-9304-1234-5678-901234abcdef"
+                  },
+                  "id": "dptHepbHib3"
+                },
+                {
+                  "label": "Other Vaccine",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "3071425e-0415-2345-6789-012345abcdf0"
+                  },
+                  "id": "otherVaccine"
+                },
+                {
+                  "label": "PCV 1",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "4182536f-1526-3456-7890-123456abcdf1"
+                  },
+                  "id": "pcv1"
+                },
+                {
+                  "label": "PCV 2",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "5293647a-2637-4567-8901-234567abcdf2"
+                  },
+                  "id": "pcv2"
+                },
+                {
+                  "label": "PCV 3",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "6304758b-3748-5678-9012-345678abcdf3"
+                  },
+                  "id": "pcv3"
+                },
+                {
+                  "label": "Rota 1",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "7415869c-4859-6789-0123-456789abcdf4"
+                  },
+                  "id": "rota1"
+                },
+                {
+                  "label": "Rota 2",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "8526970d-5960-7890-1234-567890abcdf5"
+                  },
+                  "id": "rota2"
+                },
+                {
+                  "label": "Measeles",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "9637081e-6071-8901-2345-678901abcdf6"
+                  },
+                  "id": "measeles"
+                },
+                {
+                  "label": "Measles 2",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "0748192f-7182-9012-3456-789012abcdf7"
+                  },
+                  "id": "measles2"
+                },
+                {
+                  "label": "Vitamin A",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "c0d1e2f3-a4b5-4089-b364-456789abcdef"
+                  },
+                  "id": "vitaminA"
+                },
+                {
+                  "label": "Other Vaccine Date",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "2960314b-9304-1234-5678-901234abcdf9"
+                  },
+                  "id": "otherVaccineDate"
+                }
+              ]
+            },
+            {
+              "label": "Fully Immunized",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3071425c-0415-2345-6789-012345abcdfa",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "fullyImmunized"
+            },
+            {
+              "label": "First appointment",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "4182536d-1526-3456-7890-123456abcdfb"
+              },
+              "id": "firstAppointment"
+            },
+            {
+              "label": "Second appointment",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5293647e-2637-4567-8901-234567abcdfc"
+              },
+              "id": "secondAppointment"
+            },
+            {
+              "label": "Third appointment",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "6304758f-3748-5678-9012-345678abcdfd"
+              },
+              "id": "thirdAppointment"
+            },
+            {
+              "label": "Fourth appointment",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "7415869a-4859-6789-0123-456789abcdfe"
+              },
+              "id": "fourthAppointment"
+            },
+            {
+              "label": "Adverse Events Following Immunization",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "b3c4d5e6-f7a8-4912-8c0d-def012345678"
+              },
+              "id": "aefiGroup",
+              "questions": [
+                {
+                  "label": "Type of AEFI",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "8526970b-5960-7890-1234-567890abcdff"
+                  },
+                  "id": "typeOfAefi"
+                },
+                {
+                  "label": "Date Observed",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "9637081c-6071-8901-2345-678901abce00"
+                  },
+                  "id": "aefiDateObserved"
+                }
+              ]
+            },
+            {
+              "label": "Fully vaccinated?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c4d5e6f7-a8b9-4a23-9d0e-ef0123456789",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "fullyVaccinated"
+            },
+            {
+              "label": "Did the mother have protective doses of TD against NNT (PAB)?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d5e6f7a8-b9c0-4b34-8e1f-f0123456789a",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "motherTdPab"
+            },
+            {
+              "label": "Development milestones assessment",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "e6f7a8b9-c0d1-4c45-9f20-0123456789ab",
+                "answers": [
+                  {
+                    "concept": "f7a8b9c0-d1e2-4d56-8031-123456789abc",
+                    "label": "No developmental delay"
+                  },
+                  {
+                    "concept": "a8b9c0d1-e2f3-4e67-9142-23456789abcd",
+                    "label": "Suspected developmental delay"
+                  },
+                  {
+                    "concept": "b9c0d1e2-f3a4-4f78-a253-3456789abcde",
+                    "label": "Developmental Delay"
+                  }
+                ]
+              },
+              "id": "developmentMilestonesAssessment"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

@@ -1,0 +1,43 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.intro {
+  margin-bottom: layout.$spacing-05;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-04;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
+  border: 1px solid colors.$gray-20;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.where {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+}
+
+.numeric {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: layout.$spacing-03;
+  align-items: end;
+}
+
+.problem {
+  @include type.type-style('helper-text-01');
+  color: colors.$red-60;
+}

@@ -1,0 +1,503 @@
+{
+  "chunks": [
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 7985,
+      "sizes": {
+        "javascript": 7985
+      },
+      "names": [],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "117.js"
+      ],
+      "auxiliaryFiles": [
+        "117.js.map"
+      ],
+      "hash": "c56141809f031df4",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 7120,
+      "sizes": {
+        "javascript": 7120
+      },
+      "names": [],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "237.js"
+      ],
+      "auxiliaryFiles": [
+        "237.js.map"
+      ],
+      "hash": "a95872e0fa05ee48",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "reason": "split chunk (cache group: defaultVendors)",
+      "size": 85041,
+      "sizes": {
+        "javascript": 85041
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "251.js"
+      ],
+      "auxiliaryFiles": [
+        "251.js.map"
+      ],
+      "hash": "70b16dd652ca1c03",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": false,
+      "initial": false,
+      "entry": false,
+      "size": 42,
+      "sizes": {
+        "consume-shared": 42
+      },
+      "names": [],
+      "idHints": [
+        ""
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [],
+      "auxiliaryFiles": [],
+      "hash": "aaae4a1f7005b159",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 2788,
+      "sizes": {
+        "consume-shared": 42,
+        "javascript": 2746
+      },
+      "names": [],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app"
+      ],
+      "files": [
+        "378.js"
+      ],
+      "auxiliaryFiles": [
+        "378.js.map"
+      ],
+      "hash": "250ca7b5cf0e5d7d",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "reason": "split chunk (cache group: defaultVendors)",
+      "size": 2151636,
+      "sizes": {
+        "javascript": 2151636
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "421.js"
+      ],
+      "auxiliaryFiles": [
+        "421.js.map"
+      ],
+      "hash": "d46b40e3a5943f76",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "size": 215719,
+      "sizes": {
+        "expose": 42,
+        "javascript": 215383,
+        "runtime": 13301,
+        "share-init": 294
+      },
+      "names": [
+        "@palladium-ethiopia/esm-ai-assistant-app"
+      ],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app"
+      ],
+      "files": [
+        "palladium-ethiopia-esm-ai-assistant-app.js"
+      ],
+      "auxiliaryFiles": [
+        "palladium-ethiopia-esm-ai-assistant-app.js.map"
+      ],
+      "hash": "70d6b69a68127252",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "reason": "split chunk (cache group: defaultVendors)",
+      "size": 411056,
+      "sizes": {
+        "javascript": 411056
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "460.js"
+      ],
+      "auxiliaryFiles": [
+        "460.js.map"
+      ],
+      "hash": "7bc3af684d4649d7",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 7161,
+      "sizes": {
+        "javascript": 7161
+      },
+      "names": [],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "538.js"
+      ],
+      "auxiliaryFiles": [
+        "538.js.map"
+      ],
+      "hash": "b99c387558f317a2",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": false,
+      "initial": false,
+      "entry": false,
+      "size": 126,
+      "sizes": {
+        "consume-shared": 126
+      },
+      "names": [],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [],
+      "auxiliaryFiles": [],
+      "hash": "0433c830b52378cb",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 48930,
+      "sizes": {
+        "javascript": 48930
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "668.js"
+      ],
+      "auxiliaryFiles": [
+        "668.js.map"
+      ],
+      "hash": "bab075c39eeeb28b",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "reason": "split chunk (cache group: defaultVendors)",
+      "size": 3898896,
+      "sizes": {
+        "javascript": 3898896
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "675.js"
+      ],
+      "auxiliaryFiles": [
+        "675.js.map"
+      ],
+      "hash": "e9c1e442bd1d6c06",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 752796,
+      "sizes": {
+        "javascript": 752796
+      },
+      "names": [],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "73.js"
+      ],
+      "auxiliaryFiles": [
+        "73.js.map"
+      ],
+      "hash": "f3caa31c1e1b7518",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 315340,
+      "sizes": {
+        "javascript": 315340
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "749.js"
+      ],
+      "auxiliaryFiles": [
+        "749.js.map"
+      ],
+      "hash": "f5337e82456d8d95",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 2,
+      "sizes": {
+        "javascript": 2
+      },
+      "names": [],
+      "idHints": [],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "806.js"
+      ],
+      "auxiliaryFiles": [
+        "806.js.map"
+      ],
+      "hash": "e99cef5cb295bf22",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": false,
+      "initial": false,
+      "entry": false,
+      "size": 42,
+      "sizes": {
+        "consume-shared": 42
+      },
+      "names": [],
+      "idHints": [
+        ""
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [],
+      "auxiliaryFiles": [],
+      "hash": "9bd72c5eec36c281",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "size": 218423,
+      "sizes": {
+        "consume-shared": 42,
+        "javascript": 218087,
+        "runtime": 12798,
+        "share-init": 294
+      },
+      "names": [
+        "main"
+      ],
+      "idHints": [],
+      "runtime": [
+        "main"
+      ],
+      "files": [
+        "main.js"
+      ],
+      "auxiliaryFiles": [
+        "main.js.map"
+      ],
+      "hash": "8fb4c9cf71ee3f14",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": false,
+      "initial": false,
+      "entry": false,
+      "reason": "split chunk (cache group: default)",
+      "size": 42,
+      "sizes": {
+        "consume-shared": 42
+      },
+      "names": [],
+      "idHints": [
+        ""
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [],
+      "auxiliaryFiles": [],
+      "hash": "5c8527500028b127",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 137481,
+      "sizes": {
+        "javascript": 137481
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "98.js"
+      ],
+      "auxiliaryFiles": [
+        "98.js.map"
+      ],
+      "hash": "9141c588e36b3417",
+      "childrenByOrder": {}
+    },
+    {
+      "type": "chunk",
+      "rendered": true,
+      "initial": false,
+      "entry": false,
+      "size": 163792,
+      "sizes": {
+        "javascript": 163792
+      },
+      "names": [],
+      "idHints": [
+        "vendors"
+      ],
+      "runtime": [
+        "@palladium-ethiopia/esm-ai-assistant-app",
+        "main"
+      ],
+      "files": [
+        "997.js"
+      ],
+      "auxiliaryFiles": [
+        "997.js.map"
+      ],
+      "hash": "18f2972ee76a3690",
+      "childrenByOrder": {}
+    }
+  ]
+}

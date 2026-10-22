@@ -1,0 +1,192 @@
+{
+  "name": "Chronic Kidney Disease - Progress",
+  "description": "Tracks patients with chronic kidney disease at follow-up, recording the KDIGO stage, comorbidities, signs of volume overload, recent creatinine and potassium trends, and whether the patient is on enalapril.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "05f93918-55a2-45b0-9652-d6680bb32236",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Disease Progress",
+      "sections": [
+        {
+          "label": "Chronic Kidney Disease Progress and Outcomes",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Staging KDIGO Kidney Disease Improving Global Outcome",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d69af4df-6965-4559-9cc2-c2fb86704ec7",
+                "answers": [
+                  {
+                    "concept": "1fa1605d-caab-48e1-9617-f298b535c062",
+                    "label": "G1"
+                  },
+                  {
+                    "concept": "3408864c-42d2-4683-adac-98238209684f",
+                    "label": "G2"
+                  },
+                  {
+                    "concept": "73c9028b-528a-4f11-8083-bcda868bda36",
+                    "label": "G3a"
+                  },
+                  {
+                    "concept": "3aeba735-e3f7-4012-a9d4-995b084286bd",
+                    "label": "G3b"
+                  },
+                  {
+                    "concept": "cfd9129c-90b1-4b98-859d-ce4d94f5c786",
+                    "label": "G4"
+                  },
+                  {
+                    "concept": "d05ea313-b0e7-4f0d-8755-406d414263c7",
+                    "label": "G5"
+                  }
+                ]
+              },
+              "id": "stagingKdigo"
+            },
+            {
+              "label": "Comorbidities",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "4a4fcdf8-6578-4422-beaa-21df40d8461e",
+                "answers": [
+                  {
+                    "concept": "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV"
+                  },
+                  {
+                    "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes"
+                  },
+                  {
+                    "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hypertension"
+                  }
+                ]
+              },
+              "id": "comorbidities"
+            },
+            {
+              "label": "Does patient have evidence of volume overload today (Edema, Crackles, Dyspnea)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1b978df2-5c10-4241-85c7-4d3fd4f60df5",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "volumeOverloadEvidence"
+            },
+            {
+              "label": "When was last i-stat checked",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "lastIstatChecked"
+            },
+            {
+              "label": "Any abnormalities (what is the trend of Cr and K)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "0c52e1fa-3775-4021-8281-6c0f316e2aac"
+              },
+              "id": "abnormalitiesCrKTrend"
+            },
+            {
+              "label": "Is patient on Enalapril",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ed84f160-e26b-4e0a-a793-65dbe442ae33",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "patientOnEnalapril"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EthioEMR User Manual</title>
+<link rel="stylesheet" href="print.css">
+</head>
+<body>
+
+<div class="title-block">
+  <h1 class="doc-title">EthioEMR User Manual</h1>
+  <p class="subtitle">Form Studio and the AI assistant, for clinicians and form builders</p>
+  <div class="meta"><span class="pill">v0.1, draft for review</span>EthioEMR test platform, 22 October 2026</div>
+</div>
+
+<div class="callout">
+  <span class="label">Status of this document</span>
+  <p><b>v0.1, a draft for review.</b> Every screen in it was taken on 22 October 2026 on the team's test platform, with the
+  made-up patient Almaz Bekele. Button names in bold are the exact words on screen. Two rules hold throughout:
+  Form Studio never changes a live EMR, and the AI assistant only suggests: you check, you decide, you save.</p>
+</div>
+
+<p><b>How it is organised.</b> Each section covers one task and can be read on its own.</p>
+<table>
+  <thead><tr><th style="width:34%">Part</th><th>Read it when you want to</th></tr></thead>
+  <tbody>
+    <tr><td>Before you start</td><td>open the EMR and log in</td></tr>
+    <tr><td>A. Form Studio (A1 to A10)</td><td>make a new form, fix an existing one, check it and hand it over for review</td></tr>
+    <tr><td>B. The AI assistant (B1 to B5)</td><td>find a form or a guideline, fill a form from a note, get a list of possible diagnoses, or dictate in Amharic or English</td></tr>
+    <tr><td>C. Questions and problems</td><td>something looks wrong</td></tr>
+  </tbody>
+</table>
+
+<h2>Before you start</h2>
+<ol class="steps">
+  <li>Open the EMR in Chrome. On the test platform the address is <code>http://localhost:18200/openmrs/spa</code>.</li>
+  <li>Log in with the account you were given and choose your location. The screens in this manual used the location <b>Main Pharmacy</b>.</li>
+  <li>If a red message "Some modules have unresolved backend dependencies" appears at the top right, close it with the X at its corner. While it is open it can hold the keyboard.</li>
+</ol>
+<div class="callout caution">
+  <span class="label">Test data only</span>
+  <p>The test platform holds made-up patients. Never enter real patient information on it, and never dictate real patient
+  details into the assistant.</p>
+</div>
+
+<!-- ======================= PART A ======================= -->
+<h1 class="new-page">A. Form Studio</h1>
+<p class="part">Part A: for form builders</p>
+
+<h2>A1. What Form Studio is</h2>
+<p>Form Studio turns a clinical form (on paper, in Word, in Excel or in Bahmni) into a form the EthioEMR can show to clinicians,
+and checks it before anyone uses it.</p>
+<ol class="steps">
+  <li><b>Start</b> a form: from scratch, from a Bahmni export, or from the Excel template.</li>
+  <li><b>Edit</b> it on screen. You see the form as clinicians will, with pencil and + buttons.</li>
+  <li><b>Link concepts.</b> Every question is tied to a dictionary entry, so the answer is saved with a meaning the whole EMR understands.</li>
+  <li><b>Add rules</b>, for example "show this question only when Smoker is Yes".</li>
+  <li><b>Check.</b> Form Studio lists what must be fixed and what is worth a look.</li>
+  <li><b>Export.</b> You download a zip of files and a reviewer adds them to the content repository. Nothing goes to a live EMR from Form Studio.</li>
+</ol>
+<table>
+  <thead><tr><th style="width:24%">Word</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><b>Concept</b></td><td>A dictionary entry with a fixed meaning, such as "Pulse" or "Yes". Every question and every answer points at one, so data from all forms and facilities can be counted together.</td></tr>
+    <tr><td><b>Visit Details</b></td><td>The standard first page of every EthioEMR form (visit date, provider and other standard fields). It is always there and cannot be removed or changed.</td></tr>
+    <tr><td><b>Identity</b></td><td>A form's name, uuid (a long unique code), encounter type and version. For a form that already ships it is <b>locked</b>, because facilities' saved data depends on it.</td></tr>
+    <tr><td><b>Encounter type</b></td><td>The kind of visit the form belongs to (for example Consultation, Triage or Vitals). Only the project's existing types are offered.</td></tr>
+    <tr><td><b>Page, section, question</b></td><td>A form has pages, a page has sections, and a section has questions.</td></tr>
+    <tr><td><b>Repeating group</b></td><td>Questions that can be filled in more than once, such as each medicine with its dose.</td></tr>
+    <tr><td><b>Content repository</b></td><td>The shared, reviewed folder of forms and concepts that every facility's EMR is built from.</td></tr>
+  </tbody>
+</table>
+
+<h2>A2. Open Form Studio and find a form</h2>
+<ol class="steps">
+  <li>Open the grid menu at the top right and choose <b>Form Studio</b>, or go to <code>/openmrs/spa/form-studio</code>.</li>
+  <li>On the left, <b>Create a new form</b> offers three starting points: <b>From scratch</b>, <b>From a Bahmni export</b> and <b>From an Excel template</b>.</li>
+  <li>On the right, <b>Forms</b> lists every form on this EMR. Type part of a name in <b>Search this list</b>, or change <b>Filter by</b> (Active is the default; All, Published, Unpublished, Retired).</li>
+  <li>On a row, the pencil (<b>Edit schema</b>) opens the form in the editor and the arrow (<b>Download schema</b>) saves its file.</li>
+</ol>
+<figure>
+  <img src="../screenshots/manual/fs-01-start.png" alt="Form Studio start page" style="width:80%">
+  <figcaption>Figure A1. The Form Studio start page: the three starting points on the left, the 300 forms of this EMR on the right.</figcaption>
+</figure>
+<p>When you open an existing form its identity stays locked: you can change what is in it, but not its name, uuid or
+encounter type.</p>
+
+<h2>A3. Start a form from scratch</h2>
+<p>Choose <b>From scratch</b>. The window <b>New form: the basics</b> opens.</p>
+<table>
+  <thead><tr><th style="width:22%">Field</th><th>What to write</th></tr></thead>
+  <tbody>
+    <tr><td><b>Form name</b></td><td>What the form is called in the EMR, for example "Cardiac History Sheet". It cannot be the name of another form.</td></tr>
+    <tr><td><b>Description</b></td><td>What the form records, for whom and when. Aim for 18 to 40 words; a counter shows how many you have.</td></tr>
+    <tr><td><b>Encounter type</b></td><td>Choose from the list. Only the project's encounter types are offered.</td></tr>
+    <tr><td><b>Version</b></td><td>Leave it as it is unless told otherwise.</td></tr>
+    <tr><td><b>UUID</b></td><td>Made from the name for you. You do not type it.</td></tr>
+  </tbody>
+</table>
+<p>Press <b>Create form</b>. The editor opens with the <b>Visit Details</b> page and a starter page, <b>Vital Signs &amp; Assessment</b>,
+to build on or rename. If you already have the form as JSON (the text file a form is stored as), press
+<b>Skip: I will paste a JSON</b> and paste it into the <b>Schema editor</b>.</p>
+
+<h2>A4. Convert a Bahmni export</h2>
+<p>Use this when the form already exists in Bahmni, the older system.</p>
+<ol class="steps">
+  <li>In Bahmni, export the form. You get a <b>.zip</b> file.</li>
+  <li>In Form Studio choose <b>From a Bahmni export</b> and drag the zip onto the page, or click to choose it.</li>
+  <li>Form Studio shows <b>Matching concepts on this server</b> with a counter while it looks up each question in this EMR's dictionary.</li>
+  <li>Read <b>What came out</b>: the counts (pages, sections, questions, <b>concepts matched</b>, <b>concepts to pick</b>), then <b>Needs a decision in the editor</b>, <b>For information</b>, <b>Not built (from EMR)</b> and <b>Rows that could not be used</b>, each with the reason.</li>
+  <li>Check the form name, description and encounter type at the top. If this rebuilds a form that already ships, Form Studio says <b>Rebuilds "&lt;name&gt;"</b> and keeps that form's uuid, so facilities' data stays linked.</li>
+  <li>Press <b>Open in the editor</b>.</li>
+</ol>
+<table>
+  <thead><tr><th style="width:40%">In Bahmni</th><th>In the EthioEMR form</th></tr></thead>
+  <tbody>
+    <tr><td>A section</td><td>A page or a section.</td></tr>
+    <tr><td>A set that can be added more than once ("allowAddMore")</td><td>A repeating group.</td></tr>
+    <tr><td>Required, multi-select, starred</td><td>Carried across with the same meaning.</td></tr>
+    <tr><td>Computed fields</td><td>Calculated questions. Check their formula in Rules.</td></tr>
+    <tr><td>Bahmni's own concept codes</td><td>Never copied. Form Studio reuses the concept this EMR already uses.</td></tr>
+  </tbody>
+</table>
+
+<h2>A5. Use the Excel template</h2>
+<p>Most new forms start on paper or in Word. Copy them into the Excel template, one row per question, and Form Studio builds the form.</p>
+<ol class="steps">
+  <li>Choose <b>From an Excel template</b> and press <b>Download the empty template</b>. <b>Download a filled example (Cardiac History Sheet)</b> gives one to copy from.</li>
+  <li>Fill in the <b>About</b> sheet once: form name, encounter type and description. Fill in "Replaces" only when you rebuild a form that already ships.</li>
+  <li>Fill in the <b>Questions</b> sheet, one row per question. Red headers must be filled in; blue ones are optional.</li>
+  <li>Upload the file on the same page, then continue as in A4 from step 3. The review screen is the same.</li>
+</ol>
+<table>
+  <thead><tr><th style="width:24%">Column</th><th>What to write</th></tr></thead>
+  <tbody>
+    <tr><td>Page, Section</td><td>Their titles. Leave blank to keep the one above.</td></tr>
+    <tr><td>Question</td><td>The question as the clinician reads it.</td></tr>
+    <tr><td>Type</td><td>One of: text, long text, number, date, date-time, time, yes/no, one of, many of, dropdown, calculated, note. The cell offers the list.</td></tr>
+    <tr><td>Options</td><td>For one of, many of or dropdown: the answers separated by <code>;</code>, for example <code>Supine; Sitting</code>.</td></tr>
+    <tr><td>Required</td><td><code>yes</code> if it must be filled in.</td></tr>
+    <tr><td>Unit, Min, Max, Whole number</td><td>For numbers, for example <code>mmHg</code>.</td></tr>
+    <tr><td>Warn below, Warn above</td><td>A yellow "please check" warning. The form can still be saved.</td></tr>
+    <tr><td>Show if</td><td>When the question appears (see below).</td></tr>
+    <tr><td>Calculation</td><td>For calculated: <code>BMI(&lt;height ID&gt;, &lt;weight ID&gt;)</code> or <code>EDD(&lt;last period ID&gt;)</code>.</td></tr>
+    <tr><td>Group, Repeat</td><td>Rows with the same Group are saved together, for example systolic and diastolic. <code>yes</code> in Repeat gives the group an "Add" button.</td></tr>
+    <tr><td>Question ID</td><td>A short name for the question. Needed only when another row's Show if points at it.</td></tr>
+    <tr><td>Concept</td><td>Optional. Leave it blank and Form Studio searches the dictionary.</td></tr>
+    <tr><td>From EMR</td><td><code>yes</code> for things the EMR already has (name, MRN, age, sex). These are not built.</td></tr>
+    <tr><td>Notes</td><td>Anything for the reviewer. Not built into the form.</td></tr>
+  </tbody>
+</table>
+<p><b>Show if</b> uses these words: <code>smoker = Yes</code>; <code>symptoms has Fever</code> (for tick-box questions);
+<code>pulse is answered</code> or <code>pulse is empty</code>; <code>age &lt; 5</code>, <code>age &gt; 18</code>, <code>sex = F</code>. Write the
+Question ID and the option exactly as in their rows. All 17 Word forms of the St. Petros batch (1,321 questions) fit the template with no lost rows.</p>
+
+<h2>A6. Edit the form on screen</h2>
+<p>The editor has two halves. On the left is your working view, switched at the top between <b>Preview &amp; edit</b>, <b>Rules</b> and
+<b>Schema editor</b>. On the right are the live preview (what the clinician will see) and the Form Studio panel with the identity,
+the Check and the downloads.</p>
+<table>
+  <thead><tr><th style="width:36%">Button</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td>Pencil (edit page, section or question)</td><td>Change the label, type, options, concept, or whether it is required.</td></tr>
+    <tr><td>Bin (delete)</td><td>Remove it.</td></tr>
+    <tr><td><b>Add page</b>, <b>Add section</b> or <b>Add question</b></td><td>Add a new one in that place.</td></tr>
+    <tr><td><b>Add repeating group</b></td><td>Add a group of questions that can be filled in several times, like medicines.</td></tr>
+    <tr><td><b>Add a question to this group</b></td><td>Add one more question inside a group.</td></tr>
+    <tr><td>Rules button</td><td>Opens the rules for that question (A8).</td></tr>
+  </tbody>
+</table>
+<figure>
+  <img src="../screenshots/manual/fs-03-checked.png" alt="Form Studio editor" style="width:80%">
+  <figcaption>Figure A2. The editor on "Emergency Triage Form - Gynecology": Preview &amp; edit on the left; on the right <b>Identity locked</b>, the Check with 0 errors and <b>Concepts checked</b>, and <b>Download content files</b>.</figcaption>
+</figure>
+<p>A red <b>Concept not mapped</b> tag means the question is not linked to a dictionary concept yet (A7). The <b>Rules</b> view lists
+every rule of the form as a sentence, for example <i>Shown only when "Smoker" is "Yes".</i> The <b>Schema editor</b> shows the form as
+JSON text, for experienced users. For forms that already ship, Visit Details and the identity cannot be changed.</p>
+
+<h2>A7. Concepts: pick or create</h2>
+<p>Every question and every answer needs a concept. Correct concepts are what let reports count the same thing across forms and facilities.</p>
+<h3>The concept dictionary</h3>
+<p><b>Open the concept dictionary</b> (start page) reads every concept from this EMR's database: names, synonyms and other names, class,
+datatype, and how many shipped forms use each. The first time it takes about 25 minutes, with a progress bar; you can keep working,
+and a reload carries on where it stopped. After that it opens at once. <b>Refresh</b> reads the database again. The question
+dialog's concept search uses the same copy once it is ready.</p>
+<h3>Pick an existing concept (always first)</h3>
+<ol class="steps">
+  <li>Open the question's pencil and search by the question's name.</li>
+  <li>Results are ranked. Concepts already used in other forms come first, marked <b>used in N forms</b>. Concepts that do not fit are marked with the reason, for example a drug used as a question, or a name that is too general ("NA", "Other").</li>
+  <li>Choose the one that means exactly what the question asks.</li>
+</ol>
+<h3>Create a new concept, only when nothing fits</h3>
+<p>In the right-hand panel, <b>Create new concepts (N unmatched)</b> lists the questions and answers that still have no concept, with a proposal for each:</p>
+<table>
+  <thead><tr><th style="width:30%">Kind</th><th>Made as</th></tr></thead>
+  <tbody>
+    <tr><td>An answer option</td><td>Finding</td></tr>
+    <tr><td>A Yes/No question</td><td>Question with Yes/No answers (the shared Yes and No concepts)</td></tr>
+    <tr><td>A measurement</td><td>Question, Numeric, with units, lowest/highest possible and decimals allowed</td></tr>
+    <tr><td>Other questions</td><td>Question, of the matching type</td></tr>
+  </tbody>
+</table>
+<p>Check each name (Form Studio warns if it already exists), then press <b>Create N concepts</b>. The concepts go into the export
+files, not to a server. <b>Never create</b> drugs (owned by the pharmacy team), diagnoses (ICD-11 comes from the national list) or
+groups (a group needs an existing <b>set</b> concept; pick one with the group's pencil).</p>
+
+<h2>A8. Rules: when questions appear, warnings, calculations</h2>
+<p>Press a question's <b>Rules</b> button. The window <b>Rules for "&lt;question&gt;"</b> has up to four parts, each with a short help line.
+Press <b>Save rules</b> when done.</p>
+<table>
+  <thead><tr><th style="width:28%">Part</th><th>What you choose</th></tr></thead>
+  <tbody>
+    <tr><td><b>When should this question appear?</b></td><td><b>Always</b> or <b>Only when…</b>, then one or more conditions: another question's answer (<b>Any of these answers</b>), whether it has an answer, a number comparison, <b>Patient's age</b> or <b>Patient's sex</b>. With several conditions choose <b>All of them must be true</b> or <b>Any one of them is enough</b>.</td></tr>
+    <tr><td><b>Warn below</b> and <b>Warn above</b></td><td>A yellow warning so the clinician double-checks the value. The form can still be saved. <b>Required</b> is different: it is set in the pencil and blocks saving until answered.</td></tr>
+    <tr><td><b>Number format</b></td><td><b>Any number</b>, <b>Whole numbers only</b>, <b>Up to 1 decimal</b> or <b>Up to 2 decimals</b>.</td></tr>
+    <tr><td><b>Fill in by itself</b></td><td><b>Typed in (not worked out)</b>, <b>BMI from height (cm) and weight (kg)</b>, or <b>Expected delivery date from the last period (LNMP)</b>. A worked-out value cannot be typed in.</td></tr>
+  </tbody>
+</table>
+<p>Some older forms have rules too complex for these choices. The window then says <b>This rule was written by hand.</b> The rule keeps
+working and is left as it is, unless you press <b>Replace it with a simple rule</b>.</p>
+
+<h2>A9. The Check</h2>
+<p>The <b>Check</b> in the right-hand panel reads the whole form and lists problems in two groups.</p>
+<table>
+  <thead><tr><th style="width:26%">Group</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td><b>Must fix before export</b></td><td>A question with no concept; a concept or answer that does not exist on this EMR; two questions with the same ID; a rule naming a question that no longer exists; a drug form used as a question.</td></tr>
+    <tr><td><b>Worth a look</b></td><td>A retired concept; a group whose concept is not a set; a concept of an unusual class for a question; a concept still waiting to be created; a setting the Form Builder does not expect.</td></tr>
+  </tbody>
+</table>
+<p>Press <b>Check concepts on the server</b> to confirm every concept exists in this EMR; when it finishes the panel says
+<b>Concepts checked</b>. Press <b>Check again</b> after you fix things. Downloading stays blocked, with the reason shown, until the identity
+is right, there are no errors, and the concepts have been checked. Of the 368 shipped forms, 357 pass with no errors.</p>
+
+<h2>A10. Export and hand over</h2>
+<p>When the Check is clean, press <b>Download content files</b>. You get <code>&lt;Form_name&gt;-content.zip</code> with a <code>README.md</code>
+for the reviewer, the form file in <code>ampathforms/</code>, and, if you created concepts, the rows to add to the concept list
+(<code>master_new_concepts.APPEND.csv</code>) and their number settings (<code>zz_numeric_precision_fixes.APPEND.csv</code>).
+<b>Form JSON only</b> downloads just the form file.</p>
+<p>A concept the form uses that this EMR lacks shows as an error after <b>Check concepts on the server</b>; <b>Create new concepts</b>
+then proposes it with its existing code. Missing CIEL concepts are listed separately: ask the dictionary owner to load them.
+Form Studio never creates CIEL concepts.</p>
+<ol class="steps">
+  <li>The files are added to the content repository on a <code>form-updates</code> branch, as the README says.</li>
+  <li>Content checks and one real save test run on a test EMR.</li>
+  <li>A pull request is reviewed and merged, and a new build brings the form to facilities.</li>
+</ol>
+
+<!-- ======================= PART B ======================= -->
+<h1 class="new-page">B. The AI assistant</h1>
+<p class="part">Part B: for clinicians</p>
+<p>The assistant is a panel inside the patient chart with three tools: <b>Help &amp; Search</b>, <b>Form Filler</b> and
+<b>Diagnosis Assistant</b>. Form Filler and Diagnosis Assistant also accept dictation through <b>Speak</b>. Answers come from an AI
+model on a separate AI service; the model's name (for example <code>qwen2.5:14b</code>) is shown under each answer.</p>
+<div class="callout caution">
+  <span class="label">What the assistant is not</span>
+  <p>Every answer ends with the same reminder: <i>"AI-generated decision support. It may be inaccurate or incomplete and is not a
+  substitute for clinical judgment. Verify everything against the patient and the record before acting."</i> Form Filler never
+  saves a form, and the Diagnosis Assistant never writes to the chart.</p>
+</div>
+
+<h2>B1. Open the assistant</h2>
+<div class="side">
+  <div class="text">
+    <ol class="steps">
+      <li>Open a patient's chart.</li>
+      <li>Press the round blue button at the bottom right, or press <b>Alt+A</b>. Press either again to close.</li>
+      <li>Choose a tool under <b>How can I help?</b>.</li>
+    </ol>
+    <p>The arrow at the top left of each tool goes back to this menu. The two-arrow button collapses the panel to a small bar.</p>
+    <table>
+      <thead><tr><th style="width:30%">Keys</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td><b>Alt+A</b></td><td>Open or close the assistant</td></tr>
+        <tr><td><b>Alt+Up</b> or <b>Alt+Down</b></td><td>Previous or next field (Form Filler)</td></tr>
+        <tr><td><b>Alt+Z</b></td><td>Undo the last insert</td></tr>
+      </tbody>
+    </table>
+    <figure style="margin-top:8pt">
+      <img src="../screenshots/manual/ai-00-button.png" alt="The assistant button" style="width:62%">
+      <figcaption>Figure B1. The assistant button, bottom right of the chart.</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-01-home.png" alt="Assistant menu">
+    <figcaption>Figure B2. The assistant menu.</figcaption>
+  </figure>
+</div>
+<div class="callout">
+  <span class="label">First use on a computer</span>
+  <p>The AI service's security certificate is not yet trusted by browsers, so each user must accept a browser warning once.
+  Until then Form Filler shows <b>AI unavailable, used the rule-based extractor</b>. Ask your administrator to open the AI service
+  address with you once and accept the warning.</p>
+</div>
+
+<h2>B2. Help &amp; Search: ask a question and check the sources</h2>
+<div class="side">
+  <div class="text">
+    <ol class="steps">
+      <li>Choose <b>Help &amp; Search</b>. The first time, it shows <b>Loading forms…</b> and <b>Indexing forms n / 300</b> for a moment.</li>
+      <li>Type in <b>Search forms, fields, guides…</b>, for example "How do I record vital signs for a patient?". Matching forms and fields appear at once, each tagged <b>Form</b> or <b>Field</b>; <b>Open</b> opens that form.</li>
+      <li>Press <b>Ask: answer from these results</b>. An <b>ANSWER</b> box appears above the list.</li>
+      <li>Read the answer. Each tag such as <b>G2</b> or <b>GL1</b> points at a source listed under <b>Sources:</b> (G = a form, GL = a guideline page).</li>
+      <li>Check the sources before you act on the answer. A guideline source names the document and page, for example "WHO IMAI District Clinician Manual ... p. 229".</li>
+      <li>Optional: press the thumbs up or down under <b>Was this helpful?</b>.</li>
+    </ol>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-03-help-answer.png" alt="Help and Search answer">
+    <figcaption>Figure B3. An answer with five sources: four forms and one WHO guideline page.</figcaption>
+  </figure>
+</div>
+
+<h2>B3. Form Filler: fill a form from a note, then review</h2>
+<p>Form Filler works on a form that is open in the patient chart. Open one first: <b>Clinical forms</b> on the right of the chart,
+then the form's name. With no form open, Form Filler says <b>No form open</b> and offers <b>Find a form</b>.</p>
+<div class="side">
+  <div class="text">
+    <h3>One field at a time: This field</h3>
+    <ol class="steps">
+      <li>Open the assistant and choose <b>Form Filler</b>. <b>This field</b> is selected and the first empty field is shown under <b>FILLING</b>, with its type and limits (for example <b>Number</b>, <b>≥ 0</b>).</li>
+      <li>Type the value, for example <code>120</code> or <code>one twenty</code>, and press <b>Insert</b>.</li>
+      <li>Move with <b>Previous</b> and <b>Next</b> (or Alt+Up and Alt+Down). <b>Undo</b> takes back the last insert.</li>
+    </ol>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-04-ff-field.png" alt="Form Filler, this field">
+    <figcaption>Figure B4. This field: filling "Systolic (mmHg)", field 2 of 50.</figcaption>
+  </figure>
+</div>
+<div class="side">
+  <div class="text">
+    <h3>The whole form from one note: Whole form</h3>
+    <ol class="steps">
+      <li>Choose <b>Whole form</b>. The panel shows the form's name and number of fields.</li>
+      <li>Type the note under <b>Type</b>, or dictate it with <b>Speak</b> (B5). Example: "Blood pressure 130 over 85, pulse 96, temperature 38.2, respiratory rate 22, oxygen saturation 95 percent on room air. Weight 62 kg. Chief complaint fever and cough for 3 days."</li>
+      <li>Press <b>Find values</b> (or Ctrl+Enter).</li>
+      <li>Review each suggestion under <b>FOUND N VALUES</b>: the field, the value, a confidence percentage, and the exact words from your note it came from, in quotes.</li>
+      <li>For each one, keep it (tick), change it (pencil) or drop it (X).</li>
+      <li>Press <b>Insert accepted (N)</b>. The values go into the form. <b>Undo all</b> takes them out again.</li>
+      <li>Read the form yourself, complete what is missing, and press the form's own <b>Save</b>.</li>
+    </ol>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-05-ff-found.png" alt="Form Filler, values found">
+    <figcaption>Figure B5. Eight values found from the note, each with the words it came from.</figcaption>
+  </figure>
+</div>
+<div class="side">
+  <div class="text">
+    <p>Below the suggestions, <b>STILL EMPTY</b> lists the fields the note did not fill, with the number that are required (marked *), and
+<b>NOT MATCHED TO A FIELD</b> shows parts of the note that fit no field. If the model proposes a value whose words are not in
+your note, Form Filler drops it and says so, for example "evidence not found in the text (ungrounded), dropped". When the AI
+service cannot be reached, a grey <b>Rule-based</b> label appears and a simpler extractor is used; check its suggestions with extra care.</p>
+  </div>
+  <figure>
+  <img src="../screenshots/manual/ai-07-ff-form-filled.png" alt="Form after insert">
+  <figcaption>Figure B6. The Central Triage Form after <b>Insert accepted</b>: 130 and 85 are in the blood pressure fields. The form is not
+  saved yet. The yellow warning under Systolic is the form's own range check (90 to 120 mmHg).</figcaption>
+</figure>
+</div>
+
+<h2 class="page-break">B4. Diagnosis Assistant: possible diagnoses from the chart</h2>
+<div class="side">
+  <div class="text">
+    <ol class="steps">
+      <li>In the patient's chart, open the assistant and choose <b>Diagnosis Assistant</b>. The top line shows the patient (for example <b>Female, 34 y</b>) and how many chart records were loaded.</li>
+      <li>Read the yellow line. "Not loaded: orders. The model will not see them." means orders are not sent today.</li>
+      <li>Type the <b>Presenting complaint</b>, for example "fever and cough for 3 days".</li>
+      <li>Add the <b>History (optional)</b> by typing or with <b>Speak</b>.</li>
+      <li>Open <b>Records to send: N</b> to see each record the model will receive (age and sex, vital signs, encounters).</li>
+      <li>Press <b>Suggest differential</b>.</li>
+    </ol>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-08-dx-input.png" alt="Diagnosis Assistant input">
+    <figcaption>Figure B7. Complaint and history entered; 8 chart records to send.</figcaption>
+  </figure>
+</div>
+<div class="side">
+  <div class="text">
+    <h3>Read the result</h3>
+    <table>
+      <thead><tr><th style="width:34%">Part</th><th>What it tells you</th></tr></thead>
+      <tbody>
+        <tr><td>Yellow boxes</td><td><b>Limited confidence</b> and <b>Some citations could not be verified</b> list claims the assistant could not match to the patient's data. Treat those claims with care.</td></tr>
+        <tr><td><b>DIFFERENTIAL DIAGNOSIS</b></td><td>Numbered conditions, each marked <b>Most likely</b> or <b>Consider</b> with a likelihood. Lines marked with a plus support it; lines marked with a minus argue against it. Tags such as <b>GL1</b> point at a guideline.</td></tr>
+        <tr><td><b>NEXT STEPS</b></td><td><b>Ask about</b> (questions for the patient) and <b>Tests</b>, each with its reason.</td></tr>
+        <tr><td><b>MISSING FROM THE CHART</b></td><td>Information the chart does not hold.</td></tr>
+        <tr><td><b>GUIDELINE REFERENCES</b></td><td>The guideline passages used, with document and page.</td></tr>
+      </tbody>
+    </table>
+    <p><b>Suggest again</b> asks once more. <b>Raw model output</b> shows the model's unformatted reply.</p>
+    <div class="callout caution">
+      <span class="label">You decide</span>
+      <p>The list is a set of suggestions to think with. <i>"Suggestions only: nothing is written to the chart."</i>
+      Diagnosis, tests and treatment remain the clinician's decision, recorded in the chart as usual.</p>
+    </div>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-09-dx-differential.png" alt="Diagnosis Assistant result">
+    <figcaption>Figure B8. The result: two warning boxes, then the differential.</figcaption>
+  </figure>
+</div>
+
+<h2 class="page-break">B5. Speak: dictate in Amharic, English, or both</h2>
+<p>Speak turns speech into text in Form Filler (both views) and in the <b>History</b> box of the Diagnosis Assistant.
+The speech is processed on the same computer by a local speech service; the recording is not sent to the AI service.</p>
+<div class="side">
+  <div class="text">
+    <ol class="steps">
+      <li>Choose <b>Speak</b> above the text box. A line starting <b>Speech service ok</b> confirms the speech service is running.</li>
+      <li>Press the <b>Speak</b> button and allow the microphone when Chrome asks.</li>
+      <li>Speak. The panel shows <b>Listening… press Stop when done</b>, a level meter and the time.</li>
+      <li>Press <b>Stop</b>.</li>
+      <li>The transcript appears in the box with <b>Check the transcript below before inserting.</b> Read it and correct any word by typing.</li>
+      <li>Continue as usual: <b>Find values</b> in Form Filler, or <b>Suggest differential</b>.</li>
+    </ol>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-11-speak-recording.png" alt="Speak while recording">
+    <figcaption>Figure B9. Recording: press Stop when done.</figcaption>
+  </figure>
+</div>
+<div class="side">
+  <div class="text">
+    <h3>Transcription only, no translation</h3>
+    <p>Speak writes down what was said, in the language it was said. Amharic speech becomes Amharic text; it is not translated to
+    English, and English speech is not translated to Amharic.</p>
+    <p>Clinicians often mix English medical words into Amharic. In Amharic mode two speech engines listen to the same recording.
+    An English word is written in English only when the second engine is reasonably sure and the word is in the EMR's own medical
+    vocabulary; otherwise it is written in Amharic letters (malaria becomes ማላሪያ). Check those words in the transcript.</p>
+    <h3>Choose the language</h3>
+    <p>Speak expects English unless it is set to Amharic. The setting is kept in your browser only, so set it once on each computer:</p>
+    <ol class="steps">
+      <li>Press the wrench icon at the top right (<b>Implementer Tools</b>). If you do not see it, ask your administrator.</li>
+      <li>On <b>Configuration</b>, type <code>asrLanguage</code> in <b>Search configuration</b>.</li>
+      <li>Open <b>@palladium-ethiopia/esm-ai-assistant-app</b>, press the pencil next to <b>asrLanguage</b>, type <code>am</code> and press Enter. (Type <code>en</code> to go back to English.)</li>
+      <li>Close Implementer Tools.</li>
+    </ol>
+  </div>
+  <figure>
+    <img src="../screenshots/manual/ai-12-speak-transcript.png" alt="Amharic transcript">
+    <figcaption>Figure B10. An Amharic test consultation transcribed in Amharic letters, ready to check and edit.</figcaption>
+  </figure>
+</div>
+<figure>
+  <img src="../screenshots/manual/ai-13-implementer-asr.png" alt="Implementer Tools, asrLanguage">
+  <figcaption>Figure B11. Implementer Tools: the <b>asrLanguage</b> setting of the AI assistant (here at its default, <code>en</code>).</figcaption>
+</figure>
+<p><b>Upload</b> (marked <b>SOON</b>) next to Type and Speak is not available on this version yet.</p>
+
+<!-- ======================= PART C ======================= -->
+<h1>C. Questions and problems</h1>
+<h2>Everywhere</h2>
+<table>
+  <thead><tr><th style="width:36%">Problem</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>I cannot type in a box.</td><td>A message at the top right may be holding the keyboard. Close it (the X) and try again.</td></tr>
+    <tr><td>The browser asks "Leave site?".</td><td>There are unsaved changes. Choose <b>Cancel</b> to stay. In Form Studio, download your work first if you need it.</td></tr>
+    <tr><td>I was sent back to the login page.</td><td>Your session ended. Log in again. In Form Studio, download your work often.</td></tr>
+  </tbody>
+</table>
+<h2>Form Studio</h2>
+<table>
+  <thead><tr><th style="width:36%">Problem</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>A question shows the red <b>Concept not mapped</b> tag.</td><td>Open the question's pencil and pick a concept (A7).</td></tr>
+    <tr><td>Concept search does not find a concept I know exists.</td><td>Open the concept dictionary once and let it finish reading this EMR's database (about 25 minutes, first time only). Until then, the concept's exact full name always finds it.</td></tr>
+    <tr><td>"This EMR's concept search is incomplete".</td><td>The server's own search index is out of date. Let the concept dictionary finish reading. Do not create a new concept because a search came back short. An administrator can rebuild the index (Legacy Admin &gt; Maintenance &gt; Search Index).</td></tr>
+    <tr><td><b>Download content files</b> is greyed out.</td><td>The panel says why: the identity needs fixing, the Check found errors, or the concepts have not been checked (press <b>Check concepts on the server</b>).</td></tr>
+    <tr><td>My Excel file is refused.</td><td>Use the downloaded template and do not rename its sheets (About, Questions, Options) or column headers. Each refused row is listed with the reason.</td></tr>
+    <tr><td>A Show if rule from the Excel template did not work.</td><td>It must use the other row's <b>Question ID</b> and the option exactly as written there. The review screen lists rules it could not read.</td></tr>
+    <tr><td>Can I change the name or uuid of a form facilities use?</td><td>No. They are locked because saved data is linked to them. Make a new form, or ask the content owner.</td></tr>
+  </tbody>
+</table>
+<h2>AI assistant</h2>
+<table>
+  <thead><tr><th style="width:36%">Problem</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Form Filler says <b>No form open</b>.</td><td>Open the form in the chart first (<b>Clinical forms</b>, then the form), or press <b>Find a form</b>.</td></tr>
+    <tr><td><b>AI unavailable, used the rule-based extractor: AI service not reachable</b>.</td><td>The browser has not accepted the AI service's certificate, or the service is down. See "First use on a computer" in B1, then ask your administrator.</td></tr>
+    <tr><td>The answer cites something the patient does not have.</td><td>Read the <b>Some citations could not be verified</b> box and the cited records. Do not act on a claim you cannot find in the chart.</td></tr>
+    <tr><td>Speak gives Latin letters for Amharic speech, or nonsense.</td><td>The language is set to English. Set <b>asrLanguage</b> to <code>am</code> (B5).</td></tr>
+    <tr><td>No "Speech service ok" line under Speak.</td><td>The local speech service is not running on this computer. Ask your administrator to start it.</td></tr>
+    <tr><td>An English drug name came out in Amharic letters.</td><td>Correct it by typing in the transcript before pressing <b>Find values</b> or <b>Suggest differential</b>.</td></tr>
+    <tr><td>I want to attach a document.</td><td><b>Upload</b> is not available on this version yet.</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

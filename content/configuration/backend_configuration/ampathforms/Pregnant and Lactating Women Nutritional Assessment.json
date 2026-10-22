@@ -1,0 +1,433 @@
+{
+  "name": "Pregnant and Lactating Women (PLW) Nutritional Assessment",
+  "description": "Used by nutritionists to assess pregnant and lactating women, recording diet history, weight, height and mid-upper arm circumference (MUAC), malnutrition status, iron-folic acid intake, nutritional counseling, actions taken and follow-up.",
+  "version": "2.0",
+  "published": true,
+  "uuid": "17370869-6294-4e4a-926f-a24beccb4829",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "PLW Nutritional Assessment",
+      "sections": [
+        {
+          "label": "Nutritional Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Status (p/l)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c2a31b4d-5e6f-4078-a9bc-def012345601",
+                "answers": [
+                  {
+                    "concept": "d3b42c5e-6f70-4189-bacd-ef0123456702",
+                    "label": "Pregnant"
+                  },
+                  {
+                    "concept": "e4c53d6f-7081-429a-cbde-f01234567803",
+                    "label": "Lactating"
+                  }
+                ]
+              },
+              "id": "statusPL"
+            },
+            {
+              "label": "Date of admission/Visit",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "421719a0-eef5-4181-b55d-fff16d845314"
+              },
+              "id": "dateOfAdmissionVisit"
+            },
+            {
+              "label": "Bed No.",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "42fa59ea-9457-4f04-a469-5cd49f59d98f"
+              },
+              "id": "bedNo"
+            },
+            {
+              "label": "Dietary Assessment",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "de3bd045-b553-40d8-a964-8dcb4aeff260"
+              },
+              "id": "dietaryAssessment"
+            },
+            {
+              "label": "Anthropometric Measurement",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "f5d64e70-8192-43ab-def0-012345678904"
+              },
+              "id": "anthropometricMeasurementGroup",
+              "questions": [
+                {
+                  "label": "WEIGHT (kg)",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "weight",
+                  "questionInfo": "Kilograms.",
+                  "hideSteppers": true
+                },
+                {
+                  "label": "HEIGHT (cm)",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "height",
+                  "questionInfo": "Centimetres.",
+                  "hideSteppers": true
+                },
+                {
+                  "label": "MUAC",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "aae2be11-0e07-497d-8e7c-a5b74fbd7cb0"
+                  },
+                  "id": "muac",
+                  "hideSteppers": true
+                },
+                {
+                  "label": "Malnourished",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "a8f97095-1324-45cd-ef12-345678901236",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "malnourished"
+                }
+              ]
+            },
+            {
+              "label": "IFA taken for 90 days",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "161004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "ifaTaken90Days"
+            },
+            {
+              "label": "Nutritional Counseling (NC)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "b7f86092-0314-45cd-f012-234567890126",
+                "answers": [
+                  {
+                    "concept": "c82794b6-4758-4901-3456-678901234560",
+                    "label": "For Lactating women eat two extra meals per day"
+                  },
+                  {
+                    "concept": "d938a5c7-5869-4a12-4567-789012345671",
+                    "label": "Pregnant women eat one extra meal per day"
+                  },
+                  {
+                    "concept": "e049b6d8-697a-4b23-5678-890123456782",
+                    "label": "Eat variety and diverse food"
+                  },
+                  {
+                    "concept": "f15ac7e9-708b-4c34-6789-901234567893",
+                    "label": "Deworming at 2nd or third trimester"
+                  },
+                  {
+                    "concept": "a26bd8fa-819c-4d45-7890-012345678904",
+                    "label": "IFA Every day Minimum at least 90 days"
+                  },
+                  {
+                    "concept": "b37ce90b-920d-4e56-8901-123456789015",
+                    "label": "Sleep under Insecticide treated bed net"
+                  }
+                ]
+              },
+              "id": "nutritionalCounseling"
+            },
+            {
+              "label": "Nutritional Action",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "c48df91c-a31e-4f67-9012-234567890126",
+                "answers": [
+                  {
+                    "concept": "d59e0a2d-b42f-4089-0123-345678901237",
+                    "label": "Counseling provided"
+                  },
+                  {
+                    "concept": "e60f1b3e-c530-419a-1234-456789012348",
+                    "label": "Referral to TSFP"
+                  },
+                  {
+                    "concept": "f71f2c4e-d641-42aa-2345-567890123459",
+                    "label": "Referral to PSNP"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "id": "nutritionalAction"
+            },
+            {
+              "label": "if other specify",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "d91283a4-2536-47ef-1234-456789012348"
+              },
+              "id": "ifOtherSpecify",
+              "hide": {
+                "hideWhenExpression": "isEmpty(nutritionalAction) || !arrayContains(nutritionalAction, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Follow up/M&E",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "dbf2f9f4-ad01-452c-a20e-79025cb5e3c6"
+              },
+              "id": "followUpME"
+            },
+            {
+              "label": "Nutritionist",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "f8103d5e-e752-43bc-3456-789012345670"
+              },
+              "id": "nutritionistGroup",
+              "questions": [
+                {
+                  "label": "Name",
+                  "type": "obsGroup",
+                  "questionOptions": {
+                    "rendering": "group",
+                    "concept": "a9214e6f-f863-44cd-4567-789012345671"
+                  },
+                  "id": "nutritionistNameGroup",
+                  "questions": [
+                    {
+                      "label": "Nutritionist name",
+                      "type": "obs",
+                      "questionOptions": {
+                        "rendering": "text",
+                        "concept": "bd40c021-7492-4fd9-a2f7-5a0f4c10334e"
+                      },
+                      "id": "nutritionistName"
+                    },
+                    {
+                      "label": "Signature",
+                      "type": "obs",
+                      "questionOptions": {
+                        "rendering": "textarea",
+                        "concept": "91e6b94f-6e9d-49aa-966b-a5c65d94e77b"
+                      },
+                      "id": "nutritionistSignature"
+                    },
+                    {
+                      "label": "Date",
+                      "type": "obs",
+                      "questionOptions": {
+                        "rendering": "date",
+                        "concept": "c0435f72-0974-45de-5678-890123456782"
+                      },
+                      "id": "nutritionistDate"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Anthropometric Measurement",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Weight (kg)",
+              "type": "obs",
+              "id": "weight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Kilograms.",
+              "hideSteppers": true
+            },
+            {
+              "label": "Height (cm)",
+              "type": "obs",
+              "id": "height",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "10",
+                "step": 0.01
+              },
+              "questionInfo": "Centimetres.",
+              "hideSteppers": true
+            },
+            {
+              "label": "MUAC",
+              "type": "obs",
+              "id": "muac",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "aae2be11-0e07-497d-8e7c-a5b74fbd7cb0",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Malnourished",
+              "type": "obs",
+              "id": "malnourished",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "a8f97095-1324-45cd-ef12-345678901236",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Nutritionist",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Name",
+              "type": "obs",
+              "id": "name",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "bd40c021-7492-4fd9-a2f7-5a0f4c10334e"
+              }
+            },
+            {
+              "label": "Signature",
+              "type": "obs",
+              "id": "signature",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "dfcc86d8-50df-4415-abef-c0b559ee4453"
+              }
+            },
+            {
+              "label": "Date",
+              "type": "obs",
+              "id": "date",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5bbbe370-d3ff-4526-a63b-df5c579ca30c"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

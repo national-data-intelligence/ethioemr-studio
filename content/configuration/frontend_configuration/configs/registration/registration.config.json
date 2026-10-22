@@ -1,0 +1,181 @@
+{
+  "@palladium-ethiopia/esm-patient-registration-app": {
+    "defaultPatientIdentifierTypes": [],
+    "healthIdIdentifierTypeUuid": "cce42242-9e55-40a6-8739-1e6be1369bbe",
+    "sections": [
+      "demographics",
+      "contact",
+      "otherInformation",
+      "sourceInformation",
+      "relationships"
+    ],
+    "sectionDefinitions": [
+      {
+        "id": "contact",
+        "name": "Address Information",
+        "fields": [
+          "address",
+          "address.address5",
+          "address.address2"
+        ]
+      },
+      {
+        "id": "otherInformation",
+        "name": "Other Information",
+        "fields": [
+          "telephoneContact",
+          "email",
+          "contactLivingWithPatient"
+        ]
+      },
+      {
+        "id": "sourceInformation",
+        "name": "Source Information",
+        "fields": [
+          "nextOfKinName",
+          "nextOfkinRelationsip",
+          "nextOfkinPhone",
+          "nextOfKinAddress"
+        ]
+      }
+    ],
+    "fieldDefinitions": [
+      {
+        "id": "address.countyDistrict",
+        "type": "address",
+        "label": "Region"
+      },
+      {
+        "id": "address.stateProvince",
+        "type": "address",
+        "label": "Zone"
+      },
+      {
+        "id": "address.address4",
+        "type": "address",
+        "label": "Woreda"
+      },
+      {
+        "id": "address.address5",
+        "type": "address",
+        "label": "Kebele"
+      },
+      {
+        "id": "address.address2",
+        "type": "address",
+        "label": "House number"
+      },
+      {
+        "id": "telephoneContact",
+        "type": "person attribute",
+        "label": "Phone Number",
+        "uuid": "b2c38640-2603-4629-aebd-3b54f33f1e3a",
+        "validation": {
+          "required": true
+        }
+      },
+      {
+        "id": "contactLivingWithPatient",
+        "type": "person attribute",
+        "label": "Primary Contact",
+        "uuid": "35a08d84-9f80-4991-92b4-c4ae5903536e"
+      },
+      {
+        "id": "email",
+        "type": "person attribute",
+        "uuid": "b8d0b331-1d2d-4a9a-b741-1816f498bdb6",
+        "label": "Email address",
+        "validation": {
+          "matches": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+        }
+      },
+      {
+        "id": "healthCenter",
+        "type": "person attribute",
+        "uuid": "27573398-4651-4ce5-89d8-abec5998165c",
+        "label": "Nearest Health Center ",
+        "validation": {
+          "required": false
+        }
+      },
+      {
+        "id": "nextOfKinName",
+        "type": "person attribute",
+        "uuid": "830bef6d-b01f-449d-9f8d-ac0fede8dbd3",
+        "label": "Name"
+      },
+      {
+        "id": "nextOfkinRelationsip",
+        "type": "person attribute",
+        "uuid": "d0aa9fd1-2ac5-45d8-9c5e-4317c622c8f5",
+        "label": "Relationship"
+      },
+      {
+        "id": "nextOfkinPhone",
+        "type": "person attribute",
+        "uuid": "342a1d39-c541-4b29-8818-930916f4c2dc",
+        "label": "Phone Number",
+        "validation": {
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+        }
+      },
+      {
+        "id": "nextOfKinAddress",
+        "type": "person attribute",
+        "uuid": "7cf22bec-d90a-46ad-9f48-035952261294",
+        "label": "Address"
+      }
+    ],
+    "registrationObs": {
+      "encounterTypeUuid": "de1f9d67-b73e-4e1b-90d0-036166fc6995",
+      "registrationFormUuid": "add7abdc-59d1-11e8-9c2d-fa7ae01bbebc"
+    },
+    "fieldConfigurations": {
+      "name": {
+        "displayCapturePhoto": false,
+        "allowUnidentifiedPatients": false
+      },
+      "dateOfBirth": {
+        "useEstimatedDateOfBirth": {
+          "enabled": true,
+          "dayOfMonth": 15,
+          "month": 5
+        }
+      },
+      "gender": [
+        {
+          "value": "male",
+          "label": "Male"
+        },
+        {
+          "value": "female",
+          "label": "Female"
+        }
+      ],
+      "address": {
+        "useAddressHierarchy": {
+          "useAddressHierarchyLabel": {
+            "countyDistrict": "Region",
+            "address4": "Woreda",
+            "stateProvince": "Zone"
+          },
+          "searchAddressByLevel": true
+        },
+        "validation": {
+          "required": true
+        }
+      },
+      "phone": {
+        "personAttributeUuid": "b2c38640-2603-4629-aebd-3b54f33f1e3a",
+        "validation": {
+          "required": false,
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+        }
+      },
+      "causeOfDeath": {
+        "conceptUuid": "1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "required": false
+      }
+    }
+  }
+}

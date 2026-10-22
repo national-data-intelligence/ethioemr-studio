@@ -1,0 +1,272 @@
+{
+  "name": "PNC",
+  "description": "Records postnatal care for the mother and newborn, including treatment given, blood transfusion, iron-folic acid and vitamin A supplementation, discharge date, length of stay and outcome, with date and cause of any maternal or neonatal death.",
+  "version": "2.0",
+  "published": true,
+  "uuid": "0bb9bf95-ccfb-4f29-aafc-92a455302453",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "PNC",
+      "sections": [
+        {
+          "label": "PNC",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Time",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "159893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "visitTime",
+              "hideSteppers": true
+            },
+            {
+              "label": "Maternal and Neonatal Death",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "e2b7f4a1-9f3d-4f6a-8c3a-4d6b9f0a1c10"
+              },
+              "id": "maternalNeonatalDeathGroup",
+              "questions": [
+                {
+                  "label": "Date of maternal death",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "datetime",
+                    "concept": "7c5f82de-8a6b-4d19-9b58-0b6a2d8c3e11"
+                  },
+                  "id": "dateOfMaternalDeath"
+                },
+                {
+                  "label": "Cause of maternal death",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "ab93f7c2-2a4d-4e8b-924c-5df6a71b2f12"
+                  },
+                  "id": "causeOfMaternalDeath"
+                },
+                {
+                  "label": "Date of Neonatal death",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "dateOfNeonatalDeath"
+                },
+                {
+                  "label": "Cause of neonatal death",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "causeOfNeonatalDeath"
+                }
+              ]
+            },
+            {
+              "label": "Remarks",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "remarks"
+            },
+            {
+              "label": "Treatment suggestion during postpartum",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "f4d2c9b8-6e41-4d62-9f3a-8c1b7e2a5d13"
+              },
+              "id": "treatmentSuggestionPostpartum"
+            },
+            {
+              "label": "Blood transfusion provided",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "9a3c5e7d-2f18-4c0a-86b2-1d4e7f9a0b14",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "bloodTransfusionProvided"
+            },
+            {
+              "label": "Blood transfusion quantity",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "3d8f2b6a-914c-4b7a-93e1-5f0c2d7a8e15"
+              },
+              "id": "bloodTransfusionQuantity",
+              "hideSteppers": true
+            },
+            {
+              "label": "IFA Tablets Provided",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "6b1e4c8d-2a79-4d5f-9c31-7e8a0b3f2c16"
+              },
+              "id": "ifaTabletsProvided",
+              "hideSteppers": true
+            },
+            {
+              "label": "Vitamin A Capsules Provided",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "c7e3a1d4-5b8f-4c2e-87a9-1f0d3b6a9e17"
+              },
+              "id": "vitaminACapsulesProvided",
+              "hideSteppers": true
+            },
+            {
+              "label": "Discharge date",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "1641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "dischargeDate"
+            },
+            {
+              "label": "Length of stay",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162196aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "id": "lengthOfStay",
+              "hideSteppers": true
+            },
+            {
+              "label": "Outcome",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "d2f8b5c1-3e49-4a6d-9b72-4c1e7a9f0b18"
+              },
+              "id": "outcome"
+            }
+          ]
+        },
+        {
+          "label": "Maternal & Neonatal Death Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of maternal death",
+              "type": "obs",
+              "id": "dateOfMaternalDeath",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "7c5f82de-8a6b-4d19-9b58-0b6a2d8c3e11"
+              }
+            },
+            {
+              "label": "Cause of maternal death",
+              "type": "obs",
+              "id": "causeOfMaternalDeath",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "ab93f7c2-2a4d-4e8b-924c-5df6a71b2f12"
+              }
+            },
+            {
+              "label": "Date of Neonatal death",
+              "type": "obs",
+              "id": "dateOfNeonatalDeath",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "2b41852e-9ecc-4773-8c1b-ebeb8e221b20"
+              }
+            },
+            {
+              "label": "Cause of neonatal death",
+              "type": "obs",
+              "id": "causeOfNeonatalDeath",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160218aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

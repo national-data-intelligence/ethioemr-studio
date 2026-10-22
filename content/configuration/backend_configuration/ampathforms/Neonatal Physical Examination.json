@@ -1,0 +1,402 @@
+{
+  "name": "Neonatal Physical Examination",
+  "description": "Records the physical examination of a newborn, including general appearance, vital signs, capillary refill, weight and length, examination of each body system, newborn reflexes, and the assessment and plan.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "aba0e54e-6e40-4597-98a3-da222cc21e65",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Neonatal Physical Examination",
+      "sections": [
+        {
+          "label": "General Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "General Appearance",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "5f21ab79-6e09-486f-83a4-0034bce2233c"
+              },
+              "id": "generalAppearance"
+            }
+          ]
+        },
+        {
+          "label": "Vital Signs",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pulse Rate",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "pulseRate"
+            },
+            {
+              "label": "Systolic",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "systolic"
+            },
+            {
+              "label": "Diastolic",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "diastolic"
+            },
+            {
+              "label": "Temperature",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "max": "43",
+                "step": 0.01
+              },
+              "id": "temperature"
+            },
+            {
+              "label": "Respiratory Rate",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "respiratoryRate"
+            },
+            {
+              "label": "SPO2",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "100",
+                "step": 0.01
+              },
+              "id": "spo2"
+            },
+            {
+              "label": "Capillary Refilling time",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162513AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.1
+              },
+              "id": "capillaryRefillingTime"
+            },
+            {
+              "label": "WEIGHT",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "weight"
+            },
+            {
+              "label": "Length",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "id": "length"
+            }
+          ]
+        },
+        {
+          "label": "Systems Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "HEENT",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "787f2c88-06c7-4820-8129-129ea865922d"
+              },
+              "id": "heent"
+            },
+            {
+              "label": "Respiratory System (RS)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "403a1d71-eb62-4a64-8045-406e9df701bf"
+              },
+              "id": "respiratorySystem"
+            },
+            {
+              "label": "Cardiovascular System (CVS)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "15cb0592-ec47-416e-91e3-c9b36f568e84"
+              },
+              "id": "cardiovascularSystem"
+            },
+            {
+              "label": "The Abdomen and Pelvis",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "19cd6ed7-c4b4-454d-a33a-6dabfea4227f"
+              },
+              "id": "abdomenAndPelvis"
+            },
+            {
+              "label": "Genitourinary System (GUS)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "e2b668ac-7efb-4344-8ea8-b7cb70976652"
+              },
+              "id": "genitourinarySystem"
+            },
+            {
+              "label": "Musculoskeletal System (MSS)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "b07461a8-5b2f-4f1e-84a3-f94a0c5585a9"
+              },
+              "id": "musculoskeletalSystem"
+            },
+            {
+              "label": "Integumentary System (IS)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "91656b31-9ff8-4a99-a37e-55841170bea9"
+              },
+              "id": "integumentarySystem"
+            },
+            {
+              "label": "Nervous System (NS)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "cc55ee50-bd78-4869-9f43-0759cf1f1a84"
+              },
+              "id": "nervousSystem"
+            }
+          ]
+        },
+        {
+          "label": "Newborn Reflexes",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Moro",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "35425667-7586-7893-0127-890123456789",
+                "answers": [
+                  {
+                    "concept": "36536778-8697-890a-1238-901234567890",
+                    "label": "Exaggerated"
+                  },
+                  {
+                    "concept": "37647889-9708-901b-2349-012345678901",
+                    "label": "Complete"
+                  },
+                  {
+                    "concept": "38758990-0819-012c-3450-123456789012",
+                    "label": "Incomplete"
+                  },
+                  {
+                    "concept": "39869001-1920-123d-4561-234567890123",
+                    "label": "Absent"
+                  }
+                ]
+              },
+              "id": "moro"
+            },
+            {
+              "label": "Grasp",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "40970112-2031-234e-5672-345678901234",
+                "answers": [
+                  {
+                    "concept": "41081223-3142-345f-6783-456789012345",
+                    "label": "Strong"
+                  },
+                  {
+                    "concept": "42192334-4253-4560-7894-567890123456",
+                    "label": "Weak"
+                  },
+                  {
+                    "concept": "43203445-5364-5671-8905-678901234567",
+                    "label": "Absent"
+                  }
+                ]
+              },
+              "id": "grasp"
+            },
+            {
+              "label": "Suckling",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "44314556-6475-6782-9016-789012345678",
+                "answers": [
+                  {
+                    "concept": "45425667-7586-7893-0127-890123456789",
+                    "label": "Sustained"
+                  },
+                  {
+                    "concept": "46536778-8697-890a-1238-901234567890",
+                    "label": "Unsustained"
+                  },
+                  {
+                    "concept": "47647889-9708-901b-2349-012345678901",
+                    "label": "Absent"
+                  }
+                ]
+              },
+              "id": "suckling"
+            },
+            {
+              "label": "MUSCLE TONE",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "965e2aa0-8cd0-44ec-b026-61a9c02cfd19"
+              },
+              "id": "muscleTone"
+            }
+          ]
+        },
+        {
+          "label": "Assessment and Plan",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Assessment Notes",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "assessmentNotes"
+            },
+            {
+              "label": "Lab Investigation done and result",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "161577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "labInvestigationResult"
+            },
+            {
+              "label": "Treatment Given",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "a30ecfeb-132d-4712-800b-e869d58fe2b8"
+              },
+              "id": "treatmentGiven"
+            },
+            {
+              "label": "Plan",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "plan"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

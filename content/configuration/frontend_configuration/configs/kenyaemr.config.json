@@ -1,0 +1,152 @@
+{
+  "@kenyaemr/esm-bed-management-app": {
+    "patientListForAdmissionUrl": "/ws/rest/v1/kenyaemr/sql?q=bedManagement.sqlGet.patientListForAdmission",
+    "admissionLocationTagUuid": "0815e0b2-1182-4157-9340-bee371ea41e4"
+  }, 
+ "@kenyaemr/esm-stock-management-app": {
+    "autoPopulateResponsiblePerson": true,
+    "stockTakeReasonUUID": "b1267598-6048-4146-af84-98716b88a25a",
+    "enablePrintButton": true,
+    "Display conditions": {
+      "privileges": ["o3: Manage Stocks"]
+    }
+  },
+  "@kenyaemr/esm-procedure-app": {
+    "procedureOrderTypeUuid": "b4a7c280-369e-4d12-9ce8-18e36783fed6"
+  },
+  "@kenyaemr/esm-patient-flags-app": {
+    "excludeLinks": [
+      "ADR Assessment",
+      "Appointments",
+      "Case Management",
+      "Cross Border",
+      "Lab Manifest App",
+      "Supplies Dispensing",
+      "Facility Dashboard",
+      "Dispensing App",
+      "KenyaEMR Home",
+      "Reports",
+      "Referrals"
+    ],
+    "instanceName": "TenaEHR",
+    "extensionSlots": {
+      "navbar-items-slot": {
+        "add": [],
+        "remove": [],
+        "configure": {
+          "ethiopiaemr-etl-admin-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["ethiopiaemr: View ETL Dashboard"]
+            }
+          },
+          "ethiopiaemr-reports-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["ethiopiaemr: View Reports Dashboard"]
+            }
+          },
+          "ethiopiaemr-shr-admin-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["Manage SHR Outbox"]
+            }
+          },
+          "orders-admin-nav-link": {
+            "Display conditions": {
+              "privileges": ["o3: Manage Order Templates"]
+            }
+          },
+          "radiology-imaging-nav-link": {
+            "Display conditions": {
+              "privileges": ["o3: View Imaging Dashboard"]
+            }
+          },
+          "appointment-service-admin-nav-link": {
+            "Display conditions": {
+              "privileges": ["app:appointments:manageServiceAvailability"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "@kenyaemr/esm-imaging-orders-app": {
+    "extensionSlots": {
+      "imaging-orders-action": {
+        "add": ["billing-test-order-action"]
+      }
+    }
+  },
+  "@kenyaemr/esm-procedure-orders-app": {
+    "extensionSlots": {
+      "procedure-orders-action": {
+        "add": ["billing-test-order-action"]
+      }
+    }
+  },
+  "@kenyaemr/esm-patient-search-app": {
+    "search": {
+      "disableTabletSearchOnKeyUp": true
+    },
+    "defaultIdentifierTypes": ["24aedd37-b5be-4e08-8311-3721b8d5100d"]
+  },
+  "@kenyaemr/esm-version-app": {
+    "defaultLogoPath": "/openmrs/spa/config/assets/ethiopiaemr-package/primary-logo.png"
+  },
+  "@kenyaemr/esm-facility-dashboard-app": {
+    "showAirAndReportLinks": true,
+    "facilityDashboardAboveSiteUrl": "http://34.35.62.41:8080/superset/dashboard/153/"
+  },
+  "@kenyaemr/esm-ward-app": {
+    "extensionSlots": {
+      "ward-patients-admitted-slot": {
+        "remove": ["ward-patients-admitted"]
+      },
+      "ward-patients-awaiting-admission-slot": {
+        "remove": ["ward-patients-awaiting-admission"]
+      },
+      "default-ward": {
+        "add": ["add-patient-to-ward-siderail-button"]
+      },
+      "inpatient-dashboard-tabs-slot": {
+        "add": [
+          "ipd-medication-administration"
+        ],
+        "remove": [
+          "in-patient-treatment-chart"
+        ]
+      }
+    },
+    "admissionRequestFormUuid": "5e725bad-750e-4d31-b4bc-cab4c9ea63ff",
+    "inpatientDischargeFormUuid": "ea36f403-c2d3-42e7-93d1-af5cf59d6f22",
+    "ipdDischargeEncounterTypeUuid": "7e618d13-ffdb-4650-9a97-10ccd16ca36d",
+    "dailyBedFeeBillableService": "0a5a23e3-c953-428c-92e3-3b99f8a822f0"
+  },
+  "@kenyaemr/esm-express-workflow-app": {
+    "extensionSlots": {
+      "ewf-admissions-dashboard-slot": {
+        "add": ["in-patient-dashboard"]
+      },
+      "patient-procedure-tabs-slot": {
+        "configure": {
+          "ewf-patient-procedure-anaesthetic-tab": {
+            "Display conditions": {
+              "privileges": [
+                "o3: View Patient Chart Procedures Anaesthetic"
+              ]
+            }
+          }
+        }
+      }      
+    },
+    "Translation overrides": {
+      "am": {
+        "mch": "የእናትና ህፃናት ጤና",
+        "pharmacy": "መድሃኒት ቤት",
+        "reports": "መረጃዎች",
+        "radiologyAndImaging": "ራዲዮሎጂ እና ኢሜጂንግ",
+        "inPatient": "ውስጣዊ ሕመምተኛ",
+        "labOrders": "የላቦራቶሪ ትዕዛዞች",
+        "prescription": "የመድኃኒት ውል"
+      }
+    }
+  }
+}

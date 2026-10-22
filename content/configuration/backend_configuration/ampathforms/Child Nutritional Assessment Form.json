@@ -1,0 +1,380 @@
+{
+  "name": "Child Nutritional Assessment Form",
+  "description": "Records the nutritional assessment of hospitalised children, including length or height, weight, MUAC and z-scores, signs of malnutrition, dietary history, and the nutritional diagnosis, intervention, counseling and monitoring plan.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "e15d8668-d298-4981-aca0-cee40e2ccd4a",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Child Nutritional Assessment Form Assessment",
+      "sections": [
+        {
+          "label": "Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Ward",
+              "type": "obs",
+              "id": "ward",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "49e8bb0a-9c58-436b-bcf3-9adebf401f7b"
+              }
+            },
+            {
+              "label": "Bed No.",
+              "type": "obs",
+              "id": "bedNo",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "42fa59ea-9457-4f04-a469-5cd49f59d98f"
+              }
+            },
+            {
+              "label": "Date of Admission",
+              "type": "obs",
+              "id": "dateOfAdmission",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "421719a0-eef5-4181-b55d-fff16d845314"
+              }
+            },
+            {
+              "label": "Family marital status",
+              "type": "obs",
+              "id": "familyMaritalStatus",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "caebce7c-201f-48d9-916e-2ff5cc1e4e86"
+              }
+            },
+            {
+              "label": "Family Occupation",
+              "type": "obs",
+              "id": "familyOccupation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "f7b729db-5e2b-4561-88f4-74c80d831c17"
+              }
+            },
+            {
+              "label": "Medical Diagnosis",
+              "type": "obs",
+              "id": "medicalDiagnosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "5809a2b3-3ca3-b23e-8567-9ef012345678"
+              }
+            },
+            {
+              "label": "Dietary Assessment- Dietary History",
+              "type": "obs",
+              "id": "dietaryAssessmentDietaryHistory",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "de3bd045-b553-40d8-a964-8dcb4aeff260"
+              }
+            },
+            {
+              "label": "Nutritional Diagnosis",
+              "type": "obs",
+              "id": "nutritionalDiagnosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "f26480c3-99fd-4ace-9caa-7e5affe75ca1"
+              }
+            },
+            {
+              "label": "Nutritional Intervention",
+              "type": "obs",
+              "id": "nutritionalIntervention",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "2fe89e0f-da97-4ff6-804a-fdfe1e71df3a"
+              }
+            },
+            {
+              "label": "Nutritional Counseling",
+              "type": "obs",
+              "id": "nutritionalCounseling",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "90ca0ec4-a4e8-4160-aacd-1cbeb34ce061"
+              }
+            },
+            {
+              "label": "Monitoring and Evaluation",
+              "type": "obs",
+              "id": "monitoringAndEvaluation",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "dbf2f9f4-ad01-452c-a20e-79025cb5e3c6"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Child Nutritional Assessment, Anthropometric Measurement",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Length/Height",
+              "type": "obs",
+              "id": "lengthHeight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "10",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Weight (kg)",
+              "type": "obs",
+              "id": "weight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Kilograms.",
+              "hideSteppers": true
+            },
+            {
+              "label": "BMI",
+              "type": "obs",
+              "id": "bmi",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01,
+                "calculate": {
+                  "calculateExpression": "calcBMI(lengthHeight,weight)"
+                }
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "MUAC",
+              "type": "obs",
+              "id": "muac",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "aae2be11-0e07-497d-8e7c-a5b74fbd7cb0",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Z-Score",
+              "type": "obs",
+              "id": "zScore",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "6f76bbf3-9880-4571-a9b9-7efb3d345be0"
+              }
+            },
+            {
+              "label": "Head Circumference Z-Score",
+              "type": "obs",
+              "id": "headCircumferenceZScore",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "88f56373-0050-428a-be36-3826bba449c6"
+              }
+            },
+            {
+              "label": "Weight for Height Z-Score",
+              "type": "obs",
+              "id": "weightForHeightZScore",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "2dabfcfe-1e70-4e88-837a-79531073b040"
+              }
+            },
+            {
+              "label": "Length Height For Age Z-Score",
+              "type": "obs",
+              "id": "lengthHeightForAgeZScore",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "75878fd7-d3a0-44e0-8543-d2027def679d"
+              }
+            },
+            {
+              "label": "Weight for Age Z-Score",
+              "type": "obs",
+              "id": "weightForAgeZScore",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "e54a93fe-627e-46e8-9a99-006487c1a260"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Child Nutritional Assessment, Recognize malnutrition igns",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Dermatosis",
+              "type": "obs",
+              "id": "dermatosis",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "b9ded8cc-9afa-4026-abe4-7c1cb4c32d91",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Severity",
+              "type": "obs",
+              "id": "severity",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "3289db46-ffda-4782-88d4-30ae3252f8a3",
+                "answers": [
+                  {
+                    "concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mild"
+                  },
+                  {
+                    "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Moderate"
+                  },
+                  {
+                    "concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Severe"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Eye sign",
+              "type": "obs",
+              "id": "eyeSign",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d0900cb0-e5b3-4f3a-84ec-77688f6603ac",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Nutritionist",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Name",
+              "type": "obs",
+              "id": "name",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "bd40c021-7492-4fd9-a2f7-5a0f4c10334e"
+              }
+            },
+            {
+              "label": "Signature",
+              "type": "obs",
+              "id": "signature",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "91e6b94f-6e9d-49aa-966b-a5c65d94e77b"
+              }
+            },
+            {
+              "label": "Date",
+              "type": "obs",
+              "id": "date",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5bbbe370-d3ff-4526-a63b-df5c579ca30c"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

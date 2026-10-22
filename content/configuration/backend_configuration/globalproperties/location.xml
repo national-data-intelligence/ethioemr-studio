@@ -1,0 +1,8 @@
+<config>
+    <globalProperties>
+        <globalProperty>
+            <property>kenyaemr.location.master.facility.code.DatatypeConfig</property>
+		    <value>\\d{8}</value>
+        </globalProperty>
+    </globalProperties>
+</config>

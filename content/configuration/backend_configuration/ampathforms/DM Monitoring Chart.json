@@ -1,0 +1,152 @@
+{
+  "name": "DM Monitoring Chart",
+  "description": "Records repeated blood glucose checks for patients with diabetes, with the date and time, random or fasting blood sugar, insulin given, ketone results and the signature of the staff member.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "d5c080f6-0767-488a-9c95-be15146c83a8",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "questionInfo": "Calendar date of this clinical encounter or monitoring visit."
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false,
+              "questionInfo": "Clinician or staff member documenting this encounter."
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false,
+              "questionInfo": "Facility or ward where the visit or monitoring was recorded."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "DM Monitoring Chart",
+      "sections": [
+        {
+          "label": "DM Monitoring Chart",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date & Time",
+              "type": "obs",
+              "required": false,
+              "id": "dateTime",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "questionInfo": "Date and time when this glucose or monitoring row applies (e.g. time of capillary check)."
+            },
+            {
+              "label": "RBS/FBS",
+              "type": "obs",
+              "required": false,
+              "id": "rbsFbs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              },
+              "questionInfo": "Blood glucose (mg/dL). Enter random (RBS) or fasting (FBS) value per local protocol."
+            },
+            {
+              "label": "Insulin",
+              "type": "obs",
+              "required": false,
+              "id": "insulin",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "137e3642-6916-450f-8f26-c0db89419f41",
+                "rows": "2"
+              },
+              "questionInfo": "Insulin given or planned for this time (type, dose, route, or free text per protocol)."
+            },
+            {
+              "label": "Lente",
+              "type": "obs",
+              "required": false,
+              "id": "lente",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "c76f66c9-2733-4dd8-8b01-0b070fd18c19",
+                "rows": "2"
+              },
+              "questionInfo": "Intermediate- or longer-acting insulin (e.g. NPH / isophane) or equivalent per local naming."
+            },
+            {
+              "label": "Ketone",
+              "type": "obs",
+              "required": false,
+              "id": "ketone",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "aef2f02e-cd34-40ac-9aa7-c5cf78cc052e",
+                "rows": "2"
+              },
+              "questionInfo": "Urine or blood ketone result, strip reading, or related note."
+            },
+            {
+              "label": "Signature",
+              "type": "obs",
+              "required": false,
+              "id": "signature",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "28794bbc-ad22-4d8e-a8a3-8147bdfef6cd",
+                "rows": "2"
+              },
+              "questionInfo": "Name, initials, or attestation that this row was reviewed or entered as required locally."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

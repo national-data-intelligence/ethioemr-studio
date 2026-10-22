@@ -1,0 +1,15 @@
+@use '@carbon/layout';
+
+.form {
+  display: contents;
+}
+
+.obsGroupQuestionContent {
+  :global(.cds--accordion__content) {
+    padding-right: 0%;
+  }
+}
+
+.deleteObsGroupQuestionButton {
+  margin-top: layout.$spacing-05;
+}

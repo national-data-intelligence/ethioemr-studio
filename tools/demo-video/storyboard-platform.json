@@ -1,0 +1,22 @@
+{
+  "voice": "en-US-AvaNeural",
+  "rate": "+0%",
+  "output": "ethioemr-platform-demo",
+  "beats": [
+    { "id": "t1", "say": "EthioEMR is one platform with three parts: the team's EMR, Form Studio for building forms, and an AI assistant inside the chart." },
+    { "id": "f1", "say": "First, Form Studio. It opens from the app menu and lists every form in the EMR." },
+    { "id": "f2", "say": "Here is the gynecology triage form in the editor, next to a live preview." },
+    { "id": "f3", "say": "Rules are written in plain words. PV is shown only when Vaginal Bleeding is Yes." },
+    { "id": "f4", "say": "The preview follows the rule. Choose Yes, and PV appears." },
+    { "id": "f5", "say": "The Check looks up every concept on the server. Zero errors, so the form can be downloaded." },
+    { "id": "rag", "say": "Now the AI assistant. It retrieves passages from Ethiopian and WHO guidelines, answers only from those passages, and cites each one." },
+    { "id": "h1", "say": "In Help and Search, a clinician asks for the danger signs of severe malaria, then presses Ask." },
+    { "id": "h2", "say": "The answer lists the danger signs and names its sources: the guideline and the page." },
+    { "id": "s1", "say": "On a patient's chart, the Diagnosis Assistant. The clinician presses Speak and records the consultation in Amharic." },
+    { "id": "s2", "say": "A speech model on this machine writes down what was said, in Amharic script. It transcribes. It does not translate." },
+    { "id": "s3", "say": "One click sends the complaint and the patient's recent vitals to the assistant." },
+    { "id": "d1", "say": "Back comes a ranked differential, built from the transcript, the vitals and the guidelines." },
+    { "id": "d2", "say": "Each item links to the chart record or guideline page behind it. Nothing is written to the chart." },
+    { "id": "end", "say": "One platform: the team's EMR, Form Studio, and an AI assistant that cites its sources." }
+  ]
+}

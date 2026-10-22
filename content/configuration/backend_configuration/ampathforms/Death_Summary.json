@@ -1,0 +1,215 @@
+{
+  "name": "Death Summary",
+  "description": "Summarises a patient's death, including department, admission date, date and time of death, brief history, key examination findings, working diagnosis, treatment given, immediate cause of death and the confirming physician.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "4beef0bb-03b9-4511-a5af-576dfd6b34bd",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Death Summary Assessment",
+      "sections": [
+        {
+          "label": "Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Department",
+              "type": "obs",
+              "id": "department",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "8e777f8f-120d-4f5a-9552-d17ac2b957ae",
+                    "label": "Outpatient"
+                  },
+                  {
+                    "concept": "bdf5d5fa-984e-49cb-a769-63f6c481e144",
+                    "label": "Inpatient"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Perioperative Mortality",
+              "type": "obs",
+              "id": "perioperativeMortality",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "11134473-1201-4bc7-80da-cdeb4587f4e6",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Bed No.",
+              "type": "obs",
+              "id": "bedNo",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "f6071829-0314-2345-6789-012345abcd16"
+              }
+            },
+            {
+              "label": "Date of Admission",
+              "type": "obs",
+              "id": "dateOfAdmission",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "421719a0-eef5-4181-b55d-fff16d845314"
+              }
+            },
+            {
+              "label": "Date of Death if the client reported Death",
+              "type": "obs",
+              "id": "dateOfDeathIfTheClientReportedDeath",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Time of Death",
+              "type": "obs",
+              "id": "timeOfDeath",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "293a415b-3647-5678-9012-345678abcd09"
+              }
+            },
+            {
+              "label": "Brief Medical History",
+              "type": "obs",
+              "id": "briefMedicalHistory",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Important physical examination finding",
+              "type": "obs",
+              "id": "importantPhysicalExaminationFinding",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "9a0b1c2d-3e4f-5678-9012-345678901234"
+              }
+            },
+            {
+              "label": "Working Diagnosis",
+              "type": "obs",
+              "id": "workingDiagnosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8141ca9b-f165-4036-bc49-ec94030490ed"
+              }
+            },
+            {
+              "label": "Treatment Provided",
+              "type": "obs",
+              "id": "treatmentProvided",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "5ad34065-a800-4b9e-b313-a09c1316e7ed"
+              }
+            },
+            {
+              "label": "Immediate cause of death",
+              "type": "obs",
+              "id": "immediateCauseOfDeath",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "3a4b526c-4758-6789-0123-456789abcd0a"
+              }
+            },
+            {
+              "label": "Physician who confirmed the Death",
+              "type": "obs",
+              "id": "physicianWhoConfirmedTheDeath",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1829304b-2536-4567-8901-234567abcd08"
+              }
+            },
+            {
+              "label": "Treating Physician Name",
+              "type": "obs",
+              "id": "treatingPhysicianName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "6db17571-2573-417b-bdc7-b3831b684807"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

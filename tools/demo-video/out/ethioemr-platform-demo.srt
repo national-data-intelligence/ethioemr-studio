@@ -1,0 +1,137 @@
+1
+00:00:00,055 --> 00:00:03,287
+EthioEMR is one platform with three parts:
+
+2
+00:00:03,287 --> 00:00:09,289
+the team's EMR, Form Studio for building
+forms, and an AI assistant inside the
+
+3
+00:00:09,289 --> 00:00:09,751
+chart.
+
+4
+00:00:10,264 --> 00:00:11,743
+First, Form Studio.
+
+5
+00:00:11,743 --> 00:00:16,336
+It opens from the app menu and lists
+every form in the EMR.
+
+6
+00:00:18,900 --> 00:00:23,652
+Here is the gynecology triage form in the
+editor, next to a live preview.
+
+7
+00:00:25,366 --> 00:00:27,652
+Rules are written in plain words.
+
+8
+00:00:27,652 --> 00:00:30,838
+PV is shown only when Vaginal Bleeding is Yes.
+
+9
+00:00:35,027 --> 00:00:37,339
+The preview follows the rule.
+
+10
+00:00:37,339 --> 00:00:39,491
+Choose Yes, and PV appears.
+
+11
+00:00:40,000 --> 00:00:43,046
+The Check looks up every
+concept on the server.
+
+12
+00:00:43,046 --> 00:00:45,832
+Zero errors, so the form can be downloaded.
+
+13
+00:00:47,816 --> 00:00:49,417
+Now the AI assistant.
+
+14
+00:00:49,417 --> 00:00:55,517
+It retrieves passages from Ethiopian and WHO
+guidelines, answers only from those
+
+15
+00:00:55,517 --> 00:00:57,728
+passages, and cites each one.
+
+16
+00:00:58,242 --> 00:01:04,262
+In Help and Search, a clinician asks for the
+danger signs of severe malaria, then
+
+17
+00:01:04,262 --> 00:01:05,154
+presses Ask.
+
+18
+00:01:10,806 --> 00:01:14,385
+The answer lists the danger signs
+and names its sources:
+
+19
+00:01:14,385 --> 00:01:16,110
+the guideline and the page.
+
+20
+00:01:19,631 --> 00:01:22,827
+On a patient's chart, the Diagnosis Assistant.
+
+21
+00:01:22,827 --> 00:01:27,551
+The clinician presses Speak and records
+the consultation in Amharic.
+
+22
+00:01:50,057 --> 00:01:55,448
+A speech model on this machine writes down
+what was said, in Amharic script.
+
+23
+00:01:55,448 --> 00:01:56,512
+It transcribes.
+
+24
+00:01:56,512 --> 00:01:58,073
+It does not translate.
+
+25
+00:01:58,573 --> 00:02:03,445
+One click sends the complaint and the
+patient's recent vitals to the assistant.
+
+26
+00:02:06,955 --> 00:02:12,116
+Back comes a ranked differential, built from
+the transcript, the vitals and the
+
+27
+00:02:12,116 --> 00:02:12,835
+guidelines.
+
+28
+00:02:13,336 --> 00:02:17,512
+Each item links to the chart record or
+guideline page behind it.
+
+29
+00:02:17,512 --> 00:02:19,600
+Nothing is written to the chart.
+
+30
+00:02:20,186 --> 00:02:21,214
+One platform:
+
+31
+00:02:21,214 --> 00:02:26,906
+the team's EMR, Form Studio, and an AI
+assistant that cites its sources.
+

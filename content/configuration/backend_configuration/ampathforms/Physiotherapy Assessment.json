@@ -1,0 +1,751 @@
+{
+  "name": "Physiotherapy Assessment",
+  "description": "Documents a physiotherapy assessment, from history of present illness and pain rating to objective examination of tone, power, range of motion, coordination, balance and gait, with interventions done, medication given, home advice and outcome.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "4e91c7a5-2d68-4b03-9f47-8a5c1e60d3b2",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Physiotherapy assessment Assessment",
+      "sections": [
+        {
+          "label": "Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Problem List",
+              "type": "obs",
+              "id": "problemList",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "c79bf034-02ff-5a21-b318-3d9e49c789ba"
+              }
+            },
+            {
+              "label": "Home advice",
+              "type": "obs",
+              "id": "homeAdvice",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "32e17101-700c-45bd-94b1-5107854d2f26"
+              }
+            },
+            {
+              "label": "Outcome",
+              "type": "obs",
+              "id": "outcome",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "4c7c798f-1552-4a63-8898-b33cb9e5aca7"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Physiotherapy Objective assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Observation",
+              "type": "obs",
+              "id": "observation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "bffe3da4-030e-4426-84e8-f3b7d0ca69b6"
+              }
+            },
+            {
+              "label": "Palpation",
+              "type": "obs",
+              "id": "palpation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "571c00a1-f741-5ee0-b4a1-f47e67e6e39e"
+              }
+            },
+            {
+              "label": "Cranial nurve examination",
+              "type": "obs",
+              "id": "cranialNurveExamination",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160993AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Muscle tone",
+              "type": "obs",
+              "id": "muscleTone",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "965e2aa0-8cd0-44ec-b026-61a9c02cfd19"
+              }
+            },
+            {
+              "label": "Muscle Power",
+              "type": "obs",
+              "id": "musclePower",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "6b8b6d40-5d82-47c2-b8f6-85102d7451b5"
+              }
+            },
+            {
+              "label": "Range of Motion",
+              "type": "obs",
+              "id": "rangeOfMotion",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "c9d0e1f2-a3b4-4c5d-0e6f-7a8b9c0d1e2f"
+              }
+            },
+            {
+              "label": "Coordination",
+              "type": "obs",
+              "id": "coordination",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "20b495b2-f503-43cf-80cc-1755934eeaa6"
+              }
+            },
+            {
+              "label": "Balance",
+              "type": "obs",
+              "id": "balance",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "4d74da40-6f4a-4055-82d9-a564d9982526"
+              }
+            },
+            {
+              "label": "Gait",
+              "type": "obs",
+              "id": "gait",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "4a9b1302-923f-4667-a0e5-0ef6bab1aaa4",
+                "answers": [
+                  {
+                    "concept": "f0491b61-4458-4e41-98b4-4e6ee07591d6",
+                    "label": "Steady/Balanced"
+                  },
+                  {
+                    "concept": "aff193ac-969c-4c53-b94b-9b8ba6178555",
+                    "label": "UnSteady/UnBalanced"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Special Tests",
+              "type": "obs",
+              "id": "specialTests",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "d0e1f2a3-b4c5-4d6e-1f7a-8b9c0d1e2f3a"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Intervention and Medication Given",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Medication Given",
+              "type": "obs",
+              "id": "medicationGiven",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "6c122334-4556-2348-6782-0b12345678ab"
+              }
+            },
+            {
+              "label": "Intervention Done",
+              "type": "obs",
+              "id": "interventionDone",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "6d233445-5667-3459-7893-1c2345678abc"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Physiotherapy subjective assessment",
+      "sections": [
+        {
+          "label": "General",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Image",
+              "type": "obs",
+              "id": "image",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "e8090271-2b87-403a-8739-aa25c33f6a5d"
+              }
+            },
+            {
+              "label": "History of Present illness",
+              "type": "obs",
+              "id": "historyOfPresentIllness",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "VAS at best",
+              "type": "obs",
+              "id": "vasAtBest",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "9f5a01c1-360a-491f-beef-99675f691d85",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "VAS at worst",
+              "type": "obs",
+              "id": "vasAtWorst",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "3939ecc2-7a5b-4b33-952f-34fafec477c0",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Easing factors",
+              "type": "obs",
+              "id": "easingFactors",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "e1eac430-8863-475e-b8c9-45a15e304e81",
+                "answers": [
+                  {
+                    "concept": "0294060b-4cdc-4137-be89-c26067fbfbde",
+                    "label": "Bending"
+                  },
+                  {
+                    "concept": "159632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Standing"
+                  },
+                  {
+                    "concept": "aae32a7e-f768-4318-a733-7ea14133edb2",
+                    "label": "Stairs"
+                  },
+                  {
+                    "concept": "894ee228-e961-4580-8b73-c3a8ac01658d",
+                    "label": "Cold"
+                  },
+                  {
+                    "concept": "159630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sitting"
+                  },
+                  {
+                    "concept": "4f694879-6290-411b-8140-b6562715854e",
+                    "label": "Walking"
+                  },
+                  {
+                    "concept": "1bcbb1c3-1f5a-43ed-9887-cdae3f9ad0a9",
+                    "label": "Rest"
+                  },
+                  {
+                    "concept": "1ead981d-36b3-4015-a8ef-be0cb4199a21",
+                    "label": "Warmth"
+                  },
+                  {
+                    "concept": "1cf028ed-c0cb-483d-9662-194752ed3a84",
+                    "label": "Rising"
+                  },
+                  {
+                    "concept": "159629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lying"
+                  },
+                  {
+                    "concept": "1f96f08e-741e-4d00-a82c-dd4c1a5874d2",
+                    "label": "Medication"
+                  },
+                  {
+                    "concept": "26f7c66f-9573-413c-9f86-dceea3d5d82d",
+                    "label": "Changing Poition"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Aggravating factors",
+              "type": "obs",
+              "id": "aggravatingFactors",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "db0af712-0b3a-4d80-b818-67cdd1d44989",
+                "answers": [
+                  {
+                    "concept": "0294060b-4cdc-4137-be89-c26067fbfbde",
+                    "label": "Bending"
+                  },
+                  {
+                    "concept": "159632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Standing"
+                  },
+                  {
+                    "concept": "aae32a7e-f768-4318-a733-7ea14133edb2",
+                    "label": "Stairs"
+                  },
+                  {
+                    "concept": "894ee228-e961-4580-8b73-c3a8ac01658d",
+                    "label": "Cold"
+                  },
+                  {
+                    "concept": "159630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sitting"
+                  },
+                  {
+                    "concept": "4f694879-6290-411b-8140-b6562715854e",
+                    "label": "Walking"
+                  },
+                  {
+                    "concept": "1bcbb1c3-1f5a-43ed-9887-cdae3f9ad0a9",
+                    "label": "Rest"
+                  },
+                  {
+                    "concept": "1ead981d-36b3-4015-a8ef-be0cb4199a21",
+                    "label": "Warmth"
+                  },
+                  {
+                    "concept": "1cf028ed-c0cb-483d-9662-194752ed3a84",
+                    "label": "Rising"
+                  },
+                  {
+                    "concept": "159629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lying"
+                  },
+                  {
+                    "concept": "1f96f08e-741e-4d00-a82c-dd4c1a5874d2",
+                    "label": "Medication"
+                  },
+                  {
+                    "concept": "26f7c66f-9573-413c-9f86-dceea3d5d82d",
+                    "label": "Changing Poition"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Past medical or surgical history",
+              "type": "obs",
+              "id": "pastMedicalOrSurgicalHistory",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "2b3c4d5e-6f70-8901-bcde-f23456789012"
+              }
+            },
+            {
+              "label": "Patient expectation",
+              "type": "obs",
+              "id": "patientExpectation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "152d8b0f-a10d-4d31-a1fc-eb100940278e"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Chief Complaint",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Chief Complaint",
+              "type": "obs",
+              "id": "chiefComplaint",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abdominal Pain"
+                  },
+                  {
+                    "concept": "bd274eda-f8e7-4764-bbab-35f5be859cbe",
+                    "label": "Abdominal Lump"
+                  },
+                  {
+                    "concept": "135595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Anorexia"
+                  },
+                  {
+                    "concept": "ebaa0613-8f1d-4191-b80e-dbb91e7727ea",
+                    "label": "Anasarca"
+                  },
+                  {
+                    "concept": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Anxiety states"
+                  },
+                  {
+                    "concept": "8576d3fa-83d2-462d-bdcf-76a3eb8fdcff",
+                    "label": "Bleeding, rectal"
+                  },
+                  {
+                    "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chest Pain"
+                  },
+                  {
+                    "concept": "e2994296-f271-4c87-8a50-180325561ad8",
+                    "label": "Cleft palate"
+                  },
+                  {
+                    "concept": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Constipation"
+                  },
+                  {
+                    "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Convulsions"
+                  },
+                  {
+                    "concept": "0dd2e3f4-8a5b-678c-012d-890123456789",
+                    "label": "Cough"
+                  },
+                  {
+                    "concept": "0e7dc115-46dd-4b88-ba4d-345ea24a98d8",
+                    "label": "Abdominal Pain - Right"
+                  },
+                  {
+                    "concept": "119558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dental Caries"
+                  },
+                  {
+                    "concept": "33aef4bd-8b57-4f15-a913-93efda16207f",
+                    "label": "Abdominal Pain - Right Upper"
+                  },
+                  {
+                    "concept": "d681a3cf-a34a-4135-b45e-acb48b5df9bd",
+                    "label": "Edema, localized, NOS"
+                  },
+                  {
+                    "concept": "48c8e4cd-148a-4ca4-be88-4ae8008f6dc0",
+                    "label": "Epistaxis"
+                  },
+                  {
+                    "concept": "f056be04-01ec-47ff-9ca2-88fe4ea4c7c9",
+                    "label": "Failure to thrive, child"
+                  },
+                  {
+                    "concept": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fatigue and malaise, other"
+                  },
+                  {
+                    "concept": "6c624786-5fbf-4852-81d5-0ddbc16d09bd",
+                    "label": "Feeding problem, infant/elderly"
+                  },
+                  {
+                    "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fever"
+                  },
+                  {
+                    "concept": "e052c7d5-89c1-4013-8043-8cb2b3716c9b",
+                    "label": "Abscess"
+                  },
+                  {
+                    "concept": "1c32333d-3c7a-434f-a170-ae1c7048ae02",
+                    "label": "Abscess - Arm"
+                  },
+                  {
+                    "concept": "dcfdb3d6-8561-4ba2-bf1e-70a2e65e4ba0",
+                    "label": "Gingival and periodontal diseases"
+                  },
+                  {
+                    "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Headache"
+                  },
+                  {
+                    "concept": "117698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hearing loss"
+                  },
+                  {
+                    "concept": "da8c61ae-5cc8-5613-9f9f-da1331a170c1",
+                    "label": "Heartburn"
+                  },
+                  {
+                    "concept": "163915AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abscess - Incision"
+                  },
+                  {
+                    "concept": "0dc2d185-eb87-4e58-a36a-9628ab5ac4a6",
+                    "label": "Hemiplegia and hemiparesis"
+                  },
+                  {
+                    "concept": "211f7e13-264b-4230-8ed7-abe66ebd5739",
+                    "label": "Hemoptysis"
+                  },
+                  {
+                    "concept": "df24ee3c-76a9-48b3-b6f7-a68d37beffcb",
+                    "label": "Abscess - Perianal"
+                  },
+                  {
+                    "concept": "d17dec8f-efae-4221-8d5b-54bde5541be6",
+                    "label": "Hoarseness"
+                  },
+                  {
+                    "concept": "21e8f771-2c2b-4add-8ded-a3ffe19e0185",
+                    "label": "Abscess - Rect"
+                  },
+                  {
+                    "concept": "94bd4ea2-6651-4da4-9cf4-bbae6bd69a54",
+                    "label": "Injury"
+                  },
+                  {
+                    "concept": "e8141d18-7ace-44c6-8992-5538150923a0",
+                    "label": "Irregular menstrual cycle"
+                  },
+                  {
+                    "concept": "92161e50-c4d1-476d-a53b-08f6877cacd5",
+                    "label": "Joint swelling, single"
+                  },
+                  {
+                    "concept": "94754450-b5a0-42d1-ae6b-ed8d33e2734e",
+                    "label": "Localized swelling/mass, superficial"
+                  },
+                  {
+                    "concept": "1da5ef19-703f-47aa-b7c1-2f7df529e015",
+                    "label": "Lump in breast"
+                  },
+                  {
+                    "concept": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Swelling"
+                  },
+                  {
+                    "concept": "db3a9d5f-a5de-4469-a188-b5c69d30251e",
+                    "label": "Malaise and fatigue"
+                  },
+                  {
+                    "concept": "121657AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Memory loss"
+                  },
+                  {
+                    "concept": "aef29b26-39fc-4c08-8a81-5a4e9d0ad15f",
+                    "label": "Mental status changes"
+                  },
+                  {
+                    "concept": "7328691c-7118-4b11-be8f-fef2b9015e0d",
+                    "label": "Nausea w/ vomiting"
+                  },
+                  {
+                    "concept": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nausea, alone"
+                  },
+                  {
+                    "concept": "0753c654-31b2-5ec5-9776-ca2e0eeacbb5",
+                    "label": "Nocturia"
+                  },
+                  {
+                    "concept": "04378a67-44f9-4856-92de-4f75336f76f1",
+                    "label": "Obstructed labor"
+                  },
+                  {
+                    "concept": "6a28cec7-dc15-44d2-a71a-6e5f11157ed4",
+                    "label": "Bite - Cat"
+                  },
+                  {
+                    "concept": "fca93242-6131-423a-95a9-cbfaf8bc39a9",
+                    "label": "Pain, knee"
+                  },
+                  {
+                    "concept": "c61b8469-df52-4c7a-9679-460fed680b00",
+                    "label": "Low backache"
+                  },
+                  {
+                    "concept": "130987AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Palpitations"
+                  },
+                  {
+                    "concept": "129510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Polyuria"
+                  },
+                  {
+                    "concept": "42dbcfea-fbe6-4e30-a0c8-dcabbe05a673",
+                    "label": "Bleeding - Arm"
+                  },
+                  {
+                    "concept": "38d3459c-a5cb-4c4e-a13d-7c06f2248261",
+                    "label": "Something coming out of anus"
+                  },
+                  {
+                    "concept": "bade3381-08b2-45d8-ac46-b1fbdb0ebd98",
+                    "label": "Seizures, convulsions, other"
+                  },
+                  {
+                    "concept": "44b5cb29-63e4-475b-8afc-306e2ece9107",
+                    "label": "Seizures, simple, febrile, unspec."
+                  },
+                  {
+                    "concept": "0bac980d-4dc0-4b67-8bc8-d33c143dce05",
+                    "label": "Shortness of breath"
+                  },
+                  {
+                    "concept": "e0beb927-ba46-4cd3-b50a-4536fa1d0590",
+                    "label": "Sickle-cell anemia"
+                  },
+                  {
+                    "concept": "2046d5bb-8a97-41c2-bfff-f52179e831f4",
+                    "label": "Bleeding - Face"
+                  },
+                  {
+                    "concept": "89e439cd-ea91-4813-bc1d-a710578117ee",
+                    "label": "Stomatitis and mucositis"
+                  },
+                  {
+                    "concept": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sweating, excessive"
+                  },
+                  {
+                    "concept": "158843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Throat pain"
+                  },
+                  {
+                    "concept": "51a1abb3-a62c-4cad-b325-e076a900a7bd",
+                    "label": "Ulcer of lower limbs"
+                  },
+                  {
+                    "concept": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vomiting"
+                  },
+                  {
+                    "concept": "5a1a3b72-78a6-4c95-862f-653a8938410c",
+                    "label": "Walking difficulty"
+                  },
+                  {
+                    "concept": "5209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Bleeding - Head"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Chief Complaint",
+              "type": "obs",
+              "id": "chiefComplaint2",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Chief Complaint Duration",
+              "type": "obs",
+              "id": "chiefComplaintDuration",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "ce121c02-9b09-57cf-9631-fef264d05eb6",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            }
+          ]
+        },
+        {
+          "label": "Physiotherapy investgation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "X-ray",
+              "type": "obs",
+              "id": "xRay",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "ec37e508-a5a6-424e-b4e3-1edb91f3ee46"
+              }
+            },
+            {
+              "label": "MRI",
+              "type": "obs",
+              "id": "mri",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "3fe082b7-b9e0-47a9-8caa-45f39f73265e"
+              }
+            },
+            {
+              "label": "CT-scan",
+              "type": "obs",
+              "id": "ctScan",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "b8c47c65-24ed-4ff7-9c36-d4097fe729ce"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

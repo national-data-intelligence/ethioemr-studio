@@ -1,0 +1,185 @@
+{
+  "name": "Diabetes - Progress",
+  "description": "Tracks diabetes control at follow-up visits, recording blood pressure, the latest HbA1c and LDL cholesterol results with dates, enalapril use, foot ulcers and the date of the last eye examination.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "0883cd54-05cb-4f01-be31-d1fb4210e7ed",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Diabetes - Progress",
+      "sections": [
+        {
+          "label": "Blood pressure",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Systolic data",
+              "type": "obs",
+              "id": "systolicData",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Diastolic data",
+              "type": "obs",
+              "id": "diastolicData",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Labs",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "A1C",
+              "type": "obs",
+              "id": "a1c",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "b03cd4b1-be54-4c05-a826-1b857e40f184"
+              }
+            },
+            {
+              "label": "Last A1C date",
+              "type": "obs",
+              "id": "lastA1cDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "a17800ff-486a-482c-bf98-488bad6ad902"
+              }
+            },
+            {
+              "label": "Is Patient on enalapril",
+              "type": "obs",
+              "id": "isPatientOnEnalapril",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "5a1d3e4f-6b72-4c83-ad12-3e4f5a6b7c89",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Last LDL",
+              "type": "obs",
+              "id": "lastLdl",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "3e9b1c2d-4f50-4a61-8b90-1c2d3e4f5a67"
+              }
+            },
+            {
+              "label": "last LDL date",
+              "type": "obs",
+              "id": "lastLdlDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "4f0c2d3e-5a61-4b72-9c01-2d3e4f5a6b78"
+              }
+            },
+            {
+              "label": "Ulcers present on feet",
+              "type": "obs",
+              "id": "ulcersPresentOnFeet",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "6b2e4f5a-7c83-4d94-be23-4f5a6b7c8d9a",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Last eye exam date",
+              "type": "obs",
+              "id": "lastEyeExamDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

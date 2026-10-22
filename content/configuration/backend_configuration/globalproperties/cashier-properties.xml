@@ -1,0 +1,23 @@
+<config>
+    <globalProperties>
+        <globalProperty>
+            <property>kenyaemr.cashier.defaultCurrencySymbol</property>
+            <value>ETB</value>
+        </globalProperty>
+        <globalProperty>
+            <property>kenyaemr.cashier.receipt.facilityInformation</property>
+            <value><![CDATA[{
+            "facilityName": "Ministry of Health - Ethiopia",
+            "tagline": "Health for All: Promoting Health, Preventing Disease and Providing Quality Care",
+            "logoPath": "../openmrs/distribution/spa-config/assets/ethiopiaemr-package/moh_logo.png",
+            "contacts": {
+              "tel": "+251 11 551 7011",
+              "email": "info@moh.gov.et",
+              "emergency": "952",
+              "address": "Sudan St, Addis Ababa, Ethiopia, P.O. Box 1234",
+              "website": "www.moh.gov.et"
+            }
+          }]]></value>
+        </globalProperty>
+    </globalProperties>
+</config>

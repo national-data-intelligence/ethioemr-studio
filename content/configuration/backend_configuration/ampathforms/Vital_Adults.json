@@ -1,0 +1,272 @@
+{
+  "name": "Vital Adults",
+  "description": "Records routine adult vital signs, including pulse, blood pressure with posture, temperature, respiratory rate, oxygen saturation, weight, height and pain score.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "5167eac8-2349-49af-9722-e4ab5ce56cac",
+  "retired": false,
+  "encounter": "Vitals",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Vital Adult Set",
+      "sections": [
+        {
+          "label": "Adult Vital",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pulse",
+              "type": "obs",
+              "required": false,
+              "id": "idPulse",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 60-100 bpm",
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 100.5 || myValue < 59.5)",
+                "message": "Pulse is out of range (Normal range 60-100)"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Blood Pressure",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Systolic",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalSystolic",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 90-120 mmHg",
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 120.5 || myValue < 89.5)",
+                "message": "Systolic is out of range (Normal range 90-120)"
+              }
+            },
+            {
+              "label": "Diastolic",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalDiastolic",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 60-90 mmHg",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 90.5 || myValue < 59.5)",
+                "message": "Diastolic is out of range (Normal range 60-90)"
+              }
+            },
+            {
+              "label": "Posture",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalBloodPressurePosture",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "159633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Sitting",
+                    "concept": "159630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Supine",
+                    "concept": "159629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vital",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Temperature",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalTemperature",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "max": "43",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range: 36.5-37.5°C",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 37.5 || myValue < 35)",
+                "message": "Temperature is out of range (Normal range 35-37.5°C)"
+              }
+            },
+            {
+              "label": "Respiratory Rate (RR)",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalRR",
+              "questionOptions": {
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range for adults: 16-24 breaths/min",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 24.5 || myValue < 15.5)",
+                "message": "Respiratory Rate is out of range (Normal range 16-24)"
+              }
+            },
+            {
+              "label": "Saturation (SPO2%)",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalSPO2",
+              "questionOptions": {
+                "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "100",
+                "step": 0.01
+              },
+              "questionInfo": "Normal: ≥90%",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && myValue < 89.5",
+                "message": "Oxygen Saturation is out of range (Normal range ≥90)"
+              }
+            },
+            {
+              "label": "Weight (kg)",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalWeight",
+              "questionOptions": {
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "1",
+                "step": 0.01
+              },
+              "questionInfo": "Adult weight measurement in kilograms",
+              "validators": []
+            },
+            {
+              "label": "Height (cm)",
+              "type": "obs",
+              "required": false,
+              "id": "aDultVitalHeight",
+              "questionOptions": {
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "30",
+                "max": "250",
+                "step": 0.01
+              },
+              "questionInfo": "Adult height measurement in centimeters",
+              "validators": []
+            }
+          ]
+        },
+        {
+          "label": "Pain Point",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pain Point Score",
+              "type": "obs",
+              "required": true,
+              "id": "aDultVitalPainPointScore",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "160287AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "10",
+                "step": 0.01
+              },
+              "questionInfo": "Pain scale 0-10. 0=No pain, 10=Severe pain",
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue && myValue > 10",
+                "message": "Pain score cannot exceed 10."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

@@ -1,0 +1,699 @@
+{
+  "name": "Comprehensive Abortion Care",
+  "description": "Records abortion and post-abortion care, including the reason for safe abortion or the post-abortion diagnosis, type of evacuation, drugs given for pain and sedation, referral, post-abortion contraception and the provider.",
+  "version": "1.2",
+  "published": true,
+  "uuid": "68bd7f46-177c-44b3-a6fa-0ef05b32d89b",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Comprehensive Abortion Care",
+      "sections": [
+        {
+          "label": "Comprehensive Abortion Care",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date and Time",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "129df908-9306-4847-8e70-c59ae37ce37f"
+              },
+              "id": "dateTimeGroup",
+              "questions": [
+                {
+                  "label": "Gestationa Age(GA)",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "163166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "gestationalAge"
+                },
+                {
+                  "label": "Gravida",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "gravida"
+                },
+                {
+                  "label": "Para",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "para"
+                },
+                {
+                  "label": "Ultrasound Date",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "163165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "ultrasoundDate"
+                },
+                {
+                  "label": "Safe abortion care",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "9fa62b0c-9677-482e-9228-521e30e51484",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "safeAbortionCare"
+                }
+              ]
+            },
+            {
+              "label": "Post Abortion Care",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "af4d2235-c719-4093-b416-b9d56d7de97b"
+              },
+              "id": "postAbortionCareGroup",
+              "questions": [
+                {
+                  "label": "Cause",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "1c1deab6-e4a8-4dfa-b2a5-e4bd74389643",
+                    "answers": [
+                      {
+                        "concept": "27b109aa-6274-41f4-859c-0909208f0ac7",
+                        "label": "Surgical Abortion"
+                      },
+                      {
+                        "concept": "e03a6b8d-c209-4570-a663-7398243fb646",
+                        "label": "Medical Abortion"
+                      },
+                      {
+                        "concept": "126127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Spontaneous abortion"
+                      }
+                    ]
+                  },
+                  "id": "cause"
+                },
+                {
+                  "label": "Diagnosis",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "pacDiagnosis"
+                }
+              ]
+            },
+            {
+              "label": "Reason for safe abortion",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "4e701071-7970-41e8-a9bb-9e977d6e4753",
+                "answers": [
+                  {
+                    "concept": "e4a7e9bc-af73-5573-8b75-79e74cd6d9c4",
+                    "label": "RAPE"
+                  },
+                  {
+                    "concept": "164821AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Incest"
+                  },
+                  {
+                    "concept": "1600AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Maternal Condition"
+                  },
+                  {
+                    "concept": "3df2d31e-95fd-4f58-893b-45f817b91d6c",
+                    "label": "Fetal Deformity"
+                  }
+                ]
+              },
+              "id": "reasonForSafeAbortion"
+            },
+            {
+              "label": "Diagnosis for post abortion",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "7573565b-d0a4-4c55-aacc-45b4e28c7e72",
+                "answers": [
+                  {
+                    "concept": "26cff2c7-ab74-46fd-8555-e01455e7d871",
+                    "label": "Incomplete abortion"
+                  },
+                  {
+                    "concept": "164823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inevitable"
+                  },
+                  {
+                    "concept": "134100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Missed"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "id": "diagnosisPostAbortion"
+            },
+            {
+              "label": "Type of Evacuation",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "38e93ecf-2867-487a-8778-b0429fce9d17",
+                "answers": [
+                  {
+                    "concept": "159728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "MVA"
+                  },
+                  {
+                    "concept": "36b907bb-680f-492a-8eee-dc67eb341c1b",
+                    "label": "E & C"
+                  },
+                  {
+                    "concept": "e03a6b8d-c209-4570-a663-7398243fb646",
+                    "label": "MA"
+                  },
+                  {
+                    "concept": "1637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D & C"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "death other"
+                  }
+                ]
+              },
+              "id": "typeOfEvacuation"
+            },
+            {
+              "label": "Managed as",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3f4ac2b6-9cda-4032-8ce4-fa732166b1aa",
+                "answers": [
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient"
+                  },
+                  {
+                    "concept": "160536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient"
+                  }
+                ]
+              },
+              "id": "managedAs"
+            },
+            {
+              "label": "Referred",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "fa19d295-73cc-4aa5-beb7-f317aa08ce2b",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "referred"
+            },
+            {
+              "label": "Drugs provided (Analgesics, Anesthesia, sedation)/Dose given",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "drugsProvidedDose"
+            },
+            {
+              "label": "Post Abortion Contraception",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "7ede1125-5613-4261-90e0-c9aa3fe023a9"
+              },
+              "id": "postAbortionContraceptionGroup",
+              "questions": [
+                {
+                  "label": "Counseled",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "7bc166a9-8806-4305-9e9b-e4c55f235d0d",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "counseled"
+                },
+                {
+                  "label": "Expressed desire",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "f25650b1-f289-408c-b6aa-c114e554c291",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "expressedDesire"
+                },
+                {
+                  "label": "New acceptor",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "2be23aea-1f11-4db2-ae34-076ef078c5ff",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "newAcceptor"
+                },
+                {
+                  "label": "Repeat acceptor",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "5ccacd55-66c4-4e69-949b-4944421780e1",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "repeatAcceptor"
+                },
+                {
+                  "label": "Contraceptive provided",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "checkbox",
+                    "concept": "d104e207-545e-4895-8130-f00d361fb3e8",
+                    "answers": [
+                      {
+                        "concept": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "MaC-Male Condom"
+                      },
+                      {
+                        "concept": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "FeC-Female Condom"
+                      },
+                      {
+                        "concept": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "OC-Oral Contraceptive"
+                      },
+                      {
+                        "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "EC-Emergency Contraception"
+                      },
+                      {
+                        "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inj-Injectable"
+                      },
+                      {
+                        "concept": "159589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Imp-Implanon"
+                      },
+                      {
+                        "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "IUCD"
+                      },
+                      {
+                        "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "TL-Tubal Ligation"
+                      },
+                      {
+                        "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "V-Vasectomy"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  },
+                  "id": "contraceptiveProvided"
+                },
+                {
+                  "label": "HIV test Accepted",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "238bf262-1226-4d31-81ac-e81142a98d9f",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "hivTestAccepted"
+                },
+                {
+                  "label": "Target Population",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "checkbox",
+                    "concept": "b4222c91-c99a-420b-bfe6-b0719cd93c0a",
+                    "answers": [
+                      {
+                        "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Female commercial Sex Workers"
+                      },
+                      {
+                        "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Long distance drivers"
+                      },
+                      {
+                        "concept": "9ace0312-2200-40c3-ac68-93f48c132988",
+                        "label": "Mobile workers/daily laborers"
+                      },
+                      {
+                        "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Prisoners"
+                      },
+                      {
+                        "concept": "3248528a-079b-46a3-85f8-0d28183727cb",
+                        "label": "OVC"
+                      },
+                      {
+                        "concept": "6e9e044e-e55e-44f5-8c4e-28a264cb9b77",
+                        "label": "Children of PLHIV"
+                      },
+                      {
+                        "concept": "a1c83cfe-bc4d-4b81-b7b1-a594d43aa4c1",
+                        "label": "Partner of PLHIV"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "other"
+                      },
+                      {
+                        "concept": "164928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "General Population"
+                      }
+                    ]
+                  },
+                  "id": "targetPopulation"
+                },
+                {
+                  "label": "HIV test Result",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "f1871e41-8238-4c06-9944-b367ac2aea42",
+                    "answers": [
+                      {
+                        "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Non-Reactive"
+                      },
+                      {
+                        "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Reactove"
+                      }
+                    ]
+                  },
+                  "id": "hivTestResult"
+                },
+                {
+                  "label": "HIV positive linked to ART",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "cb5b81ab-bf37-4e9f-9945-7ca5664edb6c",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "hivPositiveLinkedArt"
+                },
+                {
+                  "label": "Complication",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "07b99e83-e0dc-487a-8cf1-6ef1260f141a",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "complication"
+                },
+                {
+                  "label": "If yes specify",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "d5150c55-988a-4bf8-83dd-284e58cc65d6"
+                  },
+                  "id": "complicationIfYesSpecify"
+                },
+                {
+                  "label": "Died",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "108df4bb-1b8e-4047-8c4b-7dc7eae196a1",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "died"
+                },
+                {
+                  "label": "Other treatment provided",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "b2788bd8-6891-4f43-8e4e-0ad4ce0c9fcd",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "otherTreatmentProvided"
+                },
+                {
+                  "label": "if other service provided specify",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "006e477d-ac4e-40ab-9160-e48cc93d703c",
+                    "answers": [
+                      {
+                        "concept": "1ae5c8bf-9d3f-4469-8dcb-674e5eb413d9",
+                        "label": "Counseling"
+                      },
+                      {
+                        "concept": "a7d389ee-f867-4227-9b6d-5067246bea4c",
+                        "label": "Screening"
+                      },
+                      {
+                        "concept": "a617255e-b461-4b21-8a09-bbb58c4914b8",
+                        "label": "Diagnosis and treatment"
+                      }
+                    ]
+                  },
+                  "id": "otherServiceSpecify"
+                },
+                {
+                  "label": "Remark",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "remark"
+                }
+              ]
+            },
+            {
+              "label": "Healthcare provider",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "f70cd211-cd0e-4a42-b730-bd8ec2af3795"
+              },
+              "id": "healthcareProviderGroup",
+              "questions": [
+                {
+                  "label": "Name",
+                  "type": "obsGroup",
+                  "questionOptions": {
+                    "rendering": "group",
+                    "concept": "4831fe51-cc1f-4ebd-9059-41e40bae13f6"
+                  },
+                  "id": "providerNameGroup",
+                  "questions": [
+                    {
+                      "label": "Date",
+                      "type": "obs",
+                      "questionOptions": {
+                        "rendering": "date",
+                        "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      "id": "providerDate"
+                    },
+                    {
+                      "label": "Signature",
+                      "type": "obs",
+                      "questionOptions": {
+                        "rendering": "textarea",
+                        "concept": "28794bbc-ad22-4d8e-a8a3-8147bdfef6cd"
+                      },
+                      "id": "providerSignature"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

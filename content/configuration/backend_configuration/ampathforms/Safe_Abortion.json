@@ -1,0 +1,525 @@
+{
+  "name": "Safe Abortion",
+  "description": "Records safe abortion and post-abortion care services, including gestational age, referral source, procedure performed, pain management, complications, outcome, medical abortion follow-up and family planning method accepted.",
+  "version": "2.0",
+  "published": true,
+  "uuid": "1e55759a-04ca-4c6f-9d26-d7fbf1497e34",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Safe Abortion",
+      "sections": [
+        {
+          "label": "Patient Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Number of living children",
+              "type": "obs",
+              "required": "false",
+              "id": "numberOfLivingChildren",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Accepted Family Planning methods",
+              "type": "obs",
+              "required": "false",
+              "id": "acceptedFamilyPlanning",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "3b96324b-c6e9-4361-9709-9f7f25f7c131",
+                "answers": [
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pills"
+                  },
+                  {
+                    "concept": "907AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Depo-Provera Provera"
+                  },
+                  {
+                    "concept": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Female sterilization"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Male sterilization"
+                  },
+                  {
+                    "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implant"
+                  },
+                  {
+                    "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intra Uterine Contraceptive Device"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referred by",
+              "type": "obs",
+              "id": "referredBy",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "69011223-3445-1237-5671-345f01234567",
+                "answers": [
+                  {
+                    "concept": "183118ca-509a-4a2a-932e-1c31d3b34148",
+                    "label": "FCHV"
+                  },
+                  {
+                    "concept": "5a6c0be8-2f4f-4901-9baf-8c2a813a0df6",
+                    "label": "Healthcare provider"
+                  },
+                  {
+                    "concept": "5ec51542-6a40-4f25-8654-6af7628002a9",
+                    "label": "Others"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Service Provider Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Listed Number",
+              "type": "obs",
+              "required": "false",
+              "id": "listedNumber",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1fc4ebb8-5935-40ad-807e-650f4fd9fc63"
+              }
+            },
+            {
+              "label": "Referring department",
+              "type": "obs",
+              "required": "false",
+              "id": "referringDepartment",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "160478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Vascular surgery department",
+                    "concept": "160451AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Maxillofacial surgery department",
+                    "concept": "160453AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Neurology department",
+                    "concept": "160471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Endocrinology department",
+                    "concept": "160468AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Cardiology department",
+                    "concept": "160469AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Plastic surgery department",
+                    "concept": "160452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Cardiothoracic surgery department",
+                    "concept": "160450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Gastroenterology department",
+                    "concept": "160477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Obstetrics and gynecology department",
+                    "concept": "160456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Rheumatology department",
+                    "concept": "160466AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Psychiatry department",
+                    "concept": "160461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Ophthalmology department",
+                    "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Anesthesia department",
+                    "concept": "160462AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Radiotherapy department",
+                    "concept": "160464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "General medicine department",
+                    "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Radiology department",
+                    "concept": "160463AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Neurosurgery department",
+                    "concept": "160472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Orthopedic department",
+                    "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Dermatology department",
+                    "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Chest medicine department",
+                    "concept": "160470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Urology department",
+                    "concept": "160476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Family medicine department",
+                    "concept": "160474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "General surgery department",
+                    "concept": "160449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Pediatric medicine department",
+                    "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Hematology department",
+                    "concept": "160467AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Ear, nose and throat department",
+                    "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Pediatric surgery department",
+                    "concept": "160458AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Emergency department",
+                    "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Nephrology department",
+                    "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Name",
+              "type": "obs",
+              "id": "name",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Pregnancy Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Weeks of current gestation by LMP method",
+              "type": "obs",
+              "required": "false",
+              "id": "gestationByLMP",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Weeks of current gestation by examination",
+              "type": "obs",
+              "required": "false",
+              "id": "gestationByExamination",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "7ea41be1-d153-4182-ac7b-34a32dfce529"
+              },
+              "hideSteppers": true
+            }
+          ]
+        },
+        {
+          "label": "Abortion Procedure",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Abortion procedure",
+              "type": "obs",
+              "required": "false",
+              "id": "abortionProcedure",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8ecea94d-8884-4e76-bc1c-866686acf6d8",
+                "answers": [
+                  {
+                    "concept": "159728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Manual Vacuum Aspiration"
+                  },
+                  {
+                    "concept": "d6cd423b-e6b3-4296-9f0b-ebb43428f3e2",
+                    "label": "Electric Vacuum Aspiration"
+                  },
+                  {
+                    "concept": "36b907bb-680f-492a-8eee-dc67eb341c1b",
+                    "label": "Dilation and Evacuation"
+                  },
+                  {
+                    "concept": "e03a6b8d-c209-4570-a663-7398243fb646",
+                    "label": "Medical Abortion"
+                  },
+                  {
+                    "concept": "f1965652-0d3e-48ba-9b61-6f458ff5db4d",
+                    "label": "Medical Induction"
+                  },
+                  {
+                    "concept": "fdf9bde9-3564-4a5b-99e8-495e36839229",
+                    "label": "Other abortion procedures"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Pain management given",
+              "type": "obs",
+              "required": "false",
+              "id": "painManagement",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d082046e-91c2-4da2-bf8e-de0d65de8c5b",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Outcome and Follow-up",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Outcome of CAC/PAC",
+              "type": "obs",
+              "required": "false",
+              "id": "outcomeOfCAC",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1880f095-b88c-4b90-ae1e-3d78023d7cfe",
+                "answers": [
+                  {
+                    "concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "67c00dc0-fd8e-4db0-bc72-7ceebe59d3ce",
+                    "label": "Leaving Against Medical Advice"
+                  },
+                  {
+                    "concept": "c4bcc00d-14b3-56c3-b572-3f2f631216a7",
+                    "label": "Referred out"
+                  },
+                  {
+                    "concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Death"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Remarks",
+              "type": "obs",
+              "required": "false",
+              "id": "remarks",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "6f789012-3456-7890-6f78-901234567890"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Medical Abortion Follow-up",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Complications",
+              "type": "obs",
+              "id": "complications",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "cbbe975d-92fe-55f2-841e-587f2b73a088",
+                "answers": [
+                  {
+                    "concept": "b2c3d4e5-f6a7-4890-b123-456789012345",
+                    "label": "Bleeding requiring >1 pint of IV fluid"
+                  },
+                  {
+                    "concept": "c3d4e5f6-a7b8-4901-c234-567890123456",
+                    "label": "Bleeding requiring blood transfusion"
+                  },
+                  {
+                    "concept": "f6a7b8c9-d0e1-4234-f567-890123456789",
+                    "label": "Infection requiring hospitalization/IV antibiotics"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Status on visit",
+              "type": "obs",
+              "id": "statusOnVisit",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "c11edc8d-0316-4429-957b-12323524fb23",
+                "answers": [
+                  {
+                    "concept": "160035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Treatment completed"
+                  },
+                  {
+                    "concept": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Complete"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Post Abortion Care",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Cause",
+              "type": "obs",
+              "id": "cause",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1c1deab6-e4a8-4dfa-b2a5-e4bd74389643",
+                "answers": [
+                  {
+                    "concept": "27b109aa-6274-41f4-859c-0909208f0ac7",
+                    "label": "Surgical Abortion"
+                  },
+                  {
+                    "concept": "e03a6b8d-c209-4570-a663-7398243fb646",
+                    "label": "Medical Abortion"
+                  },
+                  {
+                    "concept": "126127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spontaneous abortion"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Diagnosis",
+              "type": "obs",
+              "id": "diagnosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

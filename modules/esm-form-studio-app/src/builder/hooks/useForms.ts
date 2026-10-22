@@ -1,0 +1,19 @@
+// Copied from @openmrs/esm-form-builder-app 3.5.1 (MPL-2.0): src/hooks/useForms.ts
+// Form Studio changes are marked FORM STUDIO; keep them small so the copy can be refreshed from upstream.
+import useSWR from 'swr';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import type { Form } from '../types';
+
+export function useForms() {
+  const url = `${restBaseUrl}/form?v=custom:(uuid,name,encounterType:(uuid,name),version,published,retired,resources:(uuid,name,dataType,valueReference))&includeAll=true`;
+
+  const { data, error, isValidating, mutate } = useSWR<{ data: { results: Array<Form> } }, Error>(url, openmrsFetch);
+
+  return {
+    forms: data?.data?.results ?? [],
+    error: error,
+    isLoading: (!data && !error) || false,
+    isValidating,
+    mutate,
+  };
+}

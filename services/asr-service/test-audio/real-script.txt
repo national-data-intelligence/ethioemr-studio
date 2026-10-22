@@ -1,0 +1,16 @@
+Read these in order, one recording each (press Speak, read, press Stop). Speak naturally, the way a doctor dictates.
+Small wording changes are fine; if you change a lot, note it.
+
+1. ታካሚው ለሁለት ሳምንት cough እና night sweats አለበት፣ TB screening እናደርጋለን።
+2. Blood pressure 150 over 95 ነው፣ hypertension ስለሆነ amlodipine 5 mg እንጀምራለን።
+3. ልጁ diarrhea እና vomiting አለበት፣ ORS እና zinc ሰጥተናል።
+4. Malaria RDT positive ነው፣ artemether-lumefantrine ለሶስት ቀን ይወስዳል።
+5. ታካሚዋ pregnant ናት፣ 28 weeks፣ ANC follow-up በሁለት ሳምንት።
+6. Fasting blood sugar 210 ነው፣ diabetes ስለሆነ metformin እንጀምራለን።
+7. Chest X-ray ላይ pneumonia ይታያል፣ amoxicillin ለሰባት ቀን።
+8. HIV test negative ነው፣ counseling ተሰጥቷል።
+9. ታካሚው severe headache እና neck stiffness አለበት፣ meningitis ስለምንጠራጠር refer እናደርጋለን።
+10. Hemoglobin 8 ነው፣ anemia አለ፣ ferrous sulfate እና folic acid ታዟል።
+
+Then 2-3 free dictations: talk about an imaginary patient the way you normally would (made-up details only).
+After each free one, write what you said into free-1.txt, free-2.txt ... in this folder.

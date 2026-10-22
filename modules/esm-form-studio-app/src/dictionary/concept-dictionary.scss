@@ -1,0 +1,70 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.dictionary {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-05;
+}
+
+.toolbar {
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.empty {
+  padding: layout.$spacing-05;
+  color: colors.$gray-70;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: layout.$spacing-06;
+  padding: layout.$spacing-05 0;
+
+  h4 {
+    @include type.type-style('heading-compact-01');
+    margin-bottom: layout.$spacing-03;
+  }
+}
+
+.detailList {
+  list-style: disc;
+  padding-left: layout.$spacing-05;
+  max-height: 12rem;
+  overflow: auto;
+}
+
+.muted {
+  color: colors.$gray-70;
+  @include type.type-style('helper-text-01');
+}
+
+.tags {
+  display: flex;
+  gap: layout.$spacing-02;
+}
+
+.numeric {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: layout.$spacing-04;
+  margin-top: layout.$spacing-03;
+
+  dt {
+    color: colors.$gray-70;
+  }
+}
+
+// other names: muted, kept on one or two lines so the table stays readable
+.synonyms {
+  color: var(--cds-text-secondary, #525252);
+  max-width: 22rem;
+}
+
+// progress while the whole dictionary is read from the database
+.reading {
+  margin: 0 0 1rem;
+}

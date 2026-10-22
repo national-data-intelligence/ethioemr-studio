@@ -1,0 +1,276 @@
+{
+  "name": "Stroke OPD",
+  "description": "Used at stroke outpatient follow-up to review secondary prevention, recording blood pressure and hypertension control, diabetes control and HbA1c, LDL cholesterol, smoking, and whether the patient is on low-dose aspirin or qualifies for atorvastatin.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "74a153d2-bf76-486b-b60e-6d07e121b269",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Stroke OPD",
+      "sections": [
+        {
+          "label": "Stroke Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Blood pressure",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "733aaf40-9c4c-41dd-8834-5f4fc72b538d"
+              },
+              "id": "bloodPressureGroup",
+              "questions": [
+                {
+                  "label": "Systolic",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "systolicData"
+                },
+                {
+                  "label": "Diastolic",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "diastolicData"
+                }
+              ]
+            },
+            {
+              "label": "Last A1c date",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "a17800ff-486a-482c-bf98-488bad6ad902"
+              },
+              "id": "lastA1cDate"
+            },
+            {
+              "label": "Is patient on low-dose aspirin for secondary stroke prevention",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f071a793-2e26-4681-bd99-c014f8085594",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "lowDoseAspirin"
+            },
+            {
+              "label": "Does patient qualify for atorvastatin",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "28850b40-016e-401d-a4be-6d0dc2729a82",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "qualifyAtorvastatin"
+            },
+            {
+              "label": "LDL",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "3e9b1c2d-4f50-4a61-8b90-1c2d3e4f5a67"
+              },
+              "id": "ldl"
+            },
+            {
+              "label": "Last LDL date",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "4f0c2d3e-5a61-4b72-9c01-2d3e4f5a6b78"
+              },
+              "id": "lastLdlDate"
+            },
+            {
+              "label": "Does Patient Have Hypertension",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f0063e54-fbca-47fc-8fae-2f0452d627cc",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "patientHaveHypertension"
+            },
+            {
+              "label": "Stroke, Is Hypertension Controlled",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "231fba8a-caaa-41fa-8930-788d8b826753",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "hypertensionControlled"
+            },
+            {
+              "label": "Smoker",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "01687889-4457-47a9-99ac-d171878abb03",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "smoker"
+            },
+            {
+              "label": "Does patient have diabetes",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d38fcd7e-39ac-4340-8e19-7a91fc038847",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "patientHaveDiabetes"
+            },
+            {
+              "label": "Is diabetes controlled",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f95dadbc-5a8b-466a-87bb-b69cf6731331",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "diabetesControlled"
+            },
+            {
+              "label": "A1c",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "b03cd4b1-be54-4c05-a826-1b857e40f184"
+              },
+              "id": "a1c"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

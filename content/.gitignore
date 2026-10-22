@@ -1,0 +1,31 @@
+# Maven
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# IDE files
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# --- Do-not-push: pending register concepts (work in progress) ---
+_pending_register_concepts/
+# NOTE: the 20 register forms + master_new_concepts.csv were un-held for the register
+# push (2026-07-03). master was un-skip-worktree'd; the register forms were removed from
+# this ignore block and staged. _pending_register_concepts/ stays ignored (stale WIP).

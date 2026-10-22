@@ -1,0 +1,127 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-05;
+  padding: layout.$spacing-05;
+  background-color: colors.$white;
+  min-height: 30rem;
+}
+
+.formName {
+  @include type.type-style('heading-03');
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-04;
+  padding-left: layout.$spacing-04;
+  border-left: 3px solid colors.$teal-40;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
+  padding: layout.$spacing-04;
+  background-color: colors.$gray-10;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pageLabel {
+  @include type.type-style('heading-02');
+}
+
+.sectionLabel {
+  @include type.type-style('heading-compact-01');
+}
+
+.question,
+.group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: layout.$spacing-03;
+  padding: layout.$spacing-03;
+  background-color: colors.$white;
+  border: 1px solid transparent;
+
+  &:hover {
+    border-color: colors.$blue-60;
+  }
+}
+
+.questionBody {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-02;
+  min-width: 0;
+}
+
+.groupLabel {
+  @include type.type-style('heading-compact-01');
+}
+
+.groupBody {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-02;
+  padding-left: layout.$spacing-05;
+  border-left: 2px solid colors.$gray-30;
+}
+
+.tags {
+  display: flex;
+  gap: layout.$spacing-02;
+}
+
+.actions {
+  display: flex;
+  align-items: flex-start;
+}
+
+.empty {
+  text-align: center;
+  padding: layout.$spacing-07;
+}
+
+.helper {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+}
+
+// The preview's fields are disabled so they can't be typed into, and Carbon greys out a disabled
+// field's label. Field names keep full strength here; the inputs themselves stay muted.
+.questionBody {
+  :global(.cds--label),
+  :global(.cds--label--disabled),
+  :global(.cds--radio-button__label-text),
+  :global(.cds--checkbox-label-text),
+  :global(.cds--toggle__label-text),
+  :global(legend) {
+    color: var(--cds-text-primary, #{colors.$gray-100});
+  }
+}
+
+// rule sentences under a question
+.rule,
+.ruleCustom {
+  @include type.type-style('helper-text-01');
+  padding-left: layout.$spacing-03;
+  border-left: 2px solid colors.$teal-40;
+  color: colors.$gray-80;
+}
+
+.ruleCustom {
+  border-left-color: colors.$gray-40;
+  font-style: italic;
+}

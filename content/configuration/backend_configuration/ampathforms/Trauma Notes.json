@@ -1,0 +1,217 @@
+{
+  "name": "Trauma Notes",
+  "description": "Free-text notes for trauma patients covering history of present illness, past medical, surgical and social history, physical assessment, a running list of injuries, radiological findings and laboratory trends.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "ffa8f655-e5d9-4674-be7a-859a167093c3",
+  "retired": true,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Trauma Notes",
+      "sections": [
+        {
+          "label": "Trauma Notes",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "History of present illness",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "09a2b3c4-4db4-c34f-9678-0ef123456789"
+              },
+              "id": "historyOfPresentIllness"
+            },
+            {
+              "label": "PMHx",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "6a900112-2334-0126-4560-ea0123456789"
+              },
+              "id": "pmhx"
+            },
+            {
+              "label": "PSHx",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "da878016-590a-4e0f-ab0c-e1fd0ffc166e"
+              },
+              "id": "pshx"
+            },
+            {
+              "label": "Social Hx",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "162143AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "socialHx"
+            },
+            {
+              "label": "Physical Assessment",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "28f95783-4c21-4ce9-b879-3e5787723e48"
+              },
+              "id": "physicalAssessmentGroup",
+              "questions": [
+                {
+                  "label": "Physical Examination Details",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "c29af156-2787-40af-a7f9-74d3a6a833e9"
+                  },
+                  "id": "physicalExaminationDetails"
+                }
+              ]
+            },
+            {
+              "label": "List of Injuries to date",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "be73b559-c076-4f6a-8834-f972d04a2c59"
+              },
+              "id": "listOfInjuriesToDate"
+            },
+            {
+              "label": "Radiological findings",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "8fa9c173-ba08-46a0-86bf-0d4cd6b1a615"
+              },
+              "id": "radiologicalFindingsGroup",
+              "questions": [
+                {
+                  "label": "CXR",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "0def3448-3635-41ca-ba59-4d87a1af5fff"
+                  },
+                  "id": "cxr"
+                },
+                {
+                  "label": "Pelvis",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "09e5096b-ade9-4d35-90cb-33d457b62b60"
+                  },
+                  "id": "pelvis"
+                },
+                {
+                  "label": "C-Spine",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "1ddaebcf-21da-4d91-a7cb-3ecb2bf607e8"
+                  },
+                  "id": "cSpine"
+                },
+                {
+                  "label": "T/L/S Spine",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "3c51ca39-399a-4200-9405-f87b8d217a86"
+                  },
+                  "id": "tlsSpine"
+                },
+                {
+                  "label": "Other",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "23b5ebe7-70ef-4334-b8ba-4a7373dc3e1d"
+                  },
+                  "id": "radiologicalOther"
+                },
+                {
+                  "label": "Extremity",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "95189718-5911-4c9b-8d32-debdbca4875e"
+                  },
+                  "id": "extremity"
+                }
+              ]
+            },
+            {
+              "label": "Lab Trends",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "a9ae8835-6d4d-452f-bb5f-ad44a1ff8014"
+              },
+              "id": "labTrends"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

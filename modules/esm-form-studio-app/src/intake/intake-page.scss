@@ -1,0 +1,76 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-05;
+  max-width: 64rem;
+}
+
+.heading {
+  @include type.type-style('heading-04');
+}
+
+.subheading {
+  @include type.type-style('heading-03');
+  margin-bottom: layout.$spacing-04;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-05;
+}
+
+.downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: layout.$spacing-06;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-05;
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: layout.$spacing-04;
+  margin-bottom: layout.$spacing-05;
+}
+
+.number {
+  display: flex;
+  flex-direction: column;
+  padding: layout.$spacing-04;
+  background-color: colors.$gray-10;
+}
+
+.value {
+  @include type.type-style('heading-05');
+}
+
+.helper {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+}
+
+.issues {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-02;
+  max-height: 24rem;
+  overflow-y: auto;
+  list-style: disc;
+  padding-left: layout.$spacing-05;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: layout.$spacing-04;
+}

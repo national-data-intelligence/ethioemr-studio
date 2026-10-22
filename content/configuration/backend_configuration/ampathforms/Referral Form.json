@@ -1,0 +1,215 @@
+{
+  "name": "Referral Form",
+  "description": "Used when referring a patient to another facility or service, summarising history and examination, laboratory results and diagnosis, with the reason and urgency of referral and the referring physician's details.",
+  "version": "2.0",
+  "published": true,
+  "uuid": "8e7f6a5b-4c3d-4e5f-8a9b-0c1d2e3f4a5b",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Referral Form",
+      "sections": [
+        {
+          "label": "Referral Form",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Summary of history and physical examination",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "summaryHistoryPhysicalExamination"
+            },
+            {
+              "label": "Laboratory",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "f2a3b4c5-d6e7-4f80-9012-345678900002"
+              },
+              "id": "laboratory"
+            },
+            {
+              "label": "Diagnosis",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "a1b2c3d4-e5f6-4789-a012-345678901234",
+                "answers": [
+                  {
+                    "concept": "b2c3d4e5-f6a7-4890-b123-456789012345",
+                    "label": "Bleeding requiring >1 pint of blood"
+                  },
+                  {
+                    "concept": "c3d4e5f6-a7b8-4901-c234-567890123456",
+                    "label": "Bleeding requiring blood transfusion"
+                  },
+                  {
+                    "concept": "d4e5f6a7-b8c9-4012-d345-678901234567",
+                    "label": "Incomplete abortion requiring intervention"
+                  },
+                  {
+                    "concept": "e5f6a7b8-c9d0-4123-e456-789012345678",
+                    "label": "Uterine or Intra-abdominal injury"
+                  },
+                  {
+                    "concept": "f6a7b8c9-d0e1-4234-f567-890123456789",
+                    "label": "Infection requiring hospitalization"
+                  }
+                ]
+              },
+              "id": "diagnosis"
+            },
+            {
+              "label": "Reason for Referral",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "843471a8-580c-4b29-8257-426b41e5d1df",
+                "answers": [
+                  {
+                    "concept": "b8c9d0e1-f2a3-4456-b789-012345678901",
+                    "label": "To be enrolled as new PRE-ART patient"
+                  },
+                  {
+                    "concept": "c9d0e1f2-a3b4-4567-c890-123456789012",
+                    "label": "To be enrolled as transferred in patient"
+                  },
+                  {
+                    "concept": "d0e1f2a3-b4c5-4678-d901-234567890123",
+                    "label": "To be enrolled as transferred out patient"
+                  }
+                ]
+              },
+              "id": "reasonForReferral"
+            },
+            {
+              "label": "Referred by",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "69011223-3445-1237-5671-345f01234567",
+                "answers": [
+                  {
+                    "label": "Planned mode of transport to delivery location",
+                    "concept": "162976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Others",
+                    "concept": "5ec51542-6a40-4f25-8654-6af7628002a9"
+                  }
+                ]
+              },
+              "id": "referredBy"
+            },
+            {
+              "label": "Name of physician",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "nameOfPhysician"
+            },
+            {
+              "label": "Date of Referral",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "1162063a-5960-7890-1234-567890abcd31"
+              },
+              "id": "dateOfReferral"
+            },
+            {
+              "label": "Consulted Senior",
+              "type": "obs",
+              "id": "consultedSenior",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "ec308e2f-b613-4683-8253-11bad6f5a29a"
+              }
+            },
+            {
+              "label": "Urgency of the referral",
+              "type": "obs",
+              "id": "urgencyOfTheReferral",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "20e63312-90e6-41f0-a8f1-77d423a5a781",
+                "answers": [
+                  {
+                    "concept": "037446f4-adfc-40b3-928c-a39a4826b1bf",
+                    "label": "Emergency"
+                  },
+                  {
+                    "concept": "162976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non emergency"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

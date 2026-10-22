@@ -1,0 +1,216 @@
+{
+  "//": "The Form Studio Excel template. One source for the template generator and the browser reader (src/intake/excel/read-excel.ts). Column ideas from formgen's sheet; no formgen code.",
+  "sheets": {
+    "about": "About",
+    "questions": "Questions",
+    "options": "Options",
+    "help": "How to fill"
+  },
+  "about": [
+    {
+      "key": "name",
+      "header": "Form name",
+      "help": "What the form is called in the EMR. Must not match another form unless you are replacing it."
+    },
+    {
+      "key": "encounter",
+      "header": "Encounter type",
+      "help": "One of the project encounter types (e.g. Consultation, Triage, Vitals). Leave blank to choose in Form Studio."
+    },
+    {
+      "key": "description",
+      "header": "Description",
+      "help": "18-40 words: what the form records, for whom, when."
+    },
+    {
+      "key": "replaces",
+      "header": "Replaces (existing form name or uuid)",
+      "help": "Only when this rebuilds a form that already ships: its identity (uuid, name, encounter) is kept."
+    },
+    {
+      "key": "version",
+      "header": "Version",
+      "help": "Leave blank for 1.1 (the standard template)."
+    }
+  ],
+  "types": [
+    "text",
+    "long text",
+    "number",
+    "date",
+    "date-time",
+    "time",
+    "yes/no",
+    "one of",
+    "many of",
+    "dropdown",
+    "calculated",
+    "note"
+  ],
+  "yesNo": [
+    "yes",
+    "no"
+  ],
+  "columns": [
+    {
+      "key": "page",
+      "header": "Page",
+      "width": 22,
+      "help": "Page title. Blank = same page as the row above (the first page defaults to '<Form name> Assessment')."
+    },
+    {
+      "key": "section",
+      "header": "Section",
+      "width": 26,
+      "help": "Section title. Blank = same section as the row above."
+    },
+    {
+      "key": "group",
+      "header": "Group",
+      "width": 20,
+      "help": "Optional. Rows next to each other with the same Group name are saved together (an O3 obsGroup), e.g. Blood pressure: systolic + diastolic. Put yes in Repeat on any of them and the whole group gets an \"Add\" button."
+    },
+    {
+      "key": "label",
+      "header": "Question",
+      "width": 40,
+      "required": true,
+      "help": "The question as the clinician reads it."
+    },
+    {
+      "key": "id",
+      "header": "Question ID",
+      "width": 18,
+      "help": "Optional short id (letters/digits, no spaces). Blank = made from the question. Needed when another row's 'Show if' points here."
+    },
+    {
+      "key": "type",
+      "header": "Type",
+      "width": 12,
+      "required": true,
+      "list": "types",
+      "help": "text, long text, number, date, date-time, time, yes/no, one of, many of, dropdown, calculated, note."
+    },
+    {
+      "key": "options",
+      "header": "Options",
+      "width": 34,
+      "help": "For one of / many of / dropdown: answers separated by ; (e.g. Supine; Sitting), or the name of a list on the Options sheet."
+    },
+    {
+      "key": "concept",
+      "header": "Concept",
+      "width": 24,
+      "help": "Optional: the concept uuid or exact concept name. Blank = Form Studio searches the dictionary by the question."
+    },
+    {
+      "key": "groupConcept",
+      "header": "Group concept",
+      "width": 24,
+      "help": "Optional, for a Group: an existing SET concept (uuid or exact name). Blank = Form Studio searches by the group name. Never a new concept."
+    },
+    {
+      "key": "required",
+      "header": "Required",
+      "width": 10,
+      "list": "yesNo",
+      "help": "yes = must be filled."
+    },
+    {
+      "key": "min",
+      "header": "Min",
+      "width": 7,
+      "help": "Numbers: lowest allowed value."
+    },
+    {
+      "key": "max",
+      "header": "Max",
+      "width": 7,
+      "help": "Numbers: highest allowed value."
+    },
+    {
+      "key": "whole",
+      "header": "Whole number",
+      "width": 9,
+      "list": "yesNo",
+      "help": "yes = no decimals."
+    },
+    {
+      "key": "unit",
+      "header": "Unit",
+      "width": 9,
+      "help": "Shown after the label, e.g. mmHg, kg, cm."
+    },
+    {
+      "key": "warnBelow",
+      "header": "Warn below",
+      "width": 9,
+      "help": "Numbers: a yellow warning (does not block saving) below this value."
+    },
+    {
+      "key": "warnAbove",
+      "header": "Warn above",
+      "width": 9,
+      "help": "Numbers: a yellow warning above this value."
+    },
+    {
+      "key": "futureDates",
+      "header": "Allow future dates",
+      "width": 10,
+      "list": "yesNo",
+      "help": "Dates: blank or no = past and today only."
+    },
+    {
+      "key": "showIf",
+      "header": "Show if",
+      "width": 30,
+      "help": "Show only when: <Question ID> = <option>, <Question ID> has <option> (many of), <Question ID> is answered, age > 5, sex = F."
+    },
+    {
+      "key": "calculation",
+      "header": "Calculation",
+      "width": 24,
+      "help": "For calculated: BMI(<height id>, <weight id>), EDD(<LNMP id>), or an engine expression. Shown read-only."
+    },
+    {
+      "key": "repeat",
+      "header": "Repeat",
+      "width": 8,
+      "list": "yesNo",
+      "help": "yes on a row inside a Group = the group can be entered more than once (repeating group). On a row without a Group it is only flagged (a single question can't repeat in O3)."
+    },
+    {
+      "key": "fromEmr",
+      "header": "From EMR",
+      "width": 9,
+      "list": "yesNo",
+      "help": "yes = already in the patient record (name, MRN, age, sex): not built into the form, listed for review."
+    },
+    {
+      "key": "notes",
+      "header": "Notes",
+      "width": 30,
+      "help": "Anything for the reviewer. Not built into the form."
+    }
+  ],
+  "optionColumns": [
+    {
+      "key": "list",
+      "header": "List name",
+      "width": 22,
+      "help": "The name used in the Questions sheet's Options column."
+    },
+    {
+      "key": "label",
+      "header": "Answer",
+      "width": 30,
+      "help": "The answer as shown."
+    },
+    {
+      "key": "concept",
+      "header": "Concept",
+      "width": 38,
+      "help": "Optional concept uuid or exact name for this answer."
+    }
+  ]
+}

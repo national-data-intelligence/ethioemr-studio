@@ -1,0 +1,572 @@
+{
+  "name": "Tuberculosis - Followup",
+  "description": "Documents each TB treatment follow-up visit, recording symptoms, examination, treatment adherence, adverse effects and their management, symptom relief, family screening, admission, treatment outcome, impression and the plan for the next visit.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "d8850ae7-379e-4bdd-aa39-0ef8c0a1491a",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Tuberculosis - Followup",
+      "sections": [
+        {
+          "label": "Tuberculosis - Followup",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Symptoms and Duration",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "0a1b2c3d-4e5f-4601-8a90-b1c2d3e4ff01",
+                "answers": [
+                  {
+                    "concept": "85822a93-0801-4787-8ec3-4f3d04e87e35",
+                    "label": "Fever"
+                  },
+                  {
+                    "concept": "4c2a0bc4-6280-4695-b8fe-f44e1417e5ee",
+                    "label": "Night sweats"
+                  },
+                  {
+                    "concept": "4ad696eb-4426-4cf7-948b-48ef70a7749d",
+                    "label": "Coughing or vomiting blood"
+                  },
+                  {
+                    "concept": "39747d43-00bb-46eb-9551-790981786d14",
+                    "label": "Vomiting"
+                  },
+                  {
+                    "concept": "5e788990-0112-8904-2348-2def01234567",
+                    "label": "Shortness of breath or chest pain"
+                  },
+                  {
+                    "concept": "abe9b7fa-ec3c-4ec5-a401-2a019a280dca",
+                    "label": "Acute abdominal pain"
+                  },
+                  {
+                    "concept": "58122334-4556-2348-6782-c789abcdef01",
+                    "label": "Psychosis or aggression"
+                  },
+                  {
+                    "concept": "d8f4631d-fccb-41ab-a8d1-3fc881a8a430",
+                    "label": "Recent convulsion"
+                  },
+                  {
+                    "concept": "2e9fb826-1b3d-45aa-b2ba-fb7f30e22e70",
+                    "label": "Severe pain or poisoning history"
+                  }
+                ]
+              },
+              "id": "symptomsAndDuration"
+            },
+            {
+              "label": "for",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1b2c3d4e-5f60-4712-9b01-c2d3e4f5ff02"
+              },
+              "id": "symptomsDurationValue"
+            },
+            {
+              "label": "Next Followup Visit",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "18c7d8e9-eafb-82de-45bc-7d3456890b13"
+              },
+              "id": "nextFollowupVisit"
+            },
+            {
+              "label": "Plan for next visit",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "29d8e9fa-fb0c-93ef-56cd-8e4567900b14"
+              },
+              "id": "planForNextVisit"
+            },
+            {
+              "label": "Admission",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "2c3d4e5f-6071-4823-ac12-d3e4f5a6ff03"
+              },
+              "id": "admissionGroup",
+              "questions": [
+                {
+                  "label": "Need of Admission",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "3d4e5f60-7182-4934-bd23-e4f5a6b7ff04",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "id": "needOfAdmission"
+                },
+                {
+                  "label": "Indications",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "4e5f6071-8293-4a45-ce34-f5a6b7c8ff05"
+                  },
+                  "id": "indications"
+                }
+              ]
+            },
+            {
+              "label": "Treatment Output",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "5f607182-9304-4b56-df45-06b7c8d9ff06",
+                "answers": [
+                  {
+                    "concept": "162677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Improved"
+                  },
+                  {
+                    "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Same"
+                  },
+                  {
+                    "concept": "162678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Worse"
+                  },
+                  {
+                    "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Immunization defaulted"
+                  },
+                  {
+                    "concept": "34c6a35c-beb9-4d79-99ec-aa880fb067e5",
+                    "label": "Immunization not started"
+                  },
+                  {
+                    "concept": "256813f5-9123-42cb-a456-d51db0f0d8b3",
+                    "label": "Immunization not up-to-date"
+                  },
+                  {
+                    "concept": "d57ad0b9-5f5f-4887-a407-3d882b753cf3",
+                    "label": "Defaulted"
+                  }
+                ]
+              },
+              "id": "treatmentOutput"
+            },
+            {
+              "label": "Current Followup Visit After",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "60718293-0415-4c67-e056-17c8d9eaff07",
+                "answers": [
+                  {
+                    "concept": "0f1a2b3c-4d5e-4678-8901-234567890015",
+                    "label": "Day 15"
+                  },
+                  {
+                    "concept": "1a2b3c4d-5e6f-4789-9012-345678900116",
+                    "label": "1 Month"
+                  },
+                  {
+                    "concept": "2b3c4d5e-6f70-4890-a123-456789001217",
+                    "label": "2 Month"
+                  },
+                  {
+                    "concept": "3c4d5e6f-7081-49a1-b234-567890012318",
+                    "label": "3 Month"
+                  },
+                  {
+                    "concept": "4d5e6f70-8192-4ab2-c345-678900123419",
+                    "label": "4 Month"
+                  },
+                  {
+                    "concept": "5e6f7081-9203-4bc3-d456-789001234520",
+                    "label": "5 Month"
+                  },
+                  {
+                    "concept": "6f708192-0314-4cd4-e567-890012345621",
+                    "label": "6 Month"
+                  },
+                  {
+                    "concept": "70819203-b425-4de5-f678-900123456722",
+                    "label": "7 Month"
+                  },
+                  {
+                    "concept": "81920314-c536-4ef6-0789-001234567823",
+                    "label": "8 Month"
+                  },
+                  {
+                    "concept": "92031425-d647-4007-1890-012345678924",
+                    "label": "9 Month"
+                  },
+                  {
+                    "concept": "03142536-e758-4118-29a1-123456789025",
+                    "label": "10 Month"
+                  },
+                  {
+                    "concept": "14253647-f869-4229-3ab2-234567890126",
+                    "label": "11 Month"
+                  },
+                  {
+                    "concept": "25364758-0a7b-433a-4bc3-345678901227",
+                    "label": "12 Month"
+                  }
+                ]
+              },
+              "id": "currentFollowupVisitAfter"
+            },
+            {
+              "label": "Family Screened",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "36475869-1b8c-444b-5cd4-456789012328",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Applicable"
+                  }
+                ]
+              },
+              "id": "familyScreened"
+            },
+            {
+              "label": "Symptoms Relief",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "4758697a-2c9d-455c-6de5-567890123429"
+              },
+              "id": "symptomsReliefGroup",
+              "questions": [
+                {
+                  "label": "Fever",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "58697a8b-3dae-466d-7ef6-67890123452a",
+                    "answers": [
+                      {
+                        "concept": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Increased"
+                      },
+                      {
+                        "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Same as previous"
+                      },
+                      {
+                        "concept": "164470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Decreased"
+                      },
+                      {
+                        "concept": "dd1e2f3a-4b5c-4678-9012-ab34cd56ef01",
+                        "label": "Relieved Completely"
+                      }
+                    ]
+                  },
+                  "id": "reliefFever"
+                },
+                {
+                  "label": "Cough",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "58697a8b-3dae-466d-7ef6-67890123452a",
+                    "answers": [
+                      {
+                        "concept": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Increased"
+                      },
+                      {
+                        "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Same as previous"
+                      },
+                      {
+                        "concept": "164470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Decreased"
+                      },
+                      {
+                        "concept": "dd1e2f3a-4b5c-4678-9012-ab34cd56ef01",
+                        "label": "Relieved Completely"
+                      }
+                    ]
+                  },
+                  "id": "reliefCough"
+                },
+                {
+                  "label": "Anorexia",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "58697a8b-3dae-466d-7ef6-67890123452a",
+                    "answers": [
+                      {
+                        "concept": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Increased"
+                      },
+                      {
+                        "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Same as previous"
+                      },
+                      {
+                        "concept": "164470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Decreased"
+                      },
+                      {
+                        "concept": "dd1e2f3a-4b5c-4678-9012-ab34cd56ef01",
+                        "label": "Relieved Completely"
+                      }
+                    ]
+                  },
+                  "id": "reliefAnorexia"
+                },
+                {
+                  "label": "Chest Pain",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "58697a8b-3dae-466d-7ef6-67890123452a",
+                    "answers": [
+                      {
+                        "concept": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Increased"
+                      },
+                      {
+                        "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Same as previous"
+                      },
+                      {
+                        "concept": "164470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Decreased"
+                      },
+                      {
+                        "concept": "dd1e2f3a-4b5c-4678-9012-ab34cd56ef01",
+                        "label": "Relieved Completely"
+                      }
+                    ]
+                  },
+                  "id": "reliefChestPain"
+                },
+                {
+                  "label": "Breathlessness",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "58697a8b-3dae-466d-7ef6-67890123452a",
+                    "answers": [
+                      {
+                        "concept": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Increased"
+                      },
+                      {
+                        "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Same as previous"
+                      },
+                      {
+                        "concept": "164470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Decreased"
+                      },
+                      {
+                        "concept": "dd1e2f3a-4b5c-4678-9012-ab34cd56ef01",
+                        "label": "Relieved Completely"
+                      }
+                    ]
+                  },
+                  "id": "reliefBreathlessness"
+                },
+                {
+                  "label": "Lymph Node Size",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "58697a8b-3dae-466d-7ef6-67890123452a",
+                    "answers": [
+                      {
+                        "concept": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Increased"
+                      },
+                      {
+                        "concept": "164470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Decreased"
+                      },
+                      {
+                        "concept": "dd1e2f3a-4b5c-4678-9012-ab34cd56ef01",
+                        "label": "Relieved Completely"
+                      },
+                      {
+                        "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Same as previous"
+                      }
+                    ]
+                  },
+                  "id": "reliefLymphNodeSize"
+                }
+              ]
+            },
+            {
+              "label": "Examination",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "697a8b9c-4ebf-477e-8017-78901234563b",
+                "answers": [
+                  {
+                    "concept": "bb1c2d3e-4f50-4612-8a90-b1234567aa01",
+                    "label": "Icterus present"
+                  },
+                  {
+                    "concept": "cc2d3e4f-5061-4723-9b01-c2345678bb02",
+                    "label": "Lymph nodes enlarged"
+                  }
+                ]
+              },
+              "id": "examination"
+            },
+            {
+              "label": "Treatment Compliance",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "7a8b9c0d-5fc0-488f-9128-89012345674c",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "treatmentCompliance"
+            },
+            {
+              "label": "Adverse Effects",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8b9c0d1e-60d1-4990-a239-90123456785d"
+              },
+              "id": "adverseEffects"
+            },
+            {
+              "label": "Adverse Effects Treatment",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "9c0d1e2f-71e2-40a1-b34a-01234567896e"
+              },
+              "id": "adverseEffectsTreatment"
+            },
+            {
+              "label": "Visit Impression",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ad1e2f30-82f3-41b2-c45b-123456789a7f",
+                "answers": [
+                  {
+                    "concept": "162677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Improving"
+                  },
+                  {
+                    "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Same"
+                  },
+                  {
+                    "concept": "162678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Worsening"
+                  },
+                  {
+                    "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Needs further evaluation"
+                  }
+                ]
+              },
+              "id": "visitImpression"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

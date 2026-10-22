@@ -1,0 +1,295 @@
+{
+  "name": "Intrapartum Care and follow-up; Monitoring Progress Of labor Using Partograph",
+  "description": "Used during active labor to monitor progress on the partograph, recording fetal heart rate, amniotic fluid, moulding, cervical dilatation, contractions, oxytocin and IV fluids, maternal pulse, blood pressure, temperature and urine findings.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "d3e4f506-1728-49ab-c012-d23456789abc",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Intrapartum Care and follow-up; Monitoring Progress Of labor Using PartographThu, 28 Dec 2023 09:44:33 GMT Assessment",
+      "sections": [
+        {
+          "label": "Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Partograph Start Time",
+              "type": "obs",
+              "id": "partographStartTime",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "219c0ada-4ed7-47d5-950e-f45060ed4f96"
+              }
+            },
+            {
+              "label": "Labor starting time",
+              "type": "obs",
+              "id": "laborStartingTime",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "a58d731f-002e-424f-94ed-41fbb61132e3"
+              }
+            },
+            {
+              "label": "If membrane is ruptured, time of ROM",
+              "type": "obs",
+              "id": "ifMembraneIsRupturedTimeOfRom",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "41e63134-c7ab-4ca4-8576-6f6891b7e602"
+              }
+            },
+            {
+              "label": "Gravida",
+              "type": "obs",
+              "id": "gravida",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Para",
+              "type": "obs",
+              "id": "para",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "ce38ecf3-10ca-4227-bb48-5db53e9588cd",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Contraction per 10 minutes",
+              "type": "obs",
+              "id": "contractionPer10Minutes",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "7fa183b6-3484-4976-9af7-818f4d417c98"
+              }
+            },
+            {
+              "label": "Drug given and IV fluid",
+              "type": "obs",
+              "id": "drugGivenAndIvFluid",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1f96f08e-741e-4d00-a82c-dd4c1a5874d2"
+              }
+            }
+          ]
+        },
+        {
+          "label": "New Fetal Heart Beat",
+          "isExpanded": "true",
+          "questions": []
+        },
+        {
+          "label": "Amniotic Fluid and MouldingThu, 28 Dec 2023 09:44:29 GMT",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Moulding Description",
+              "type": "obs",
+              "id": "mouldingDescription",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "a1c3e5f7-2b4d-4a6c-8e1f-0a2c4e6f8b10",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Ammonitic fluid",
+              "type": "obs",
+              "id": "ammoniticFluid",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "76059a7b-cf2a-4b4c-847c-0f96648cba5a",
+                "answers": [
+                  {
+                    "concept": "159484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Clear"
+                  },
+                  {
+                    "concept": "1077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Bloody"
+                  },
+                  {
+                    "concept": "9caace24-470c-48d2-b931-59f23bb7cb2b",
+                    "label": "Meconium stained fluid"
+                  },
+                  {
+                    "concept": "373cd129-d4e0-41d9-9a96-c46999a4d200",
+                    "label": "Meconium stained fluid Coded Grade 2"
+                  },
+                  {
+                    "concept": "dde32d78-e897-4838-90df-15e8d3b9872c",
+                    "label": "Meconium stained fluid Coded Grade 3"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Cervical Dilation Graph",
+          "isExpanded": "true",
+          "questions": []
+        },
+        {
+          "label": "Oxy and drop",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Oxytocin U/L",
+              "type": "obs",
+              "id": "oxytocinUL",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "07c9ebf2-8bad-40c2-e475-6a8c0e2f4b76",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            },
+            {
+              "label": "Drop/min",
+              "type": "obs",
+              "id": "dropMin",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "eaf41281-d7e7-4add-9fef-496ca854bbba",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            }
+          ]
+        },
+        {
+          "label": "Pulse and BP graph",
+          "isExpanded": "true",
+          "questions": []
+        },
+        {
+          "label": "Temperature table",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Temprature",
+              "type": "obs",
+              "id": "temprature",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            }
+          ]
+        },
+        {
+          "label": "Urine Table",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Urine Protein",
+              "type": "obs",
+              "id": "urineProtein",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "a24ed908-7dd2-464b-b69b-6e8a3f061cfb"
+              }
+            },
+            {
+              "label": "Description of Urine acetone",
+              "type": "obs",
+              "id": "descriptionOfUrineAcetone",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "29ebf204-adcf-42e4-a697-8c0e2a4b6d98"
+              }
+            },
+            {
+              "label": "Description of Volume",
+              "type": "obs",
+              "id": "descriptionOfVolume",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "159660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "hideSteppers": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

@@ -1,0 +1,213 @@
+{
+  "name": "Order Sheet",
+  "description": "Used by physicians to write inpatient orders, specifying the main diagnosis and its ICD code, patient condition, activity, diet, investigations, vital sign monitoring frequency and treatments to be given.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "8e4ca70c-97a6-4dde-b09a-f36a43830cb7",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Order Sheet Assessment",
+      "sections": [
+        {
+          "label": "Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Order type",
+              "type": "obs",
+              "id": "orderType",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "d208e4b4-4543-4ea8-abf7-f5fe0e3d6465",
+                "answers": [
+                  {
+                    "concept": "9d271ff2-9ea8-4950-ad08-2393d2be38df",
+                    "label": "New Order"
+                  },
+                  {
+                    "concept": "78735779-816d-4d79-87b9-9743822600f6",
+                    "label": "Added Order"
+                  },
+                  {
+                    "concept": "1ca0deb8-25ab-4f43-824c-0891acf03d52",
+                    "label": "Revised Order"
+                  },
+                  {
+                    "concept": "ab5c1364-6ad7-40ca-866a-25ed045bc9be",
+                    "label": "Preop order"
+                  },
+                  {
+                    "concept": "84266248-1ccb-4052-9cc1-51b30d001007",
+                    "label": "Postop order"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Diagnosis",
+              "type": "obs",
+              "id": "diagnosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "5809a2b3-3ca3-b23e-8567-9ef012345678"
+              }
+            },
+            {
+              "label": "Main Diagnosis",
+              "type": "obs",
+              "id": "mainDiagnosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "b9aa3a66-77d2-4078-845c-d0eaa72efa43"
+              }
+            },
+            {
+              "label": "ICD Code of Main Diagnosis",
+              "type": "obs",
+              "id": "icdCodeOfMainDiagnosis",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "4c50a82f-b138-4029-b7b9-4766e8069e7e"
+              }
+            },
+            {
+              "label": "Condition",
+              "type": "obs",
+              "id": "condition",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "8411fbfa-e070-4143-aca2-b85f6f7dbe6c",
+                "answers": [
+                  {
+                    "concept": "06398754-8865-4004-805e-926636d6d6c2",
+                    "label": "Stable"
+                  },
+                  {
+                    "concept": "31585abf-48a2-4c80-af26-f3fb1d6a9a20",
+                    "label": "Sub-Critical"
+                  },
+                  {
+                    "concept": "8d956de6-e36f-468c-8485-50858340331c",
+                    "label": "Critical"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Activity",
+              "type": "obs",
+              "id": "activity",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "6211a61e-ba24-4c5b-b9a3-08ba3881b1a9"
+              }
+            },
+            {
+              "label": "Diet/Feeding",
+              "type": "obs",
+              "id": "dietFeeding",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "bf82f0d9-3730-4a52-ac09-6b5c5242769e"
+              }
+            },
+            {
+              "label": "Investigation",
+              "type": "obs",
+              "id": "investigation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "4182536d-1526-3456-7890-123456abcd1b"
+              }
+            },
+            {
+              "label": "V/S followup frequency",
+              "type": "obs",
+              "id": "vSFollowupFrequency",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "c4b5fa0a-d8e3-4a60-8d86-27f2aba1747c"
+              }
+            },
+            {
+              "label": "Treatments to be given",
+              "type": "obs",
+              "id": "treatmentsToBeGiven",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1d55feb3-9f2b-4156-ae00-bdb2222df398"
+              }
+            },
+            {
+              "label": "Ordered by",
+              "type": "obs",
+              "id": "orderedBy",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "17ed1619-739d-4e25-b8b0-6d87bd66141e"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

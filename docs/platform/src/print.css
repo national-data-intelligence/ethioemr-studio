@@ -1,0 +1,204 @@
+/* House style for the printed platform manuals.
+   A4, about 45 pt side margins. Header (logo, running title) and footer (Palladium, document, place and date, page n of N)
+   are drawn by build-pdfs.mjs through Chrome's header and footer templates, not here. */
+/* Roboto (Apache License 2.0), downloaded from Google Fonts into fonts/ so the PDF does not depend on the network. */
+@font-face { font-family: 'Roboto'; font-style: normal; font-weight: 400; src: url('fonts/Roboto-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Roboto'; font-style: normal; font-weight: 700; src: url('fonts/Roboto-Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Roboto'; font-style: italic; font-weight: 400; src: url('fonts/Roboto-Italic.ttf') format('truetype'); }
+
+:root {
+  --body: #1C1C1C;
+  --caption: #495057;
+  --rule: #C9CDD2;
+  --zebra: #F5F5F5;
+  --th: #1B1B1B;
+  --bar: #E97200;
+  --green: #1B6E3D;
+  --caution-bg: #FDF0E3;
+  --note-bg: #F5F5F5;
+}
+
+@page { size: A4; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  font-size: 9.4pt;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+/* ---------- title block (first page) ---------- */
+.title-block { margin: 2pt 0 14pt; }
+.title-block h1.doc-title {
+  font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 26pt;
+  line-height: 1.15;
+  margin: 0 0 4pt;
+  border: 0;
+  padding: 0;
+}
+.title-block .subtitle {
+  font-family: 'Segoe UI Light', 'Segoe UI', sans-serif;
+  font-weight: 300;
+  font-size: 12pt;
+  color: var(--caption);
+  margin: 0 0 10pt;
+}
+.title-block .meta { font-size: 8.3pt; color: var(--caption); padding-bottom: 10pt; border-bottom: 1.5pt solid #000; }
+.pill {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 8.3pt;
+  padding: 1.5pt 7pt;
+  border-radius: 3pt;
+  margin-right: 6pt;
+}
+
+/* ---------- headings ---------- */
+h1, h2, h3, h4 {
+  font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  color: #000;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+h1 {
+  font-size: 16pt;
+  margin: 20pt 0 8pt;
+  padding-bottom: 4pt;
+  border-bottom: 0.75pt solid var(--rule);
+}
+h1.new-page { break-before: page; margin-top: 0; }
+h2 { font-size: 12pt; margin: 14pt 0 5pt; }
+/* entry heading: orange bar on the left */
+h3 {
+  font-size: 10.5pt;
+  margin: 12pt 0 5pt;
+  padding-left: 8pt;
+  border-left: 3pt solid var(--bar);
+}
+h4 { font-size: 9.4pt; margin: 8pt 0 3pt; }
+/* keep a heading with what follows it */
+h1 + *, h2 + *, h3 + *, h4 + * { break-before: avoid; }
+
+p { margin: 0 0 6pt; }
+.lead { color: var(--caption); }
+ul, ol { margin: 0 0 6pt; padding-left: 16pt; }
+li { margin: 0 0 2pt; }
+b, strong { font-weight: 700; }
+
+code, .mono {
+  font-family: Consolas, 'Cascadia Mono', monospace;
+  font-size: 8.3pt;
+  background: #EEF0F2;
+  border-radius: 2.5pt;
+  padding: 0.5pt 3pt;
+  white-space: nowrap;
+}
+code.wrap { white-space: normal; word-break: break-all; }
+pre {
+  font-family: Consolas, 'Cascadia Mono', monospace;
+  font-size: 8pt;
+  line-height: 1.45;
+  background: var(--zebra);
+  border-left: 2pt solid var(--rule);
+  padding: 6pt 9pt;
+  margin: 0 0 8pt;
+  white-space: pre-wrap;
+  break-inside: avoid;
+}
+pre code { background: none; padding: 0; white-space: pre-wrap; }
+
+/* ---------- tables ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.3pt;
+  line-height: 1.4;
+  margin: 2pt 0 10pt;
+}
+thead { display: table-header-group; }
+tr { break-inside: avoid; page-break-inside: avoid; }
+th {
+  background: var(--th);
+  color: #fff;
+  font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  text-align: left;
+  padding: 5pt 7pt;
+  vertical-align: bottom;
+}
+td { padding: 5pt 7pt; vertical-align: top; border-bottom: 0.5pt solid #E5E7E3; }
+tbody tr:nth-child(even) td { background: var(--zebra); }
+td.k { font-weight: 700; width: 24%; }
+table.kv td:first-child { font-weight: 700; width: 24%; }
+table.narrow-first td:first-child { width: 16%; }
+td code { white-space: normal; word-break: break-word; }
+
+/* ---------- callouts ---------- */
+.callout {
+  background: var(--note-bg);
+  border-left: 3pt solid #9AA0A6;
+  padding: 7pt 11pt;
+  margin: 4pt 0 10pt;
+  break-inside: avoid;
+}
+.callout .label {
+  display: block;
+  font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 7.5pt;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--caption);
+  margin-bottom: 2pt;
+}
+.callout p:last-child, .callout ul:last-child, .callout ol:last-child { margin-bottom: 0; }
+.callout.caution { background: var(--caution-bg); border-left-color: var(--bar); }
+.callout.green { border-left-color: var(--green); }
+
+/* ---------- figures ---------- */
+figure { margin: 4pt 0 12pt; break-inside: avoid; }
+figure img { display: block; max-width: 100%; border: 0.5pt solid var(--rule); }
+figure.panel img { max-height: 118mm; width: auto; margin: 0; }
+figure.wide img { width: 100%; }
+figcaption { font-size: 8pt; color: var(--caption); margin-top: 3pt; }
+.fig-row { display: flex; gap: 12pt; align-items: flex-start; break-inside: avoid; margin: 4pt 0 12pt; }
+.fig-row figure { margin: 0; flex: 1 1 0; }
+.fig-row figure img { width: 100%; max-height: none; }
+.side { display: flex; gap: 14pt; align-items: flex-start; break-inside: avoid; margin: 0 0 10pt; }
+.side > .text { flex: 1 1 58%; }
+.side > figure { flex: 0 0 38%; margin: 0; }
+.side > figure img { width: 100%; }
+
+/* numbered steps */
+ol.steps { padding-left: 0; list-style: none; counter-reset: s; }
+ol.steps > li { counter-increment: s; position: relative; padding-left: 20pt; margin-bottom: 4pt; }
+ol.steps > li::before {
+  content: counter(s);
+  position: absolute; left: 0; top: 1pt;
+  width: 13pt; height: 13pt; line-height: 13pt;
+  text-align: center;
+  background: var(--green); color: #fff;
+  font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+  font-size: 7.5pt; font-weight: 600;
+  border-radius: 2pt;
+}
+
+.toc { columns: 3; column-gap: 18pt; font-size: 8.6pt; line-height: 1.45; margin: 0 0 6pt; padding-left: 16pt; }
+.toc li { margin: 0; }
+.toc li { break-inside: avoid; }
+.part {
+  font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+  font-weight: 600; font-size: 8pt; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--green); margin: 0 0 2pt;
+}
+.keep { break-inside: avoid; }
+.small { font-size: 8.3pt; color: var(--caption); }
+.page-break { break-before: page; }
+th code { background: transparent; color: #fff; padding: 0; font-size: inherit; }

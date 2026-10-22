@@ -1,0 +1,33 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-04;
+  margin-bottom: layout.$spacing-05;
+}
+
+.identity {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: layout.$spacing-04;
+}
+
+.name {
+  @include type.type-style('heading-compact-02');
+}
+
+.meta {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-70;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-04;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,103 @@
+{
+  "voice": "en-US-AvaNeural",
+  "rate": "+0%",
+  "output": "form-studio-guide",
+  "beats": [
+    {
+      "id": "t1",
+      "say": "Form Studio is where you build and fix the EMR's clinical forms in the browser, without writing code. This guide shows the main steps."
+    },
+    {
+      "id": "o1",
+      "say": "Open it from the app menu at the top right. Choose Form Studio."
+    },
+    {
+      "id": "s1",
+      "say": "The start page has two halves. On the left are three ways to make a new form: from scratch, from a Bahmni export, or from an Excel template."
+    },
+    {
+      "id": "s2",
+      "say": "On the right is the table of all three hundred forms in this EMR. Type in the search box to narrow it. Here, gynecology."
+    },
+    {
+      "id": "e1",
+      "say": "Press Edit schema on Emergency Triage Form, Gynecology. The editor opens."
+    },
+    {
+      "id": "e2",
+      "say": "On the left are three views: Preview and edit, Rules, and the Schema editor. On the right are the live form preview and a panel for the checks and downloads."
+    },
+    {
+      "id": "n1",
+      "say": "Every page, section and question has a pencil to edit it and a bin to delete it. Press the pencil on a section to rename it."
+    },
+    {
+      "id": "n2",
+      "say": "The new name shows in the form straight away, and in the form's JSON."
+    },
+    {
+      "id": "q1",
+      "say": "To add a question, press Add question. Give it a label, an ID and a type, then search for its concept."
+    },
+    {
+      "id": "q2",
+      "say": "Concepts are listed with the best match first. Pick one and save. The new question is in the form."
+    },
+    {
+      "id": "r1",
+      "say": "Now a rule. The question PV should appear only when Vaginal Bleeding is Yes. Open the rules for PV."
+    },
+    {
+      "id": "r2",
+      "say": "Choose Only when. Pick Vaginal Bleeding, tick Yes, and save."
+    },
+    {
+      "id": "r3",
+      "say": "The rule is written under PV as a plain sentence. There is no expression to type."
+    },
+    {
+      "id": "r4",
+      "say": "The preview obeys it. PV is hidden. Choose Yes for Vaginal Bleeding, and PV appears."
+    },
+    {
+      "id": "c1",
+      "say": "Before a form leaves Form Studio, press Check concepts on the server. It looks up every concept the form uses."
+    },
+    {
+      "id": "c2",
+      "say": "Zero errors. Download content files is now enabled. It gives a zip with the form and a short README."
+    },
+    {
+      "id": "x1",
+      "say": "Back on the start page, a new form from an Excel template. You can download an empty template or a filled example. Here we upload the example."
+    },
+    {
+      "id": "x2",
+      "say": "Form Studio reads the sheet and matches its concepts on the server. Nine pages, twenty-three sections, one hundred and sixty questions."
+    },
+    {
+      "id": "x3",
+      "say": "Open it in the editor and run the Check. Forty-four errors, under Must fix before export."
+    },
+    {
+      "id": "x4",
+      "say": "Each one is a question whose concept still has to be picked. Pick it with the question's pencil, or use Create new concepts. The download stays blocked until the list is empty."
+    },
+    {
+      "id": "d1",
+      "say": "Last, the concept dictionary. It holds every concept read from this EMR's database."
+    },
+    {
+      "id": "d2",
+      "say": "Search weight, in kilograms. Weight first, with its synonyms, its datatype, and the number of forms that use it."
+    },
+    {
+      "id": "d3",
+      "say": "Open the row to see its names, answers and mappings, and the list of forms that use it."
+    },
+    {
+      "id": "end",
+      "say": "Form Studio: edit forms, write rules in plain words, and check every concept before export."
+    }
+  ]
+}

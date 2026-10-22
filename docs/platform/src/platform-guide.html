@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EthioEMR Platform Guide</title>
+<link rel="stylesheet" href="print.css">
+</head>
+<body>
+
+<div class="title-block">
+  <h1 class="doc-title">EthioEMR Platform Guide</h1>
+  <p class="subtitle">How the platform is put together, run, tested and changed</p>
+  <div class="meta"><span class="pill">v0.1, draft for the platform team</span>Repository <code>ethioemr-platform</code>, branch <code>feat/initial-platform</code>, 22 October 2026</div>
+</div>
+
+<div class="callout">
+  <span class="label">Status of this document</span>
+  <p><b>v0.1, a draft for engineers and maintainers.</b> Every number in it was read from the repository or measured on the
+  development laptop on 22 October 2026. Nothing here is reviewed or merged yet. Items that belong to other owners (the distro team, the content team, the AI service owner) are
+  marked as theirs and left open. It is written for engineers who start, change or review the platform; clinicians and
+  form builders use the <i>EthioEMR User Manual</i>.</p>
+</div>
+
+<ol class="toc">
+  <li>What the platform is</li>
+  <li>Architecture</li>
+  <li>Repository layout and ownership</li>
+  <li>Running it</li>
+  <li>Ports</li>
+  <li>Configuration (<code>.env</code>)</li>
+  <li>Extra frontend modules (the overlay)</li>
+  <li>AI assistant configuration in the gateway</li>
+  <li>Speech service</li>
+  <li>Form Studio build</li>
+  <li>Testing</li>
+  <li>Known gaps</li>
+  <li>Security notes</li>
+  <li>Conventions</li>
+  <li>Where to see the work</li>
+</ol>
+
+<h1>1. What the platform is</h1>
+<p>The platform is the team's EthioEMR (OpenMRS 3, TenaEHR) exactly as it is on GitHub <code>main</code>, plus the modules built
+on top of it that are not in the published images yet. <code>distro/</code> is a byte-for-byte copy of
+<code>palladium-group/ethiopiaemr-distro-referenceapplication</code> at commit <code>9147129</code>. Everything specific to the
+platform lives in one overlay compose file, the gateway template and <code>modules/</code>.</p>
+
+<table>
+  <thead><tr><th style="width:24%">Part</th><th>What it does</th><th style="width:30%">Source</th></tr></thead>
+  <tbody>
+    <tr><td><b>Form Studio</b></td><td>Build, check and export forms. Never writes to a live EMR.</td><td><code>modules/esm-form-studio-app</code></td></tr>
+    <tr><td><b>AI assistant</b></td><td>Help &amp; Search, Form Filler, Diagnosis Assistant and the Speak input, inside the patient chart.</td><td><code>modules/esm-ai-assistant-app/dist</code> (built bundle only)</td></tr>
+    <tr><td><b>Speech service</b></td><td>Local Amharic and English speech-to-text for Speak. Audio stays on the machine.</td><td><code>services/asr-service</code></td></tr>
+    <tr><td><b>Demo-video tooling</b></td><td>Scripted, narrated product videos.</td><td><code>tools/demo-video</code></td></tr>
+  </tbody>
+</table>
+
+<table class="kv">
+  <thead><tr><th>Item</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr><td>App</td><td><code>http://localhost:18200/openmrs/spa</code> (user <code>admin</code>, password <code>Admin123</code>, location Main Pharmacy)</td></tr>
+    <tr><td>MySQL</td><td><code>localhost:3320</code> (user <code>openmrs</code>, password <code>openmrs</code>)</td></tr>
+    <tr><td>App shell</td><td>10.0.1-pre.5263 (pinned by the team), Form Builder 3.5.1</td></tr>
+    <tr><td>Frontend apps</td><td>56 in the live <code>importmap.json</code> (22 Oct): 54 team apps and 2 overlay modules.</td></tr>
+    <tr><td>Images</td><td><code>meronmen/ethiopiaemr-frontend:sha-9147129</code>, <code>meronmen/ethiopiaemr-backend:sha-9147129</code>, <code>mysql:8.0.45</code>, gateway built from <code>distro/gateway</code></td></tr>
+  </tbody>
+</table>
+<p><b>Synthetic test data only.</b> Never enter real patient information on this platform.</p>
+
+<h1 class="new-page">2. Architecture</h1>
+<p class="lead">One gateway on port 18200 decides where each browser request goes. The team's frontend and backend images are
+used unchanged; the platform adds a module overlay, an AI configuration file and a local speech service.</p>
+<figure class="wide">
+  <img src="../architecture.png" alt="Architecture diagram of the EthioEMR platform">
+  <figcaption>Figure 1. How the platform fits together. Source: <code>docs/platform/architecture.drawio</code>. Black boxes are this repository, grey boxes the team's distro and content, orange the remote AI service, dashed boxes planned work.</figcaption>
+</figure>
+
+<h2>Request routing in the gateway</h2>
+<p>The gateway is the team's nginx image with <code>gateway/platform.conf.template</code> mounted in place of its default template.</p>
+<table>
+  <thead><tr><th style="width:38%">Path</th><th>Served from</th></tr></thead>
+  <tbody>
+    <tr><td><code>/openmrs/spa/importmap.json</code>, <code>/openmrs/spa/routes.registry.json</code></td><td><code>work/spa-overlay/</code>: the team's app list and routes merged with this repo's modules. Never cached.</td></tr>
+    <tr><td><code>/openmrs/spa/overlay/&lt;module&gt;/</code></td><td><code>work/spa-overlay/modules/</code>: the built Form Studio and AI assistant files.</td></tr>
+    <tr><td><code>/openmrs/spa/ai-assistant.config.json</code></td><td>Generated by nginx from <code>.env</code> at container start (section 8).</td></tr>
+    <tr><td><code>/openmrs/spa/config/</code></td><td>The frontend's <code>/config/</code> (logos, icons, translations).</td></tr>
+    <tr><td><code>/openmrs/spa/*</code></td><td>The team frontend container, full path passed through.</td></tr>
+    <tr><td><code>/openmrs/*</code></td><td>The team backend (OpenMRS), which reads the MySQL database and the Initializer content in <code>content/</code>.</td></tr>
+  </tbody>
+</table>
+<p>The browser calls two services directly: the remote AI service (<code>https://emr-ai.20.84.70.78.nip.io</code>) and the local
+speech service (<code>http://localhost:8767</code>). The gateway's Content-Security-Policy allows both through
+<code>AI_CONNECT_SRC</code>.</p>
+
+<h1>3. Repository layout and ownership</h1>
+<p><code>distro/</code> and <code>content/</code> are copies of other teams' repositories. Do not edit them here: fix things upstream,
+then refresh the copy.</p>
+<table>
+  <thead><tr><th style="width:36%">Path</th><th>What it is</th><th style="width:16%">Owner</th></tr></thead>
+  <tbody>
+    <tr><td><code>distro/</code></td><td>Team distro, unchanged. Refresh with a <code>git archive</code> of a newer main and update <code>PLATFORM_IMAGE_TAG</code>.</td><td>Distro team</td></tr>
+    <tr><td><code>content/</code></td><td>Initializer content snapshot (<code>ethiopiaemr-openmrs-content</code>). Changes go to that repository through a PR.</td><td>Content team</td></tr>
+    <tr><td><code>docker-compose.platform.yml</code>, <code>gateway/</code>, <code>platform.ps1</code>, <code>scripts/</code>, <code>tools/build-spa-overlay.py</code></td><td>The platform overlay.</td><td>This repo</td></tr>
+    <tr><td><code>modules/&lt;name&gt;/module.json</code></td><td>Where each extra module's build comes from.</td><td>This repo</td></tr>
+    <tr><td><code>modules/esm-form-studio-app/</code></td><td>Form Studio source (migrated 2026-10-22). Its <code>dist/</code> is git-ignored.</td><td>This repo</td></tr>
+    <tr><td><code>modules/esm-ai-assistant-app/dist</code></td><td>AI assistant built bundle 0.1.0. No source here; kept until Bini publishes the package.</td><td>Bini (AI service owner)</td></tr>
+    <tr><td><code>services/asr-service/</code></td><td>Local speech-to-text.</td><td>This repo</td></tr>
+    <tr><td><code>tools/demo-video/</code></td><td>Demo-video pipeline. Set <code>EMR_URL</code> to target another EMR.</td><td>This repo</td></tr>
+    <tr><td><code>database/initial-db/</code></td><td>Database dump, not versioned (<code>scripts/get-initial-db.ps1</code>).</td><td>Local only</td></tr>
+    <tr><td><code>database/snapshots/</code>, <code>work/</code></td><td>Snapshots and build output. Git-ignored.</td><td>Local only</td></tr>
+  </tbody>
+</table>
+
+<h1>4. Running it</h1>
+<p class="lead">Windows, PowerShell, from the repository root. <code>platform.ps1</code> is the one entry point; it wraps
+<code>docker compose --project-directory . -f distro/docker-compose.yml -f docker-compose.platform.yml</code>.</p>
+
+<h2>Quick start</h2>
+<ol class="steps">
+  <li><code>copy .env.example .env</code>, then set <code>AI_SERVICE_API_KEY</code> (ask the AI service owner). <code>platform.ps1</code> creates <code>.env</code> from the example if it is missing.</li>
+  <li><code>.\platform.ps1 up</code> starts the stack. See the timings below.</li>
+  <li><code>.\scripts\build-form-studio.ps1</code> makes the production build of Form Studio.</li>
+  <li><code>.\platform.ps1 overlay</code> adds Form Studio and the AI assistant to the app. Refresh the browser.</li>
+  <li>Optional: <code>services\asr-service\start-asr.ps1</code> starts the speech service for Speak, in its own window.</li>
+</ol>
+
+<h2>Commands</h2>
+<table>
+  <thead><tr><th style="width:26%">Command</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>up</code></td><td>Starts the stack. On an empty install with a snapshot present it restores the snapshot first. Without a snapshot or a dump it runs <code>scripts/get-initial-db.ps1</code>.</td></tr>
+    <tr><td><code>overlay</code></td><td>Runs <code>tools/build-spa-overlay.py</code> and restarts the gateway. Run after start and after any module rebuild.</td></tr>
+    <tr><td><code>status</code></td><td>Containers and health (<code>docker compose ps</code>).</td></tr>
+    <tr><td><code>logs [service]</code></td><td>Follows the logs of one service or all.</td></tr>
+    <tr><td><code>stop</code></td><td>Stops the containers and keeps data.</td></tr>
+    <tr><td><code>down</code></td><td>Removes the containers and keeps the data volumes.</td></tr>
+    <tr><td><code>config</code></td><td>Prints the merged compose file. Must succeed before a PR.</td></tr>
+    <tr><td><code>content-pass</code></td><td>Fresh install only, after the first start: clears the Initializer checksums and restarts the backend for a second content pass.</td></tr>
+    <tr><td><code>snapshot</code></td><td>Stops backend and db, saves the two data volumes to <code>database/snapshots/</code>, starts them again.</td></tr>
+  </tbody>
+</table>
+
+<h2>How long it takes</h2>
+<p>Measured on 2026-10-22.</p>
+<table>
+  <thead><tr><th style="width:38%">Start</th><th style="width:14%">Time</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Normal restart (<code>stop</code> then <code>up</code>)</td><td>about 3.5 min</td><td>Data is kept in the Docker volumes.</td></tr>
+    <tr><td>Fresh install with a snapshot in <code>database/snapshots/</code></td><td><b>about 6 min</b></td><td><code>up</code> restores the loaded database and OpenMRS data.</td></tr>
+    <tr><td>Fresh install without a snapshot</td><td>about 1.5 h</td><td>Database import, search index over about 81,000 concepts, all content, then <code>content-pass</code>.</td></tr>
+  </tbody>
+</table>
+
+<h3>Snapshot procedure</h3>
+<ol class="steps">
+  <li>Finish one full first start, including <code>.\platform.ps1 content-pass</code>.</li>
+  <li>Run <code>.\platform.ps1 snapshot</code>. It writes <code>mysql-data.tgz</code> and <code>openmrs-data.tgz</code> (about 900 MB together, git-ignored) and restarts backend and db (2 to 3 min).</li>
+  <li>Copy <code>database/snapshots/</code> to teammates. On their empty install, <code>up</code> finds both files and restores them before starting.</li>
+</ol>
+
+<h3>Content pass</h3>
+<p>The Initializer saves checksums even for content files that failed, and some files refer to concepts defined in later
+files. <code>content-pass</code> deletes <code>/openmrs/data/configuration_checksums</code> and restarts the backend so every file
+is processed again. Afterwards check:</p>
+<pre><code>docker logs ethioemr-platform-backend-1 2&gt;&amp;1 | Select-String 'was processed and [0-9]+ out of'</code></pre>
+<p>The expected result is no lines. Today about 19 files still appear (section 12).</p>
+
+<h1>5. Ports</h1>
+<p>The platform's ports are chosen not to clash with the other local stacks.</p>
+<table>
+  <thead><tr><th style="width:22%">Port</th><th>Used by</th></tr></thead>
+  <tbody>
+    <tr><td><code>18200</code></td><td>This platform: gateway, app at <code>/openmrs/spa</code> (<code>PLATFORM_HTTP_PORT</code>).</td></tr>
+    <tr><td><code>3320</code></td><td>This platform: MySQL (<code>PLATFORM_DB_PORT</code>).</td></tr>
+    <tr><td><code>8767</code></td><td>Speech service on <code>127.0.0.1</code> (<code>ASR_PORT</code>).</td></tr>
+    <tr><td><code>18090</code> and <code>3309</code></td><td>AI quick start (not this platform).</td></tr>
+    <tr><td><code>18100</code></td><td>Form Studio's former workspace (not this platform).</td></tr>
+    <tr><td><code>18080</code> and <code>3308</code></td><td>The distro clone (not this platform).</td></tr>
+  </tbody>
+</table>
+
+<h1>6. Configuration (<code>.env</code>)</h1>
+<p><code>.env</code> is git-ignored. <code>docker compose</code> reads it from the repository root. Add every new setting to
+<code>.env.example</code> with an empty or safe value.</p>
+<table>
+  <thead><tr><th style="width:26%">Key</th><th style="width:30%">Value in <code>.env.example</code></th><th>What it controls</th></tr></thead>
+  <tbody>
+    <tr><td><code>PLATFORM_IMAGE_NS</code></td><td><code>meronmen</code></td><td>Docker namespace of the team images.</td></tr>
+    <tr><td><code>PLATFORM_IMAGE_TAG</code></td><td><code>sha-9147129</code></td><td>Image tag; matches the commit of <code>distro/</code>.</td></tr>
+    <tr><td><code>PLATFORM_HTTP_PORT</code></td><td><code>18200</code></td><td>Gateway port on the host.</td></tr>
+    <tr><td><code>PLATFORM_DB_PORT</code></td><td><code>3320</code></td><td>MySQL port on the host.</td></tr>
+    <tr><td><code>AI_SERVICE_URL</code></td><td><code>https://emr-ai.20.84.70.78.nip.io</code></td><td>AI service address given to the browser.</td></tr>
+    <tr><td><code>AI_SERVICE_API_KEY</code></td><td>(empty)</td><td>API key given to the browser. Ask the AI service owner.</td></tr>
+    <tr><td><code>ASR_SERVICE_URL</code></td><td><code>http://localhost:8767</code></td><td>Speech service address given to the browser.</td></tr>
+    <tr><td><code>AI_CONNECT_SRC</code></td><td>AI service, <code>http://localhost:8767</code>, <code>http://127.0.0.1:8767</code></td><td>Extra addresses allowed in the CSP <code>connect-src</code>.</td></tr>
+    <tr><td><code>SHR_PULL_PASSWORD</code></td><td>(empty)</td><td>Optional SHR pull account password (team compose). Leave empty locally.</td></tr>
+  </tbody>
+</table>
+<p>What <code>docker-compose.platform.yml</code> changes on top of the team compose file, and why:</p>
+<table>
+  <thead><tr><th style="width:18%">Service</th><th>Change</th></tr></thead>
+  <tbody>
+    <tr><td>project</td><td>Own compose project <code>ethioemr-platform</code>: containers, volumes and network never touch another stack.</td></tr>
+    <tr><td>gateway</td><td>Built from <code>distro/gateway</code>; <code>platform.conf.template</code> and <code>work/spa-overlay</code> mounted; AI and speech variables passed in; port <code>18200:80</code>.</td></tr>
+    <tr><td>frontend, backend</td><td>Team images pinned to the <code>distro/</code> commit, not <code>latest</code>. The backend reads <code>./content/configuration/backend_configuration</code>.</td></tr>
+    <tr><td>db</td><td>MySQL 8.0.45, because the v8 dump does not load on 8.0.46. Initialised from <code>database/initial-db/</code>.</td></tr>
+  </tbody>
+</table>
+
+<h1>7. Extra frontend modules (the overlay)</h1>
+<p>The published frontend image does not contain Form Studio or the AI assistant. Until each is published to npm and listed
+in the distro, <code>tools/build-spa-overlay.py</code> adds them:</p>
+<ol class="steps">
+  <li>It reads the frontend container's own <code>importmap.json</code> and <code>routes.registry.json</code>.</li>
+  <li>For each <code>modules/&lt;name&gt;/module.json</code> it copies the built files to <code>work/spa-overlay/modules/&lt;name&gt;/</code> (source maps skipped unless <code>--keep-maps</code>).</li>
+  <li>It adds one import map entry per module, pointing at <code>./overlay/&lt;name&gt;/&lt;entry&gt;</code>, and adds the module's <code>routes.json</code> to the route registry. App shell 10.x keeps routes under a top-level <code>routes</code> object; the script handles both layouts.</li>
+  <li>The gateway serves the merged files in place of the frontend's, with <code>Cache-Control: no-store</code>, so a rebuild shows on refresh.</li>
+</ol>
+<table>
+  <thead><tr><th style="width:18%"><code>module.json</code> key</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>package</code></td><td>npm package name, for example <code>@palladium-ethiopia/esm-form-studio-app</code>.</td></tr>
+    <tr><td><code>dist</code></td><td>Folder with the build: relative path, absolute path, or <code>$ENV_VAR</code>.</td></tr>
+    <tr><td><code>entry</code></td><td>Entry file. Optional; defaults to <code>&lt;scope&gt;-&lt;name&gt;.js</code>.</td></tr>
+  </tbody>
+</table>
+<h3>Adding a module</h3>
+<ol class="steps">
+  <li>Build it (production). The build must contain <code>routes.json</code>, or the script stops with "no routes.json".</li>
+  <li>Add <code>modules/&lt;name&gt;/module.json</code> with <code>package</code>, <code>dist</code> and <code>entry</code>. Copy one of the two existing files.</li>
+  <li>Run <code>.\platform.ps1 overlay</code> and refresh the browser. Check that the browser console has no new errors.</li>
+</ol>
+<p>The team's long-term route is to publish the module to npm and add one line to
+<code>distro/frontend/spa-assemble-config.json</code> in the distro repository. After that the overlay is no longer needed for it.</p>
+
+<h1>8. AI assistant configuration in the gateway</h1>
+<p class="lead">The AI assistant needs three values in the browser: the AI service address, its API key and the speech service
+address. They come from <code>.env</code>, so the key is not stored in any repository or image.</p>
+<h3>The config file</h3>
+<p>nginx answers <code>/openmrs/spa/ai-assistant.config.json</code> itself. The template fills it from the gateway's environment
+when the container starts:</p>
+<pre><code>{"@palladium-ethiopia/esm-ai-assistant-app":
+  {"aiServiceUrl":"${AI_SERVICE_URL}","aiServiceApiKey":"${AI_SERVICE_API_KEY}","asrServiceUrl":"${ASR_SERVICE_URL}"}}</code></pre>
+<h3>Why a <code>sub_filter</code> is needed</h3>
+<p>The app shell loads the config files listed in <code>index.html</code>. The published frontend image fixes that list at build
+time, so the <code>SPA_CONFIG_URLS</code> variable in the compose file is ignored. The gateway therefore edits the page as it
+passes through:</p>
+<pre><code>proxy_set_header Accept-Encoding "";
+sub_filter_once on;
+sub_filter 'configUrls: [' 'configUrls: ["/openmrs/spa/ai-assistant.config.json", ';</code></pre>
+<table class="kv">
+  <thead><tr><th>Detail</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr><td>Placed first in the list</td><td>Later files win. The AI file sets only the assistant's own keys, so the team's files keep the last word.</td></tr>
+    <tr><td><code>Accept-Encoding ""</code></td><td><code>sub_filter</code> can only edit an uncompressed response, so the gateway asks the frontend for one.</td></tr>
+    <tr><td>CSP <code>connect-src</code></td><td>The browser may call only the addresses in <code>AI_CONNECT_SRC</code> besides the EMR itself.</td></tr>
+  </tbody>
+</table>
+<p>Check it: <code>http://localhost:18200/openmrs/spa/ai-assistant.config.json</code> returns the three values (the key included,
+see section 13).</p>
+
+<h1>9. Speech service</h1>
+<p>The <b>Speak</b> button needs speech-to-text, and the EMR images do not include it. <code>services/asr-service</code> is that service,
+run locally on <code>127.0.0.1:8767</code>. Audio never leaves the machine.</p>
+<table>
+  <thead><tr><th style="width:26%">Endpoint</th><th>Behaviour</th></tr></thead>
+  <tbody>
+    <tr><td><code>GET /health</code></td><td><code>{"status":"ok","model":"..."}</code>. The assistant then shows "Speech service ok" with the model name.</td></tr>
+    <tr><td><code>POST /transcribe</code></td><td>Form with <code>audio</code> (WAV) and <code>lang</code> (<code>en</code> or <code>am</code>). Returns <code>text</code>, <code>model</code>, <code>processing_time</code>; for Amharic also what each engine heard and <code>english_words_used</code>.</td></tr>
+  </tbody>
+</table>
+<h3>Start it</h3>
+<p><code>.\start-asr.ps1</code> in <code>services/asr-service</code>. The first run creates <code>.venv</code> and installs about 3 GB of Python
+packages; the models (about 3.5 GB) download into the shared Hugging Face cache on first use. Leave the window open.
+After the platform's first start, rebuild the medical vocabulary from the EMR database with <code>python build-lexicon.py</code>.</p>
+<h3>Mixed Amharic and English</h3>
+<p>In <code>mixed</code> mode (the default) two engines run on the same recording and <code>mix.py</code> merges them word by word,
+without an LLM. The Amharic engine hears everything but writes English words in Amharic letters. An English word from
+Whisper replaces what the Amharic engine heard at the same moment only if Whisper is reasonably sure, it sounds like the
+Amharic engine's word, and it is in the EMR's own vocabulary (<code>lexicon\emr-vocab.txt</code>, about 29,000 words from concept and
+drug names). Every output word comes from one of the two engines.</p>
+<table>
+  <thead><tr><th style="width:24%">Setting</th><th style="width:34%">Default in <code>server.py</code> and <code>start-asr.ps1</code></th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>ASR_MODEL</code></td><td><code>mobiuslabsgmbh/faster-whisper-large-v3-turbo</code></td><td>English Whisper model (lead).</td></tr>
+    <tr><td><code>ASR_CONFIRM_MODEL</code></td><td><code>small</code></td><td>Second English model that confirms words; empty turns it off.</td></tr>
+    <tr><td><code>ASR_AM_MODE</code></td><td><code>mixed</code></td><td><code>mixed</code> or <code>transcribe</code> (Amharic engine only).</td></tr>
+    <tr><td><code>ASR_DEVICE</code></td><td><code>auto</code></td><td><code>auto</code>, <code>cuda</code> or <code>cpu</code>.</td></tr>
+    <tr><td><code>ASR_SAVE_DIR</code></td><td>(off)</td><td>Saves each recording; <code>-SaveRecordings</code> sets it.</td></tr>
+    <tr><td><code>ASR_PORT</code></td><td><code>8767</code></td><td>Port.</td></tr>
+  </tbody>
+</table>
+<p>The Amharic engine is <code>agkphysics/wav2vec2-large-xlsr-53-amharic</code>: 9% character errors on the 15 s test
+consultation, 3 s on CPU. Whisper large-v3 alone gave 90% character errors on Amharic and was rejected.</p>
+<p><b>Amharic needs a setting.</b> The assistant's <code>asrLanguage</code> defaults to <code>en</code>. Set it to <code>am</code> in
+Implementer Tools; it is stored in the browser only (local storage key <code>openmrs:temporaryConfig</code>).</p>
+
+<div class="keep">
+<h1>10. Form Studio build</h1>
+<p><code>scripts/build-form-studio.ps1</code> makes the production build of <code>modules/esm-form-studio-app</code> into its
+<code>dist/</code>, where the overlay reads it.</p>
+<table>
+  <thead><tr><th style="width:42%">Command</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>.\scripts\build-form-studio.ps1</code></td><td>Installs packages if <code>node_modules</code> is missing (<code>--immutable</code>), then builds.</td></tr>
+    <tr><td><code>.\scripts\build-form-studio.ps1 -Check</code></td><td>Runs unit tests, type check and lint first; stops at the first failure.</td></tr>
+    <tr><td>First time, by hand</td><td><code>cd modules\esm-form-studio-app; node .yarn/releases/yarn-4.10.3.cjs install</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>The script writes <code>dist\BUILD-INFO.txt</code> with the build time and commit, then prints "Done. Next: .\platform.ps1 overlay".
+Yarn 4.10.3 is committed in <code>.yarn/releases</code>, so no global Yarn is needed.</p>
+
+<h1>11. Testing</h1>
+<p class="lead">Results below were run on 22 October 2026 against this platform, unless marked otherwise.</p>
+<table>
+  <thead><tr><th style="width:20%">Check</th><th style="width:38%">Command (in <code>modules\esm-form-studio-app</code>)</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>Unit tests</td><td><code>node .yarn/releases/yarn-4.10.3.cjs test</code></td><td>100 passed, 6 skipped (106) in 32 files; 143 s.</td></tr>
+    <tr><td>Type check</td><td><code>node .yarn/releases/yarn-4.10.3.cjs typescript</code></td><td>No errors; 32 s.</td></tr>
+    <tr><td>Lint</td><td><code>node .yarn/releases/yarn-4.10.3.cjs lint</code></td><td>No errors; 94 s.</td></tr>
+    <tr><td>End-to-end UI</td><td><code>node node_modules\@playwright\test\cli.js test</code></td><td>43 passed in 9.8 min: 42 tests and 1 setup step in 11 files, against <code>:18200</code>.</td></tr>
+    <tr><td>Compose file</td><td><code>.\platform.ps1 config</code> (repo root)</td><td>Must succeed before a PR.</td></tr>
+    <tr><td>Speech merge</td><td><code>python test-merge.py</code> (in <code>services/asr-service</code>)</td><td>Must still show "(no swaps)" on <code>test-audio/consult-am.wav</code>.</td></tr>
+  </tbody>
+</table>
+<h3>End-to-end suite</h3>
+<p>Playwright drives the installed Chrome through Form Studio the way a form builder would. The harness refuses any address
+that is not localhost, runs one browser at a time, logs in once, closes the EMR's red "unresolved backend dependencies"
+pop-up and accepts "Leave site?" dialogs. The login lives in <code>e2e/.env</code> (copy <code>e2e/example.env</code>; git-ignored).
+Reports go to <code>work/e2e-report/</code>.</p>
+<p>The test plan's gates G0 to G3 passed (last on 2026-10-20). Specs 05 (editor) and 06 (rules) exist and
+passed in the run above, once; gate G4 asks for three runs in a row and has no recorded result yet. Spec
+<code>08-check-export</code> (the Check and the download) is not written.</p>
+
+<h1>12. Known gaps</h1>
+<table>
+  <thead><tr><th style="width:26%">Gap</th><th>Detail</th><th style="width:17%">Owner</th></tr></thead>
+  <tbody>
+    <tr><td>Content rows left unsaved</td><td>After the content pass about 19 content files still leave rows unsaved, for example <code>queue.csv</code> 18 of 18 and <code>radiology_category_members_concept_set.csv</code> 101 of 232. A separate install on the same images and content shows the identical list, so they come from the content snapshot.</td><td>Content team</td></tr>
+    <tr><td>AI bundle built for app shell 9.x</td><td>The bundle in <code>modules/esm-ai-assistant-app/dist</code> (0.1.0) was compiled for 9.x; the team runs 10.0.1-pre.5263. On 22 Oct all four features worked on 10.0.1 (see below). It still needs a 10.x build, an npm package and a shared source repository.</td><td>Bini</td></tr>
+    <tr><td>AI service certificate</td><td>The AI service's TLS certificate is not trusted by browsers. Until a user has accepted the warning once, Form Filler falls back to its rule-based extractor ("AI service not reachable"), observed on 22 Oct as <code>net::ERR_CERT_AUTHORITY_INVALID</code>.</td><td>Bini</td></tr>
+    <tr><td>Upload input</td><td>Form Filler and Diagnosis Assistant show <b>Upload</b> marked "SOON". It is not available.</td><td>Bini</td></tr>
+    <tr><td>Orders not sent to Diagnosis</td><td>The Diagnosis Assistant says "Not loaded: orders. The model will not see them."</td><td>Bini</td></tr>
+    <tr><td>Form Studio back end</td><td>There is no back end yet; Form Studio runs in the browser only.</td><td>This repo</td></tr>
+  </tbody>
+</table>
+<h3>AI assistant live check, 22 October 2026</h3>
+<p>Done on <code>:18200</code> with the synthetic patient Almaz Bekele and the <b>Central Triage Form</b>, driven by Playwright in Chrome.</p>
+<table>
+  <thead><tr><th style="width:22%">Feature</th><th style="width:36%">Request</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>Help &amp; Search</td><td><code>POST /v1/help/answer?stream=true</code>: 200</td><td>Answer with 5 numbered sources (4 forms, 1 WHO guideline page); model <code>qwen2.5:14b</code>.</td></tr>
+    <tr><td>Form Filler</td><td><code>POST /v1/form/extract</code>: 200</td><td>8 values found from a typed note, each with its quoted evidence; <b>Insert accepted (8)</b> filled the form fields. Not saved.</td></tr>
+    <tr><td>Diagnosis Assistant</td><td><code>POST /v1/diagnosis?stream=true</code>: 200</td><td>Three-item differential from 8 chart records, with guideline references and a "Some citations could not be verified" warning.</td></tr>
+    <tr><td>Speak</td><td><code>POST localhost:8767/transcribe</code>: 200</td><td>English (<code>en</code>) and Amharic (<code>am</code>) recordings transcribed from a test WAV file played as the microphone.</td></tr>
+  </tbody>
+</table>
+
+<h1>13. Security notes</h1>
+<div class="callout caution">
+  <span class="label">Caution</span>
+  <p><b>Any user who can open the EMR can read the AI service API key in the browser.</b> The gateway keeps it out of git
+  and images, but <code>/openmrs/spa/ai-assistant.config.json</code> returns it to every page, like any frontend configuration.</p>
+</div>
+<p>Open items for the AI service owner, most urgent first:</p>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:24%">Item</th><th>Question</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Rotate the key</td><td>It was distributed in the AI quick-start zip and images. What can a holder of the key do: which endpoints, what rate limit, can it reach endpoints that take patient context?</td></tr>
+    <tr><td>2</td><td>Canonical address and TLS</td><td>Config uses <code>emr-ai.20.84.70.78.nip.io</code>, the integration docs say <code>ai.20.84.70.78.nip.io</code>. Which is canonical, and can it get a trusted certificate?</td></tr>
+    <tr><td>3</td><td><code>CORS_ORIGINS</code></td><td>Which origins are allowed? Calls from <code>http://localhost:18200</code> already succeed, which suggests a wildcard or no origin check.</td></tr>
+    <tr><td>4</td><td>User identity</td><td><code>X-OpenMRS-User</code> is trusted but not verified. When does the same-origin route <code>/openmrs/ai/</code> with OpenMRS session validation arrive? It removes the key from browsers.</td></tr>
+    <tr><td>5</td><td>Patient data handling</td><td>Are prompts, chart records or answers logged? Where, for how long, and who can read them?</td></tr>
+    <tr><td>6</td><td>Frontend on shell 10.x</td><td>Rebuild against 10.0.1-pre.5263 with peer <code>10.x</code>, publish <code>@palladium-ethiopia/esm-ai-assistant-app</code> to npm, share the source repository.</td></tr>
+  </tbody>
+</table>
+<p>Other rules: secrets (<code>.env</code>, keys) never go into git; the platform holds synthetic test data only; the speech
+service listens on <code>127.0.0.1</code> only and keeps audio on the machine; recordings saved with <code>-SaveRecordings</code> must be test
+dictations only.</p>
+
+<h1>14. Conventions</h1>
+<p>From <code>CONTRIBUTING.md</code>, following the team distro.</p>
+<table class="kv">
+  <thead><tr><th>Topic</th><th>Rule</th></tr></thead>
+  <tbody>
+    <tr><td>Branches</td><td><code>main</code> is the integration branch; never commit to it. Branch from it with <code>feat/</code>, <code>fix/</code>, <code>chore/</code> or <code>docs/</code>. One topic per branch and per PR.</td></tr>
+    <tr><td>Merges</td><td>PRs are merged with a merge commit ("Merge pull request #N from ...").</td></tr>
+    <tr><td>Commits</td><td>Conventional Commits: <code>feat: ...</code>, <code>fix(gateway): ...</code>, <code>chore: pin distro to sha-9147129</code>. Imperative, present tense, about what changes and why.</td></tr>
+    <tr><td>Other teams' code</td><td><code>distro/</code> and <code>content/</code> are copies. Fix upstream, then refresh.</td></tr>
+    <tr><td>Before a PR</td><td><code>.\platform.ps1 config</code> succeeds; after overlay or module changes, the browser console is free of new errors; after speech changes, <code>test-merge.py</code> shows "(no swaps)"; the PR says where a reviewer can see anything new.</td></tr>
+  </tbody>
+</table>
+
+<h1>15. Where to see the work</h1>
+<table>
+  <thead><tr><th style="width:18%">What</th><th style="width:30%">Code</th><th style="width:22%">Where to look</th><th>How to verify</th></tr></thead>
+  <tbody>
+    <tr><td>Platform stack</td><td><code>docker-compose.platform.yml</code>, <code>gateway/</code>, <code>platform.ps1</code></td><td><code>http://localhost:18200/openmrs/spa</code></td><td><code>.\platform.ps1 status</code> shows 4 containers (gateway, frontend, backend, db).</td></tr>
+    <tr><td>Overlay</td><td><code>tools/build-spa-overlay.py</code>, <code>modules/*/module.json</code></td><td><code>/openmrs/spa/importmap.json</code></td><td>Lists both <code>@palladium-ethiopia</code> modules with paths under <code>./overlay/</code>.</td></tr>
+    <tr><td>Form Studio</td><td><code>modules/esm-form-studio-app</code></td><td><code>/openmrs/spa/form-studio</code></td><td>The start page lists the forms; <code>build-form-studio.ps1 -Check</code> passes.</td></tr>
+    <tr><td>AI assistant</td><td><code>modules/esm-ai-assistant-app/dist</code></td><td>Any patient chart, Alt+A</td><td>Help &amp; Search answers with sources.</td></tr>
+    <tr><td>Speech service</td><td><code>services/asr-service</code></td><td><code>http://localhost:8767/health</code></td><td>Returns <code>"status":"ok"</code>.</td></tr>
+    <tr><td>These manuals</td><td><code>docs/platform/src/</code></td><td><code>docs/platform/*.pdf</code></td><td><code>node docs/platform/src/build-pdfs.mjs</code> rebuilds both.</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

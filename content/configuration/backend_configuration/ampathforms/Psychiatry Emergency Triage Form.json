@@ -1,0 +1,451 @@
+{
+  "name": "Psychiatry Emergency Triage Form",
+  "description": "Used at psychiatric emergency triage to record vital signs and body measurements and to determine severity of illness, based on danger to self, danger to others or grave disability due to a mental disorder.",
+  "version": "1.2",
+  "published": true,
+  "uuid": "fe0f8f4c-98ae-46a6-a882-66e61ef4b500",
+  "retired": false,
+  "encounter": "Triage",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Psychiatry Emergency Triage Form",
+      "sections": [
+        {
+          "label": "Vital signs",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Systolic BP (mmHg)",
+              "type": "obs",
+              "id": "systolic_bp",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "50",
+                "max": "250",
+                "step": 0.01
+              },
+              "readonly": false
+            },
+            {
+              "label": "Diastolic BP (mmHg)",
+              "type": "obs",
+              "id": "diastolic_bp",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "30",
+                "max": "150",
+                "step": 0.01
+              },
+              "readonly": false
+            },
+            {
+              "label": "PR",
+              "type": "obs",
+              "id": "pulseRate",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "220",
+                "step": 0.01
+              },
+              "readonly": false
+            },
+            {
+              "label": "RR (breaths/min)",
+              "type": "obs",
+              "id": "respiratoryRate",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "80",
+                "step": 0.01
+              },
+              "readonly": false
+            },
+            {
+              "label": "T",
+              "type": "obs",
+              "id": "temperature",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "25",
+                "max": "43",
+                "step": 0.01
+              },
+              "readonly": false
+            },
+            {
+              "label": "SPO2 (%)",
+              "type": "obs",
+              "id": "spo2",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "100",
+                "step": 0.01
+              },
+              "readonly": false
+            }
+          ]
+        },
+        {
+          "label": "Anthropometrics",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Height (cm)",
+              "type": "obs",
+              "id": "height",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Normal range: 30–300 cm"
+            },
+            {
+              "label": "Weight (kg)",
+              "type": "obs",
+              "id": "weight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "step": 0.01
+              }
+            },
+            {
+              "label": "BMI (kg/m²)",
+              "type": "obs",
+              "id": "bmi",
+              "readonly": true,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "(isEmpty(height) || isEmpty(weight)) ? null : calcBMI(height,weight)"
+                },
+                "step": 0.01
+              }
+            },
+            {
+              "label": "BMI Category",
+              "type": "obs",
+              "id": "bmiCategory",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "255b89fc-8a01-4dae-90b3-613d65bb76bb",
+                "answers": [
+                  {
+                    "concept": "f1ac86a2-5934-49c5-aecc-16426e6b1d59",
+                    "label": "Underweight"
+                  },
+                  {
+                    "concept": "ad106589-fb33-4ce5-9159-0cf793996bce",
+                    "label": "Healthy Weight"
+                  },
+                  {
+                    "concept": "590a7581-714a-4b47-a1c9-712501889e44",
+                    "label": "Overweight"
+                  },
+                  {
+                    "concept": "9f2f66bf-dc75-47ac-b201-c891a9d5bbd6",
+                    "label": "Obese"
+                  }
+                ],
+                "calculate": {
+                  "calculateExpression": "(isEmpty(height) || isEmpty(weight) || Number(height) <= 0 || Number(weight) <= 0) ? null : (calcBMI(height,weight) < 18.5 ? 'f1ac86a2-5934-49c5-aecc-16426e6b1d59' : calcBMI(height,weight) < 25 ? 'ad106589-fb33-4ce5-9159-0cf793996bce' : calcBMI(height,weight) < 30 ? '590a7581-714a-4b47-a1c9-712501889e44' : '9f2f66bf-dc75-47ac-b201-c891a9d5bbd6')"
+                }
+              },
+              "questionInfo": "Auto-classified from BMI: <18.5 Underweight, 18.5–24.9 Healthy Weight, 25.0–29.9 Overweight, ≥30.0 Obese.",
+              "readonly": true
+            },
+            {
+              "label": "Body Surface Area (m²)",
+              "type": "obs",
+              "id": "bodySurfaceArea",
+              "readonly": true,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "980AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "height && weight ? Math.round(Math.sqrt((Number(height) * Number(weight)) / 3600) * 100) / 100 : null"
+                },
+                "min": "0",
+                "step": 0.01
+              },
+              "questionInfo": "Body surface area (BSA). Auto-calculated from height (cm) and weight (kg) using the Mosteller formula. Used to assist drug dosing calculations."
+            }
+          ]
+        },
+        {
+          "label": "SEVERITY OF ILLNESS CRITERIA",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Severity Note: Must meet one or more of 1, 2, or 3",
+              "type": "obs",
+              "id": "severityOfIllnessCriteriaNote",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "questionInfo": "Optional note or elaboration; criteria are captured in the structured sections below.",
+              "readonly": false
+            }
+          ]
+        },
+        {
+          "label": "1. Patient present as a danger to self as evidenced by one or more of the following:",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Danger to self criteria",
+              "type": "obs",
+              "id": "dangerToSelfCriteria",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "7d5b9c36-403d-4906-96d7-23628c9d12c9",
+                "answers": [
+                  {
+                    "concept": "5764876b-af8f-439f-a5de-fab7f5272ad1",
+                    "label": "A. Recent (within the past 72 hours) suicide attempt"
+                  },
+                  {
+                    "concept": "65783b77-4045-4a8c-898e-c8815e2fc31a",
+                    "label": "B. Documentation that the patient has a current suicide plan, specific suicide intent, or recurring suicidal ideation"
+                  },
+                  {
+                    "concept": "dfc9afe8-b966-4e2e-8ece-a5dc1a1e8dd0",
+                    "label": "C. Documentation of self-mutilate behavior (occurring within the past 72 hours)."
+                  }
+                ]
+              },
+              "readonly": false
+            }
+          ]
+        },
+        {
+          "label": "2. Patient presents as a danger to others due to a DSM-V diagnosis as evidenced by one or more of the following:",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Danger to others criteria",
+              "type": "obs",
+              "id": "dangerToOthersCriteria",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "b641ce76-04c6-4564-88d4-48f8f1ef3eb8",
+                "answers": [
+                  {
+                    "concept": "c4d10931-2f13-4256-a597-c042300234e1",
+                    "label": "A. Dangerously aggressive behavior during the past seven days due to a DSM-V diagnosis"
+                  },
+                  {
+                    "concept": "9b9dfd6c-f291-4e82-ae1a-3912079768e3",
+                    "label": "B. Threats to kill or seriously injure another person with the means to carry out the threat AND the threatening behavior is due to a DSM-V diagnosis"
+                  },
+                  {
+                    "concept": "2637473f-1323-4e02-9428-a7d02943d605",
+                    "label": "C. Documentation that the patient has a current homicide plan, specific homicidal intent, or recurrent homicidal ideation AND this is due to a DSM-V diagnosis."
+                  }
+                ]
+              },
+              "readonly": false
+            }
+          ]
+        },
+        {
+          "label": "3. Patient is gravely disabled and unable to care for self-due to a DSM-V diagnosis as evidenced by the following (a selection of indicator A must be accompanied by B OR C OR D):",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Gravely disabled indicator A",
+              "type": "obs",
+              "id": "gravelyDisabledIndicatorA",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ced3891a-d9c5-4a08-ba0c-8927e89a1253",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Selected"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not selected"
+                  }
+                ]
+              },
+              "readonly": false
+            },
+            {
+              "label": "A. Documentation of a serious impairment in function (as compared to others of the same age) in one or more major life role (school, job, family, interpersonal relations, self-care, etc.) due to a DSM-V diagnosis AND (Indicator A must be accompanied by B OR C OR D)",
+              "type": "obs",
+              "id": "gravelyDisabledIndicatorADetails",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "a289c15d-6f44-465f-b9d8-a362c6c67331",
+                "rows": "4"
+              },
+              "readonly": false
+            },
+            {
+              "label": "Gravely disabled indicator B",
+              "type": "obs",
+              "id": "gravelyDisabledIndicatorB",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "2ef55bac-d167-4386-b3d8-8d004ec1af57",
+                "answers": [
+                  {
+                    "concept": "3fb46529-d635-4eaf-a960-40ce71e815eb",
+                    "label": "1) Patient has a history of Refuse to psychotropic medications and patient refuses to use these medications as an outpatient"
+                  },
+                  {
+                    "concept": "e17642af-63b9-45b1-b72d-c477a81f0dd1",
+                    "label": "2) Patient is at risk of health or life due to non-compliance with medical regimens (e.g., insulin-dependent diabetes, etc.) and patient refuses these medical regimens as an outpatient."
+                  },
+                  {
+                    "concept": "b7dcb9a7-fcf7-4eb1-bf9e-4642853b261d",
+                    "label": "3) Patient with substance withdrawal symptoms not stay home more than two days"
+                  },
+                  {
+                    "concept": "832a6c70-0f34-486e-b25b-433cb6442ce7",
+                    "label": "4) Patient with severe drug side effects/ dystonia, NMS, Serotonin syndrome, toxicity/. OR"
+                  }
+                ]
+              },
+              "readonly": false
+            },
+            {
+              "label": "Gravely disabled indicator C",
+              "type": "obs",
+              "id": "gravelyDisabledIndicatorC",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "7472740c-870c-4ff4-abf2-90e098188c96",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Selected"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not selected"
+                  }
+                ]
+              },
+              "readonly": false
+            },
+            {
+              "label": "C. Patient presents with acute onset or acute exacerbation of hallucinations, delusions, or illusions of such magnitude that the patient’s well-being is threatened. OR",
+              "type": "obs",
+              "id": "gravelyDisabledIndicatorCDetails",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "10bedcbb-e8cb-4513-813b-c81d34342934",
+                "rows": "4"
+              },
+              "readonly": false
+            },
+            {
+              "label": "Gravely disabled indicator D",
+              "type": "obs",
+              "id": "gravelyDisabledIndicatorD",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f20249ad-b2b0-4798-a639-7da7e4804ff1",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Selected"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not selected"
+                  }
+                ]
+              },
+              "readonly": false
+            },
+            {
+              "label": "D. Patient presented with severe catatonic features including food refusal",
+              "type": "obs",
+              "id": "gravelyDisabledIndicatorDDetails",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "ea8795f6-4be5-45fd-abbe-621f51358356",
+                "rows": "4"
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

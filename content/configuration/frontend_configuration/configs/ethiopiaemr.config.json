@@ -1,0 +1,366 @@
+{
+  "@palladium-ethiopia/esm-billing-app": {
+    "showStockAvailability": true,
+    "stockInventoryUrl": "${restBaseUrl}/ethiopiaemrcustommodule/stock/inventory?drugUuid=${drugUuid}&limit=10&totalCount=true",
+    "extensionSlots": {
+      "billing-dashboard-slot": {},
+      "billing-admin-dashboard-slot": {
+        "configure": {
+          "payments-points-dashboard-link": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: View Payment Point"
+              ]
+            }
+          },
+          "payment-mode-dashboard-link": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: View Payment Mode"
+              ]
+            }
+          },
+          "bill-deposit-dashboard-link": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: View Deposit"
+              ]
+            }
+          },
+          "billable-exemptions-dashboard-link": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: View Exemptions Schema"
+              ]
+            }
+          },
+          "clinical-charges-dashboard-link": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: View Charge Items"
+              ]
+            }
+          },
+          "payment-history-dashboard-link": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: View Payment History"
+              ]
+            }
+          },
+          "patient-billing-dashboard-link": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: View Bill Manager"
+              ]
+            }
+          }
+        }
+      },
+      "bill-actions-slot": {
+        "configure": {
+          "waive-bill-action-button": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: Waive Bill"
+              ]
+            }
+          },
+          "delete-bill-action-button": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: Delete Bill"
+              ]
+            }
+          }
+        }
+      },
+      "bill-actions-overflow-menu-slot": {
+        "configure": {
+          "refund-line-item": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: Refund Line Item"
+              ]
+            }
+          },
+          "edit-line-item": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: Edit Bill Item"
+              ]
+            }
+          },
+          "cancel-line-item": {
+            "Display conditions": {
+              "privileges": [
+                "ethiopiaemr: Billing: Cancel Bill Item"
+              ]
+            }
+          }
+        }
+      },
+      "provider-banner-info-slot": {
+        "remove": [
+          "provider-banner"
+        ]
+      }
+    },
+    "excludedPaymentMode": [
+      {
+        "uuid": "eb6173cb-9678-4614-bbe1-0ccf7ed9d1d4",
+        "label": "Waiver"
+      }
+    ],
+    "patientExemptionCategories": [
+      {
+        "value": "IN_PRISON",
+        "label": "In Prison"
+      },
+      {
+        "value": "UNDER_5",
+        "label": "Under 5"
+      },
+      {
+        "value": "CCC",
+        "label": "CCC"
+      },
+      {
+        "value": "REFUGEES",
+        "label": "Refugees"
+      },
+      {
+        "value": "ABOVE_60_YRS",
+        "label": "Above 60 years"
+      }
+    ],
+    "localeCurrencyMapping": {
+      "af": "ETB",
+      "af-ET": "ETB",
+      "am": "ETB",
+      "am-ET": "ETB",
+      "en": "ETB",
+      "en-US": "ETB",
+      "en-GB": "ETB",
+      "om": "ETB",
+      "om-ET": "ETB",
+      "so": "ETB",
+      "so-ET": "ETB",
+      "ti": "ETB",
+      "ti-ET": "ETB"
+    },
+    "paymentAPIBaseUrl": "https://payment.palladiumethiopia.com/api"
+  },
+  "@palladium-ethiopia/esm-clinical-workflow-app": {
+    "triageDefinitions": [
+      {
+        "id": "adult",
+        "formUuid": "ff723d59-0650-4b84-858d-c1045b690683",
+        "name": "Adult Triage Form",
+        "displayName": "Adult Triage",
+        "enabled": true,
+        "order": 0,
+        "privilege": "Adult Triage Access"
+      },
+      {
+        "id": "pediatric",
+        "formUuid": "070e7d10-c6b8-4540-9718-5908738039c3",
+        "name": "Pediatrics Emergency Triage Form",
+        "displayName": "Pediatric Triage",
+        "enabled": true,
+        "order": 1,
+        "privilege": "Pediatric Triage Access"
+      },
+      {
+        "id": "emergency",
+        "formUuid": "4ff622f8-212e-4f0f-b6a6-1aa19d776ffb",
+        "name": "Emergency Triage Form",
+        "displayName": "Emergency Triage",
+        "enabled": true,
+        "order": 2,
+        "privilege": "Emergency Triage Access",
+        "routePath": "emergency-triage"
+      },
+      {
+        "id": "gynecological",
+        "formUuid": "1df88856-d54e-43e9-8ed2-dafde77c6081",
+        "name": "GYN Triage Form",
+        "displayName": "Gynecological Triage",
+        "enabled": true,
+        "order": 3,
+        "privilege": "Gynecological Triage Access"
+      },
+      {
+        "id": "psychiatry",
+        "formUuid": "fe0f8f4c-98ae-46a6-a882-66e61ef4b500",
+        "name": "Psychiatry Triage",
+        "displayName": "Psychiatry Triage",
+        "enabled": true,
+        "order": 4,
+        "privilege": "Psychiatry Triage Access"
+      }
+    ],
+    "triageVisitAttributeTypeUuid": "c1f592f3-3c6e-44c9-ac2d-ddab90f705ba",
+    "assignedQueueVisitAttributeTypeUuid": "b8d2e4f1-6c3a-4e9b-a1f7-5d0c8e2b9473",
+    "visitTypeUuid": "3371a4d4-f66f-4454-a86d-92c7b3da990c",
+    "identifierSourceUuid": "0b5ddb77-7df8-4a9b-8e9c-ecd8a264729f",
+    "facilityCode": "HOSP",
+    "defaultIdentifierTypeUuid": "dfacd928-0370-4315-99d7-6ec1c9f7ae76",
+    "disabilityStatusAttributeTypeUuid": "6a08ef73-6101-42c8-b538-3a2816ede907",
+    "healthIdLookupUrl": "openmrs/ws/rest/v1/ethiopiaemrcustommodule/mpi/patient",
+    "healthIdIdentifierTypeUuid": "cce42242-9e55-40a6-8739-1e6be1369bbe",
+    "mrnNumberLength": 6,
+    "mrnIdentifierTypeUuid": "f3a8b2c1-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+    "emergencyLocationTags": [
+      "Emergency"
+    ],
+    "drugOrderTypeUuid": "131168f4-15f5-102d-96e4-000c29c2a5d7",
+    "bloodTypeAttributeTypeUuid": "65d4a066-15f5-221a-96e4-000c29c2a1dd",
+    "phoneAttributeTypeUuid": "b2c38640-2603-4629-aebd-3b54f33f1e3a",
+    "emailAttributeTypeUuid": "b8d0b331-1d2d-4a9a-b741-1816f498bdb6",
+    "cardValidity": {
+      "lastConsultationDateAttributeTypeUuid": "c8e030e4-b778-43f1-b9f1-9878d655f412",
+      "validityDays": 30
+    },
+    "admissionRequestFormUuid": "5e725bad-750e-4d31-b4bc-cab4c9ea63ff",
+    "admissionRequestFormName": "Admission Request Form",
+    "ipdDischargeEncounterTypeUuid": "7e618d13-ffdb-4650-9a97-10ccd16ca36d",
+    "nurseDischargeConfirmationEncounterTypeUuid": "3219a73c-a168-4b5b-85e0-4de306d0aed4",
+    "nurseDischargeConfirmationConceptUuid": "f41cb314-b8b2-4a84-8071-dcfdabc2a040",
+    "nurseDischargeConfirmationYesConceptUuid": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "extensionSlots": {
+      "ward-add-patient-to-ward-inner-slot": {
+        "add": [
+          "create-admission-request-workspace-siderail-button"
+        ]
+      }
+    }
+  },
+  "@palladium-ethiopia/esm-order-catalog-ethio-app": {
+    "orderCatalogEnabled": false,
+    "allOrderablesConceptUuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
+    "orderCatalogDisplayLocale": "en",
+    "orderEncounterType": "39da3525-afe4-45ff-8977-c53b7b359158",
+    "labOrderTypeUuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e",
+    "radiologyOrderTypeUuid": "b4a7c280-369e-4d12-9ce8-18e36783fed6",
+    "procedureOrderTypeUuid": "b4a7c280-369e-4d12-9ce8-18e36783fed6",
+    "careSettingUuid": "6f0c9a92-6f24-11e3-af88-005056821db0"
+  },
+  "@palladium-ethiopia/esm-radiology-imaging-app": {
+    "radiologyOrderTypeUuid": "958a28d5-a6d5-11f1-930f-0a90f5e4f35d"
+  },
+  "@palladium-ethiopia/esm-patient-medications-app": {
+    "enableOrderSets": true,
+    "maxDispenseDurationInDays": 365,
+    "requireIndication": false,
+    "dtpResponse": {
+      "questionConceptUuid": "83ab5a72-08de-48c4-94b5-e2587d722d45",
+      "acceptedConceptUuid": "32757eaf-e2ed-41dc-a7d9-1f5650a2af5b",
+      "rejectedConceptUuid": "01936f78-8c68-48a9-b517-ce22b1ee2c28",
+      "partiallyAcceptedConceptUuid": "1249ea8c-1723-4b34-a499-e81c787db801"
+    },
+    "dtpRemark": {
+      "conceptUuid": "c4e8f1a2-6d3b-4f7e-9a2c-1b5d8e7f3a6c",
+      "maxLength": 500
+    },
+    "dtpPharmacyReturn": {
+      "groupingConceptUuid": "a438b7e7-4652-45ea-896b-b15775d476e6",
+      "categoryMemberConceptUuid": "6307d0c0-d323-4b43-bdbf-4d15cdcb32bf",
+      "reasonMemberConceptUuid": "1ddc0970-f488-4461-89af-4d3592f0ab11",
+      "noteMemberConceptUuid": "768dc035-48f1-4a45-8087-12eee1fdbc14"
+    }
+  },
+  "@openmrs/esm-patient-orders-app": {
+    "showReferenceNumberField": false,
+    "orderEncounterType": "39da3525-afe4-45ff-8977-c53b7b359158",
+    "extensionSlots": {
+      "order-basket-slot": {
+        "configure": {
+          "drug-order-panel-ethio": {
+            "Display conditions": {
+              "privileges": [
+                "o3: View Medication Order Form"
+              ]
+            }
+          },
+          "drug-order-panel": {
+            "Display conditions": {
+              "privileges": [
+                "o3: View Medication Order Form"
+              ]
+            }
+          },
+          "lab-order-panel": {
+            "Display conditions": {
+              "privileges": [
+                "o3: View Test Order Form"
+              ]
+            }
+          },
+          "imaging-order-panel": {
+            "Display conditions": {
+              "privileges": [
+                "o3: View Imaging Order Form"
+              ]
+            }
+          },
+          "procedures-order-panel": {
+            "Display conditions": {
+              "privileges": [
+                "o3: View Procedure Order"
+              ]
+            }
+          },
+          "medical-supply-order-panel": {
+            "Display conditions": {
+              "privileges": [
+                "o3: View Medical Supply Order Form"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "@palladium-ethiopia/esm-appointments-admin-app": {
+    "appointmentServiceAdminPrivilege": "app:appointments:manageServiceAvailability"
+  },
+  "@palladium-ethiopia/esm-appointments-quota-app": {
+    "enabled": true,
+    "warnThresholdPercent": 80
+  },
+  "@palladium-ethiopia/esm-login-app": {
+    "logo": {
+      "src": "/openmrs/spa/config/assets/ethiopiaemr-package/primary-logo.png"
+    },
+    "links": {
+      "loginSuccess": "${openmrsSpaBase}/home"
+    },
+    "footer": {
+      "additionalLogos": [
+        {
+          "src": "/openmrs/spa/config/assets/ethiopiaemr-package/ethiopia_moh_logo.png",
+          "alt": "FDRE Ministry of Health"
+        }
+      ]
+    },
+    "background": {
+      "image": "/openmrs/spa/config/assets/ethiopiaemr-package/login-background-brand.svg"
+    }
+  },
+  "@palladium-ethiopia/esm-surgery-schedule-app": {},
+  "@kenyaemr/esm-ward-app": {
+    "admissionRequestFormUuid": "5e725bad-750e-4d31-b4bc-cab4c9ea63ff",
+    "inpatientDischargeFormUuid": "ea36f403-c2d3-42e7-93d1-af5cf59d6f22",
+    "ipdDischargeEncounterTypeUuid": "7e618d13-ffdb-4650-9a97-10ccd16ca36d",
+    "dailyBedFeeBillableService": "0a5a23e3-c953-428c-92e3-3b99f8a822f0"
+  },
+  "@kenyaemr/esm-medication-administration-app": {
+    "privileges": {
+      "viewMedicationRequests": "o3: View Patient Chart Medications Dashboard",
+      "viewMedicationAdministration": "o3: View Patient Chart Medications Dashboard",
+      "addMedicationAdministration": "o3: View Patient Chart Admissions",
+      "editMedicationAdministration": "o3: View Patient Chart Admissions"
+    }
+  }
+}

@@ -1,0 +1,963 @@
+{
+  "name": "Integrated under five OPD register Below two Months",
+  "description": "Captures the integrated outpatient assessment of sick young infants under two months of age, covering possible bacterial infection, jaundice, diarrhea, HIV status, feeding and breastfeeding problems, immunization, vitamin A and follow-up.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "32560144-ab78-46c3-81bc-38802207180f",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "readonly": false,
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient Assessment",
+      "sections": [
+        {
+          "label": "Basic Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Weight (kg)",
+              "type": "obs",
+              "id": "weight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "questionInfo": "Infant weight measurement in kilograms. Normal range for infants below 2 months: 2.5-4.5 kg"
+            },
+            {
+              "label": "Temperature (°C)",
+              "type": "obs",
+              "id": "temperature",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01,
+                "min": "25",
+                "max": "43"
+              },
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 37.5 || myValue < 35)",
+                "message": "Temperature is out of range (Normal range 35-37.5°C)"
+              },
+              "questionInfo": "Normal range: 36.5-37.5°C"
+            },
+            {
+              "label": "Visit Type",
+              "type": "obs",
+              "id": "visitType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New Visit"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Return Visit"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Presenting Complaint",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Presenting Complaint Notes",
+              "type": "obs",
+              "id": "presentingComplaint",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Birth History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Birth Weight Category",
+              "type": "obs",
+              "id": "birthWeight",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3081920a-1425-3456-0123-789012345678",
+                "answers": [
+                  {
+                    "concept": "4192031b-2536-4567-1234-890123456789",
+                    "label": "Very Birth Weight, Below 1500gms"
+                  },
+                  {
+                    "concept": "5203142c-3647-5678-2345-901234567890",
+                    "label": "Low Birth Weight, 1500 - 2500 gms"
+                  },
+                  {
+                    "concept": "6314253d-4758-6789-3456-012345678901",
+                    "label": "Birth Weight = 2500 gms"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Gestational Age",
+              "type": "obs",
+              "id": "gestationalAge",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "7425364e-5869-7890-4567-123456789012",
+                "answers": [
+                  {
+                    "concept": "8536475f-6970-8901-5678-234567890123",
+                    "label": "Extremely Preterm GA < 28 wks"
+                  },
+                  {
+                    "concept": "9647586a-7081-9012-6789-345678901234",
+                    "label": "Very Preterm GA <32 weeks"
+                  },
+                  {
+                    "concept": "0758697b-8192-0123-7890-456789012345",
+                    "label": "Early Preterm GA 32 - 34 weeks"
+                  },
+                  {
+                    "concept": "1869708c-9203-1234-8901-567890123456",
+                    "label": "Late Preterm GA 34 -36 wk"
+                  },
+                  {
+                    "concept": "2970819d-0314-2345-9012-678901234567",
+                    "label": "Term GA = 37 weeks"
+                  },
+                  {
+                    "concept": "3081920e-1425-3456-0123-789012345678",
+                    "label": "Post Term GA >41+7 wk"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Clinical Assessment",
+      "sections": [
+        {
+          "label": "Check for Possible Bacterial Infection and Jaundice",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Breathing Problem",
+              "type": "obs",
+              "id": "breathingProblem",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "4192031f-2536-4567-1234-890123456789",
+                "answers": [
+                  {
+                    "concept": "5203142a-3647-5678-2345-901234567890",
+                    "label": "Not Breathing"
+                  },
+                  {
+                    "concept": "6314253b-4758-6789-3456-012345678901",
+                    "label": "Breathing Poorly (30 br/min)"
+                  },
+                  {
+                    "concept": "7425364c-5869-7890-4567-123456789012",
+                    "label": "Gasping"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Respiratory Rate",
+              "type": "obs",
+              "id": "respiratoryRate",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "step": 0.01
+              },
+              "alert": {
+                "alertWhenExpression": "respiratoryRate && (respiratoryRate > 60 || respiratoryRate < 30)",
+                "message": "Respiratory Rate is abnormal for infant (Normal range 30-60 breaths/min)"
+              },
+              "questionInfo": "Normal range for infants: 30-60 breaths/min"
+            },
+            {
+              "label": "Signs and Symptoms",
+              "type": "obs",
+              "id": "signsSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "8536475d-6970-8901-5678-234567890123",
+                "answers": [
+                  {
+                    "concept": "9647586e-7081-9012-6789-345678901234",
+                    "label": "Unable to Feed"
+                  },
+                  {
+                    "concept": "18f96a7c-2c9d-012e-456f-234567890123",
+                    "label": "Fast Breathing"
+                  },
+                  {
+                    "concept": "b2c3d4e5-f607-8901-bcde-f23456789012",
+                    "label": "Grunting"
+                  },
+                  {
+                    "concept": "16d7485a-0a7b-890c-234f-012345678901",
+                    "label": "Severe Chest Indrawing"
+                  },
+                  {
+                    "concept": "d4e5f607-1829-0123-def0-456789012345",
+                    "label": "Fever or Low Body Temperature"
+                  },
+                  {
+                    "concept": "0758697f-8192-0123-7890-456789012345",
+                    "label": "Umbilicus Red or Draining Pus"
+                  },
+                  {
+                    "concept": "1869708a-9203-1234-8901-567890123456",
+                    "label": "Pustule"
+                  },
+                  {
+                    "concept": "2970819b-0314-2345-9012-678901234567",
+                    "label": "Movement Only When Stimulated"
+                  },
+                  {
+                    "concept": "3081920c-1425-3456-0123-789012345678",
+                    "label": "No Movement Even When Stimulated"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Diarrhea Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Presence of Diarrhea",
+              "type": "obs",
+              "id": "diarrheaPresent",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Duration Notes",
+              "type": "obs",
+              "id": "durationNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "db5660ab-ff74-4b9e-9e4a-e3ad1fbb5e1e",
+                "rows": "3"
+              },
+              "hide": {
+                "hideWhenExpression": "diarrheaPresent !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Diarrhea Symptoms",
+              "type": "obs",
+              "id": "diarrheaSymptoms",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "19a7b8c9-3d0e-123f-567a-345678901234",
+                "answers": [
+                  {
+                    "label": "Blood in Stool",
+                    "concept": "1aa8c9d0-4e1f-234a-678b-456789012345"
+                  },
+                  {
+                    "label": "Restless/Irritable",
+                    "concept": "1bb9d0e1-5f2a-345b-789c-567890123456"
+                  },
+                  {
+                    "label": "Drinks Eagerly",
+                    "concept": "1cc0e1f2-6a3b-456c-890d-678901234567"
+                  },
+                  {
+                    "label": "Sunken Eyes",
+                    "concept": "1dd1f2a3-7b4c-567d-901e-789012345678"
+                  },
+                  {
+                    "label": "Lethargic/Unconscious",
+                    "concept": "14b52637-e859-6789-012d-ef0123456789"
+                  },
+                  {
+                    "label": "Unable to Drink or Breastfeed",
+                    "concept": "11829304-b526-3456-789a-bcdef0123456"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "diarrheaPresent !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Turgor/Skin Pinch",
+              "type": "obs",
+              "id": "skinTurgor",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "17edb9a1-bd0f-408f-871a-0000857b0227",
+                "answers": [
+                  {
+                    "concept": "eabc4230-3847-471c-b590-7554f75a672a",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "a40fdbf6-03a0-4769-b085-b0c52b6c0960",
+                    "label": "Slow"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "diarrheaPresent !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "HIV/AIDS Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Mother Hiv Ab Test",
+              "type": "obs",
+              "id": "motherHivTest",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ca573c39-0dae-4482-9d3e-f53c715a4dae",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Child AB Test",
+              "type": "obs",
+              "id": "childAbTest",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "9647586c-7081-9012-6789-345678901234",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Child DNA/PCR Test Result",
+              "type": "obs",
+              "id": "childDnaPcrTest",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "2ecf630a-a156-4883-a3a0-4051e1a9cdd4",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Done"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Presence of Breast Feeding in the last 6 months?",
+              "type": "obs",
+              "id": "breastfeedingLast6Months",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "36d82355-9c8b-495f-aab9-186a7af90537",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Feeding Assessment",
+      "sections": [
+        {
+          "label": "Feeding Problem/Low Weight for Hiv Negative Mother or Unknown Hiv Status",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Infant Breastfeeds?",
+              "type": "obs",
+              "id": "infantBreastfeeds",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "How Many Times/ 24hrs",
+              "type": "obs",
+              "id": "breastfeedingFrequency",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1e6f7081-9203-1234-ef01-567890123456",
+                "step": 0.01
+              },
+              "hide": {
+                "hideWhenExpression": "infantBreastfeeds !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Switching Before One Is Empty",
+              "type": "obs",
+              "id": "switchingBeforeEmpty",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1e8b3db0-a7af-4dc7-b5a5-8c3af12b9ea6",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "infantBreastfeeds !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Child Receive Other Food/Drinks",
+              "type": "obs",
+              "id": "otherFoodDrinks",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "9c4d5e6f-7081-9012-cdef-345678901888",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other food and drinks frequency (How many times in 24 hours?)",
+              "type": "obs",
+              "id": "otherFoodFrequency",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "2f708192-0314-2345-f012-678901234567",
+                "step": 0.01
+              },
+              "hide": {
+                "hideWhenExpression": "otherFoodDrinks !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Child Feeding by",
+              "type": "obs",
+              "id": "feedingMethod",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "98f16ffe-7cbc-4390-a043-99ab1f0f8df7",
+                "answers": [
+                  {
+                    "concept": "0758697d-8192-0123-7890-456789012345",
+                    "label": "Bottle"
+                  },
+                  {
+                    "concept": "1869708e-9203-1234-8901-567890123456",
+                    "label": "Cup"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "otherFoodDrinks !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "If Other Specify",
+              "type": "obs",
+              "id": "feedingMethodOther",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "feedingMethod !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Weight Status",
+              "type": "obs",
+              "id": "weightStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "4938045b-3cd4-4a11-a544-84ffb3344dd5",
+                "answers": [
+                  {
+                    "concept": "5203142e-3647-5678-2345-901234567890",
+                    "label": "Not Low"
+                  },
+                  {
+                    "concept": "500a5312-b28e-4a19-a602-48c81b033321",
+                    "label": "Low"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Feeding During Illness",
+              "type": "obs",
+              "id": "feedingDuringIllness",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "6314253f-4758-6789-3456-012345678901",
+                "answers": [
+                  {
+                    "concept": "7425364a-5869-7890-4567-123456789012",
+                    "label": "Increased"
+                  },
+                  {
+                    "concept": "8536475b-6970-8901-5678-234567890123",
+                    "label": "Same"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Presence of Oral Thrush",
+              "type": "obs",
+              "id": "oralThrush",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0d5e6f70-8192-0123-def0-456789012345",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Feeding Problem/Low Weight in Hiv Positive Mother Who Decided Not to Breastfeed",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Feeding Problems",
+              "type": "obs",
+              "id": "feedingProblemsHivPositive",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "b4a9d9bf-1b74-4853-b55b-fe1123e560af",
+                "answers": [
+                  {
+                    "concept": "7425364b-5869-7890-4567-123456789012",
+                    "label": "Inappropriate Replacement Milk/Fluids"
+                  },
+                  {
+                    "concept": "8536475c-6970-8901-5678-234567890123",
+                    "label": "Insufficient Replacement Feeds"
+                  },
+                  {
+                    "concept": "9647586d-7081-9012-6789-345678901234",
+                    "label": "Replacement Milk Incorrectly/Unhygenically Prepared"
+                  },
+                  {
+                    "concept": "0758697e-8192-0123-7890-456789012345",
+                    "label": "Mixed feeding (breast milk + Others)"
+                  },
+                  {
+                    "concept": "1869708f-9203-1234-8901-567890123456",
+                    "label": "Bottle Feeding"
+                  },
+                  {
+                    "concept": "22c555fe-de45-44b6-bf86-f485ad10150d",
+                    "label": "Low Weight"
+                  },
+                  {
+                    "concept": "8b0e78c1-2594-4d14-bbc0-f888d4b8de44",
+                    "label": "Oral Thrush Opportunistic Infection"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Assess Breast Feeding",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Breast Feeding Positioning",
+              "type": "obs",
+              "id": "breastfeedingPositioning",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "2970819a-0314-2345-9012-678901234567",
+                "answers": [
+                  {
+                    "concept": "3c181ead-bfd7-4443-b8f4-08dcfac69b01",
+                    "label": "Good"
+                  },
+                  {
+                    "concept": "9a4073ad-f433-46ef-96ac-032a27173d7b",
+                    "label": "Poor"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Breast Feeding Attachment",
+              "type": "obs",
+              "id": "breastfeedingAttachment",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "3081920b-1425-3456-0123-789012345678",
+                "answers": [
+                  {
+                    "concept": "4192031c-2536-4567-1234-890123456789",
+                    "label": "Chin Touching the Breast"
+                  },
+                  {
+                    "concept": "5203142d-3647-5678-2345-901234567890",
+                    "label": "Mouth Wide Open"
+                  },
+                  {
+                    "concept": "6314253e-4758-6789-3456-012345678901",
+                    "label": "Lower Lip Turned Outward"
+                  },
+                  {
+                    "concept": "7425364f-5869-7890-4567-123456789012",
+                    "label": "More Areola Seen Above Than Below the Mouth"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Breast Feeding Attachment Type",
+              "type": "obs",
+              "id": "attachmentType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8536475a-6970-8901-5678-234567890123",
+                "answers": [
+                  {
+                    "concept": "162305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Good"
+                  },
+                  {
+                    "concept": "9647586b-7081-9012-6789-345678901234",
+                    "label": "Not Well"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Is Suckling Effectively",
+              "type": "obs",
+              "id": "sucklingEffectively",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "8acd890d-2574-44a5-92f0-5e4ae87b604d",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Additional Information",
+      "sections": [
+        {
+          "label": "Immunization and Vitamin a",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Check Immunization Status (<24mo)",
+              "type": "obs",
+              "id": "immunizationStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Vitamin A Status of Mother",
+              "type": "obs",
+              "id": "vitaminAStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0758697a-8192-0123-7890-456789012345",
+                "answers": [
+                  {
+                    "concept": "1869708b-9203-1234-8901-567890123456",
+                    "label": "Received Postnatal Doses"
+                  },
+                  {
+                    "concept": "2970819c-0314-2345-9012-678901234567",
+                    "label": "Not Started"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Other Problems and Counseling",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Description of Other Problems",
+              "type": "obs",
+              "id": "otherProblems",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Classification Notes",
+              "type": "obs",
+              "id": "classificationNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Medication Notes",
+              "type": "obs",
+              "id": "medicationNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1f96f08e-741e-4d00-a82c-dd4c1a5874d2",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Counsel the Mother",
+              "type": "obs",
+              "id": "counselMother",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "14c5d647-f869-789a-4123-567abcdef012",
+                "answers": [
+                  {
+                    "concept": "1a7ccb02-9d98-4085-b5b0-ed66454d26de",
+                    "label": "Breast Feeding"
+                  },
+                  {
+                    "concept": "58f9a2b3-4c5d-6e7f-8901-234567890def",
+                    "label": "When to Return"
+                  },
+                  {
+                    "concept": "5203142f-3647-5678-2345-901234567890",
+                    "label": "Keep Warm"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referred to",
+              "type": "obs",
+              "id": "referredTo",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8d0d0bff-3d1b-4450-b7df-a208fbe7b4a4"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Follow-up",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Next Date",
+              "type": "obs",
+              "id": "nextDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Outcome",
+              "type": "obs",
+              "id": "outcome",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            },
+            {
+              "label": "Remark",
+              "type": "obs",
+              "id": "remark",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

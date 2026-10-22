@@ -1,0 +1,37 @@
+Uuid,Void/Retire,Name,Description
+27de5e6e-6b7d-4164-919c-6453d4f83261,,Community Pharmacy,A location used for community pharmacy
+0815e0b2-1182-4157-9340-bee371ea41e4,TRUE,Admission,A location used for patient admission
+eda0bab4-8703-4937-b98d-0333515ac3ca,,Payment Point,A location used to manage cash points
+f5b9737b-14d5-402b-8475-dd558808e172,,Admission Location,Patients may only be admitted to inpatient care in a location with this tag
+9783aba6-df7b-4969-be6e-1e03e7a08965,,Transfer Location,Patients may only be transfer to inpatient care in a location with this tag
+e2a1b3c4-d5e6-7890-1abc-def234567890,,Visit Location,A location where a patient may have a visit
+b2b1f7aa-4c4f-4f26-8a45-6c8a1f5b2b2b,,Medical Recording Unit,Locations tagged with this can view visits from all locations (no location filter)
+efa4143f-c6ae-44b5-8ce5-45cbdbbda934,,Medical Ward,Admission ward for medical cases
+b95dd376-fa35-40a6-b140-d144c5f22f62,,Maternity Ward,Admission ward for maternity case
+0b333d24-9933-446e-bec6-ce3f4df431b9,,Surgical Ward,Admission ward for surgical cases
+0db2eb63-f0ac-4f22-8d65-766a4828c9ba,,Pediatrics Ward,Admission ward for children
+b17b84a4-4357-4a10-bd04-4419cc8833fb,,OBST/GYN Ward,Admission ward for Obstetrics/Gynaecology cases
+36262a3a-aaae-4a75-93e6-b0061d809599,,Eye Ward,Admission ward for eye cases
+45b3b847-597e-47a4-b0df-9f3e57b8573e,,Nursery/Newborn Ward,Admission ward for newborns and pre-term babies
+3e6c9fc0-ab31-41eb-96ff-900300266ccf,,Orthopaedic Ward,Admission ward for orthopaedic cases
+cc5cb426-5433-4e9a-ad22-456e6b627b05,,Isolation Ward,Admission ward for isolation cases
+cc5ebd26-b3dc-471a-a2fe-f2cea1801d80,,Amenity Ward,Admission ward for amenity cases
+37bedf9c-07b1-4d8b-9ba3-ad3b9d48e10d,,Psychiatry Ward,Admission ward for psychiatry cases
+770f6a93-8e59-48ad-ba7d-98d5652db240,,ICU Ward,Admission ward for Intensive care cases
+f8c80058-ea8c-4c83-b26f-75e3e38a8ef5,,Renal Ward,Admission ward for renal cases
+25439b2d-6495-4f5d-9ec6-4fe64686cf46,,HDU Ward,Admission ward for High dependency  cases
+f7537dcf-0525-402d-943e-b29356d1fc65,,Burn Unit Ward,Admission ward for burns cases
+21215af7-dfc0-4981-af16-844c9bd30482,,Oncology Ward,Admission ward for Oncology case
+1dbbfe22-d21f-499c-bf33-cc9f75b6c7e8,,Mortuary Location,Deceased patients may only be admitted to mortuary care in a location with this tag
+69c7425c-d81a-47fa-9410-1e10fa5d44aa,,Health Center,Health Center
+4fefff44-35a4-4463-908e-d2432ff7f774,,Primary Hospital,Primary Hospital
+7e5c986b-76a6-4c76-89a1-4aa0c6e503d5,,General Hospital,General Hospital
+e33c8902-7d67-450d-ab61-d79a5ee813f0,,Comprehensive Specialized Hospital,Comprehensive Specialized Hospital
+b590f784-4641-4c62-a1bb-ce553f3a1781,,Specialty Center,Specialty Center
+497c8f04-fe29-4be9-bbff-64ad68210981,,Referral Facility,Referral Facility
+aa045812-4237-450e-8443-6294587323e8,,Emergency,Emergency Location
+0d8b6408-816f-47f9-ab3e-e1d25b56c58f,,Order Location,Locations tagged for order management.
+b95dd376-fa35-40a6-b140-d144c5f22f62,,Maternity Ward,Admission ward for maternity case
+7680b7ee-6880-450c-8b7e-2a748b6f9dc7,,Labour & Delivery Ward,Admission ward for labour case
+f47a3001-1a2b-4c3d-8e4f-100300300101,,Pre-Anesthesia OPD,Outpatient location for pre-anesthesia evaluation clinic
+74b3eb96-5301-4a4d-9b88-edda1a3da17c,,Department,"Logical grouping of rooms; child locations belong to this department (flat, no nested departments)"

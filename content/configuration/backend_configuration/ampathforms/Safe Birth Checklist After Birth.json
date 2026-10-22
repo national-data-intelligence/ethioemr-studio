@@ -1,0 +1,298 @@
+{
+  "name": "Safe Birth Checklist, After Birth",
+  "description": "Completed soon after birth and before discharge to confirm that maternal bleeding is controlled and to decide whether mother or baby needs antibiotics, referral, special care or antiretroviral medicine.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "25b77241-fc42-4a77-86a0-3148d9b8952a",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Safe Birth Checklist, After Birth Assessment",
+      "sections": [
+        {
+          "label": "Safe Child Birth Checklist After Birth, Soon After Birth",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Does Baby need to start antibiotics",
+              "type": "obs",
+              "id": "doesBabyNeedToStartAntibiotics",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "8526f708-5960-7890-1234-567890abcd12",
+                "answers": [
+                  {
+                    "concept": "2be10a3c-e455-4f09-a80c-70e4e52c94aa",
+                    "label": "Yes, Given"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Does Baby need referral?",
+              "type": "obs",
+              "id": "doesBabyNeedReferral",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "fa19d295-73cc-4aa5-beb7-f317aa08ce2b",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Does Baby need special care and monitoring?",
+              "type": "obs",
+              "id": "doesBabyNeedSpecialCareAndMonitoring",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "7c46f49b-c2ed-4ab4-b51f-7b4a433c8767",
+                "answers": [
+                  {
+                    "concept": "c8f3effd-6117-4d9a-b8a9-ed9306ca7ff5",
+                    "label": "Yes, Special Care Arranged"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Does Baby need to start antiretroviral medicine?",
+              "type": "obs",
+              "id": "doesBabyNeedToStartAntiretroviralMedicin",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "41526374-5869-7890-1234-567890456789",
+                "answers": [
+                  {
+                    "concept": "2be10a3c-e455-4f09-a80c-70e4e52c94aa",
+                    "label": "Yes, Given"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Safe childbirth checklist, after birth Newborn",
+              "type": "obs",
+              "id": "safeChildbirthChecklistAfterBirthNewborn",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "f6990226-37ff-4916-b163-d48133c35546",
+                "answers": [
+                  {
+                    "concept": "7eff0f2c-e05c-4528-9c0b-24ab5e3cfb8f",
+                    "label": "Placed baby in skin-to-skin contact and started breastfeeding within 1 hr (If mother and baby are okat)"
+                  },
+                  {
+                    "concept": "294b21f0-d208-4f3c-9b02-44f51e49c01f",
+                    "label": "Vit K given 1 mg IM on anterio-mid thigh"
+                  },
+                  {
+                    "concept": "5293c4d5-2637-4567-8901-234567abcd09",
+                    "label": "TTC eye ointment given in both eyes"
+                  },
+                  {
+                    "concept": "72b48c81-39d3-455c-9a99-469bf2bf0079",
+                    "label": "Weighed and recorded"
+                  },
+                  {
+                    "concept": "cd0a543e-43db-4ed9-9c16-0764a313062a",
+                    "label": "Give BCG and OPV before discharge"
+                  },
+                  {
+                    "concept": "b2f1a62a-8479-458c-b4f9-6c52b869973d",
+                    "label": "Confirm that mother/ companion will call for help if danger signs are present"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Safe birth checklist, Before Discharge",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Is mother's bleeding controlled?",
+              "type": "obs",
+              "id": "isMotherSBleedingControlled",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "6304d5e6-3748-5678-9012-345678abcd10",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Does Mother need to start antibiotic",
+              "type": "obs",
+              "id": "doesMotherNeedToStartAntibiotic",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "7415e6f7-4859-6789-0123-456789abcd11",
+                "answers": [
+                  {
+                    "concept": "18f635e1-355c-4e90-b09f-54e27f3c7525",
+                    "label": "Yes, IV Started"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Does Baby need to start antibiotics",
+              "type": "obs",
+              "id": "doesBabyNeedToStartAntibiotics2",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "8526f708-5960-7890-1234-567890abcd12",
+                "answers": [
+                  {
+                    "concept": "2be10a3c-e455-4f09-a80c-70e4e52c94aa",
+                    "label": "Yes, Given"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If mother HIV+ mother is on ART and Baby has neverapine syrup for 6 wks",
+              "type": "obs",
+              "id": "ifMotherHivMotherIsOnArtAndBabyHasNevera",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "0748192b-7182-9012-3456-789012abcd14",
+                "answers": [
+                  {
+                    "concept": "1859203c-8293-0123-4567-890123abcd15",
+                    "label": "Family Planning options discussed and offered to mother"
+                  },
+                  {
+                    "concept": "1ab37156-26a7-4662-9c68-e3bc56d10bc4",
+                    "label": "Confirm that mother/ companion will call for help after discharge if danger signs"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Name",
+              "type": "obs",
+              "id": "name",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "2e022548-706f-49e3-953c-3c41b7ca3666"
+              }
+            },
+            {
+              "label": "Date",
+              "type": "obs",
+              "id": "date",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5bbbe370-d3ff-4526-a63b-df5c579ca30c"
+              }
+            },
+            {
+              "label": "Signature",
+              "type": "obs",
+              "id": "signature",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "28794bbc-ad22-4d8e-a8a3-8147bdfef6cd"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

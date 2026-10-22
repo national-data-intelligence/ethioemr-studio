@@ -1,0 +1,50 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>How the assistant finds its answers</title>
+<style>
+  :root { --bg2:#00264d; --card:#ffffff12; --line:#ffffff40; --txt:#fff; --mut:#a9c0db; --acc:#f5a623; --ok:#4cd39b; }
+  * { box-sizing:border-box }
+  body { margin:0; height:100vh; overflow:hidden; color:var(--txt); font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+    background:var(--bg2); }
+  .k { position:absolute; top:52px; left:70px; font-size:20px; letter-spacing:.18em; text-transform:uppercase; color:var(--acc); font-weight:600 }
+  h1 { position:absolute; top:78px; left:70px; margin:0; font-size:46px }
+  .flow { position:absolute; top:250px; left:70px; right:70px; display:grid; grid-template-columns:repeat(5,1fr); gap:46px }
+  .box { position:relative; background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:22px 20px; min-height:200px;
+    opacity:0 }
+  .box.on { opacity:1 }
+  .box.hot { border-color:var(--acc); border-width:3px; padding:20.5px 18.5px }
+  .box .ic { font-size:28px; line-height:1; font-weight:700; color:var(--acc) }
+  .box b { display:block; font-size:24px; margin:12px 0 8px }
+  .box span { display:block; font-size:18px; line-height:1.4; color:var(--mut) }
+  .box .big { font-size:40px; font-weight:700; color:var(--txt); margin:4px 0 }
+  .box:not(:last-child)::after { content:"→"; position:absolute; right:-38px; top:78px; font-size:34px; color:var(--acc); opacity:0 }
+  .box.on:not(:last-child)::after { opacity:1 }
+  .chart { position:absolute; top:560px; left:calc(70px + 3 * (100% - 140px - 4*46px)/5 + 3*46px); width:calc((100% - 140px - 4*46px)/5);
+    background:#4cd39b1c; border:1.5px solid var(--ok); border-radius:16px; padding:18px 20px; opacity:0 }
+  .chart.on { opacity:1 }
+  .chart::before { content:"↑"; position:absolute; top:-46px; left:50%; transform:translateX(-50%); font-size:34px; color:var(--ok) }
+  .chart b { display:block; font-size:22px; margin-bottom:6px } .chart span { font-size:17px; color:var(--mut); line-height:1.4 }
+  .foot { position:absolute; bottom:46px; left:70px; font-size:18px; color:var(--mut) }
+</style></head>
+<body>
+  <div class="k">How it works</div>
+  <h1>Retrieval-augmented generation (RAG)</h1>
+  <div class="flow">
+    <div class="box" id="b1"><div class="ic">01</div><b>Guidelines</b><span class="big">14</span><span>Ethiopian national &amp; WHO clinical guidelines</span></div>
+    <div class="box" id="b2"><div class="ic">02</div><b>Passages</b><span class="big">10,713</span><span>split by section; 1,030 tables kept whole</span></div>
+    <div class="box" id="b3"><div class="ic">03</div><b>Search by meaning</b><span>top passages for the question (embeddings); outdated editions flagged</span></div>
+    <div class="box" id="b4"><div class="ic">04</div><b>Qwen 2.5 · 14B</b><span>open model on the team's own server; answers only from the passages</span></div>
+    <div class="box" id="b5"><div class="ic">05</div><b>Cited answer</b><span>every claim cites a passage [GL1]; each citation is verified</span></div>
+  </div>
+  <div class="chart" id="c1"><b>Patient chart</b><span>for Diagnosis: the latest vitals &amp; records, cited as [#]</span></div>
+  <div class="foot">Data stays inside the team's infrastructure · audio is transcribed locally</div>
+<script>
+  // The recorder calls step(n) as the narration moves on.
+  window.step = (n) => {
+    const order = [['b1','b2'], ['b3'], ['b4','b5'], ['c1']];
+    order.slice(0, n).flat().forEach((id) => document.getElementById(id).classList.add('on'));
+    document.querySelectorAll('.hot').forEach((e) => e.classList.remove('hot'));
+    (order[n - 1] || []).forEach((id) => document.getElementById(id).classList.add('hot'));
+    if (n === 4) document.getElementById('b4').classList.add('hot');
+  };
+</script>
+</body></html>

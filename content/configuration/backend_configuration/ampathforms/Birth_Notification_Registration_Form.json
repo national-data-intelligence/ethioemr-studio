@@ -1,0 +1,459 @@
+{
+  "name": "Birth Notification/ Registration Form",
+  "description": "Notifies and registers a birth, recording the place of delivery and facility details, the mother's information, delivery type, the child's date and time of birth, sex and birth weight, and the birth attendant.",
+  "version": "1.1",
+  "published": true,
+  "uuid": "461b4809-18c5-496c-9116-a66f328889d9",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": false
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "id": "encProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "id": "encLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "readonly": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Birth Notification/ Registration ",
+      "sections": [
+        {
+          "label": "Place of Delivery and Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Place of Delivery",
+              "type": "obs",
+              "required": "false",
+              "id": "placeOfDelivery",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hospital"
+                  },
+                  {
+                    "concept": "159372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Triage Health Center"
+                  },
+                  {
+                    "concept": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health Post"
+                  },
+                  {
+                    "concept": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Clinic"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other Notes"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Facility Ownership",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Facility Ownership",
+              "type": "obs",
+              "required": "false",
+              "id": "facilityOwnership",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c3d4e5f6-7081-9012-3456-789012abcd03",
+                "answers": [
+                  {
+                    "concept": "160480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Government"
+                  },
+                  {
+                    "concept": "163014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Private for Non Profit"
+                  },
+                  {
+                    "concept": "160479AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Private for Profit"
+                  },
+                  {
+                    "concept": "d4e5f607-8192-0123-4567-890123abcd04",
+                    "label": "Other Governmental"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Facility Address",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Facility name",
+              "type": "obs",
+              "required": "false",
+              "id": "facilityName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            },
+            {
+              "label": "Region/City Administration",
+              "type": "obs",
+              "required": "false",
+              "id": "regionCityAdmin",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "36788990-0112-8904-2348-012345f01234"
+              }
+            },
+            {
+              "label": "Zone",
+              "type": "obs",
+              "required": "false",
+              "id": "zone",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "47899001-1223-9015-3459-12345f012345"
+              }
+            },
+            {
+              "label": "Woreda/S.Woreda",
+              "type": "obs",
+              "required": "false",
+              "id": "woreda",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "25677889-9001-7893-1237-9012345f0123"
+              }
+            },
+            {
+              "label": "Town/Sub City",
+              "type": "obs",
+              "required": "false",
+              "id": "townSubCity",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "14566778-8990-6782-0126-89012345f012"
+              }
+            },
+            {
+              "label": "Kebele",
+              "type": "obs",
+              "required": "false",
+              "id": "kebele",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1e5f6071-8293-0123-4567-890123abcde4"
+              }
+            },
+            {
+              "label": "House Number",
+              "type": "obs",
+              "required": "false",
+              "id": "houseNumber",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "3071a2b3-0415-2345-6789-012345abcde6"
+              }
+            },
+            {
+              "label": "Telephone Number",
+              "type": "obs",
+              "required": "false",
+              "id": "telephoneNumber",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+                  "message": "Please enter the telephone number in the correct format e.g 0993888198 thats is 10 digits"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Maternal Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Full name",
+              "type": "obs",
+              "required": "false",
+              "id": "motherFullName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "0718293a-1425-3456-7890-123456abcd07"
+              }
+            },
+            {
+              "label": "Age",
+              "type": "obs",
+              "required": "false",
+              "id": "motherAge",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "164168AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Delivery Type",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Delivery Type",
+              "type": "obs",
+              "required": "false",
+              "id": "deliveryType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d9c51918-1b1e-4692-98bf-5f49584bbebc",
+                "answers": [
+                  {
+                    "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spontaneous Vaginal Delivery"
+                  },
+                  {
+                    "concept": "159739AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cesarean Section Delivery"
+                  },
+                  {
+                    "concept": "5577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Episiotomy on mother"
+                  },
+                  {
+                    "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Forceps or Vaccum Extractor Delivery"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Characteristics/ Information of the child",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Full name",
+              "type": "obs",
+              "required": "false",
+              "id": "childFullName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "0718293a-1425-3456-7890-123456abcd07"
+              }
+            },
+            {
+              "label": "Date and Time of Birth",
+              "type": "obs",
+              "required": "false",
+              "id": "dateTimeOfBirth",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "7a1b2c3d-4e5f-6789-0123-456789abcde0"
+              }
+            },
+            {
+              "label": "Birth Weight (in grams)",
+              "type": "obs",
+              "required": "false",
+              "id": "birthWeight",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "30415263-4758-6789-0123-456789345678"
+              }
+            },
+            {
+              "label": "Sex",
+              "type": "obs",
+              "required": "false",
+              "id": "sex",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "3071a2b3-0415-2345-6789-012345abcd07",
+                "answers": [
+                  {
+                    "concept": "1534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Male"
+                  },
+                  {
+                    "concept": "1535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Female"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Type of birth",
+              "type": "obs",
+              "required": "false",
+              "id": "typeOfBirth",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "7a1b2c3d-4e5f-6789-0123-456789abcd01",
+                "answers": [
+                  {
+                    "concept": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Singleton"
+                  },
+                  {
+                    "concept": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Twin"
+                  },
+                  {
+                    "concept": "8b2c3d4e-5f60-7890-1234-567890abcd02",
+                    "label": "Higher Order Multiple Birth"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Information on the Birth Attendant",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Full Name",
+              "type": "obs",
+              "required": "false",
+              "id": "attendantName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "0718293a-1425-3456-7890-123456abcd07"
+              }
+            },
+            {
+              "label": "Date",
+              "type": "obs",
+              "required": "false",
+              "id": "attendantDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef"
+              }
+            },
+            {
+              "label": "Signature",
+              "type": "obs",
+              "required": "false",
+              "id": "attendantSignature",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "dfcc86d8-50df-4415-abef-c0b559ee4453"
+              }
+            },
+            {
+              "label": "Qualification Notes",
+              "type": "obs",
+              "required": "false",
+              "id": "qualificationNotes",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "7e8f960a-8b9c-012d-4567-890123abcd0e"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Notification Form Issued By",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Full Name",
+              "type": "obs",
+              "required": "false",
+              "id": "issuerName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "0718293a-1425-3456-7890-123456abcd07"
+              }
+            },
+            {
+              "label": "Date Form filled in",
+              "type": "obs",
+              "required": "false",
+              "id": "dateFormFilledIn",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5bbbe370-d3ff-4526-a63b-df5c579ca30c"
+              }
+            },
+            {
+              "label": "Signature",
+              "type": "obs",
+              "required": "false",
+              "id": "issuerSignature",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

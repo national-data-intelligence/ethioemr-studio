@@ -1,0 +1,12 @@
+services:
+  gateway:
+    build:
+      context: ./gateway
+
+  frontend:
+    build:
+      context: ./frontend
+
+  backend:
+    build:
+      context: .

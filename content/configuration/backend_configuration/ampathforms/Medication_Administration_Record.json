@@ -1,0 +1,141 @@
+{
+  "name": "Medication Administration Record Sheet",
+  "description": "Records each dose of medication given to an inpatient, including drug name, dose, route, frequency, scheduled time, actual time given and the name of the nurse who administered it.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "72d06752-3c8f-488a-9052-5996b6434576",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Medication Administration Record Sheet Assessment",
+      "sections": [
+        {
+          "label": "Medication",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Medication Name",
+              "type": "obs",
+              "id": "medicationName",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "513b3922-a4ed-4ccd-99b8-dd0475ab6ece"
+              }
+            },
+            {
+              "label": "Medication Dose",
+              "type": "obs",
+              "id": "medicationDose",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "dfe0c863-4c11-4a34-87da-cb3dc3481ab8"
+              }
+            },
+            {
+              "label": "Route of Administration",
+              "type": "obs",
+              "id": "routeOfAdmin",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1173c263-e053-40fc-8426-1b604ba345f1"
+              }
+            },
+            {
+              "label": "Frequency of administration",
+              "type": "obs",
+              "id": "frequencyOfAdminstration",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "bd297ff5-e0ce-49eb-8169-0b4de838a425"
+              }
+            },
+            {
+              "label": "Time to be given",
+              "type": "obs",
+              "id": "timeToBeGiven",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "b51c33a0-5753-492c-b8c5-e5c13f5ee2db"
+              }
+            },
+            {
+              "label": "Given by (name)",
+              "type": "obs",
+              "id": "name",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "7416af1a-7c60-4c55-a61a-5fe0cf5e8229"
+              }
+            },
+            {
+              "label": "Time given",
+              "type": "obs",
+              "id": "timeGiven",
+              "questionOptions": {
+                "rendering": "datetime",
+                "concept": "48489d16-d5a4-403d-a3a4-1275ff1755b6"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

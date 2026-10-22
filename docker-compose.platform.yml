@@ -1,0 +1,60 @@
+# Platform additions on top of the team's distro/docker-compose.yml (which stays byte-for-byte GitHub main).
+# Run it through .\platform.ps1, which calls:
+#   docker compose --project-directory . -f distro/docker-compose.yml -f docker-compose.platform.yml <command>
+# (paths below are relative to the repo root).
+#
+# What this file changes, and why:
+#  - name:     its own compose project (containers, volumes, network never touch another stack)
+#  - ports:    UI http://localhost:${PLATFORM_HTTP_PORT:-18200}, MySQL localhost:${PLATFORM_DB_PORT:-3320}
+#  - images:   the team's published images pinned to the distro/ commit (not `latest`, not the old openmrs/...:qa)
+#  - gateway:  the team gateway image + platform.conf.template: passes /openmrs/spa through to the published frontend,
+#              serves the overlay (extra modules, and the merged app list and routes from tools/build-spa-overlay.py) and the
+#              AI assistant config from .env, and allows the AI and speech services in the CSP
+#  - db:       MySQL 8.0.45 (the v8 dump does not load on 8.0.46) initialised from database/initial-db/
+#  - content:  the backend reads ./content (the Initializer content snapshot) instead of the baked-in package
+name: ethioemr-platform
+
+services:
+  gateway:
+    build:
+      context: ./distro/gateway
+    image: ethioemr-platform/gateway:local
+    environment:
+      FRAME_ANCESTORS: ""
+      AI_CONNECT_SRC: ${AI_CONNECT_SRC:-}
+      AI_SERVICE_URL: ${AI_SERVICE_URL:-}
+      AI_SERVICE_API_KEY: ${AI_SERVICE_API_KEY:-}
+      ASR_SERVICE_URL: ${ASR_SERVICE_URL:-http://localhost:8767}
+    volumes:
+      - ./gateway/platform.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./work/spa-overlay:/srv/spa-overlay:ro
+    ports: !override
+      - "${PLATFORM_HTTP_PORT:-18200}:80"
+
+  frontend:
+    image: ${PLATFORM_IMAGE_NS:-meronmen}/ethiopiaemr-frontend:${PLATFORM_IMAGE_TAG:-sha-9147129}
+    environment:
+      # the team's five config files and the AI assistant's (served by the gateway from .env)
+      SPA_CONFIG_URLS: /openmrs/spa/config/configs/ethiopiaemr-package/openmrs.config.json,/openmrs/spa/config/configs/ethiopiaemr-package/kenyaemr.config.json,/openmrs/spa/config/configs/ethiopiaemr-package/registration/registration.config.json,/openmrs/spa/config/configs/ethiopiaemr-package/translations/translations.json,/openmrs/spa/config/configs/ethiopiaemr-package/ethiopiaemr.config.json,/openmrs/spa/ai-assistant.config.json
+
+  backend:
+    image: ${PLATFORM_IMAGE_NS:-meronmen}/ethiopiaemr-backend:${PLATFORM_IMAGE_TAG:-sha-9147129}
+    environment:
+      SHR_PULL_PASSWORD: ${SHR_PULL_PASSWORD:-}
+    volumes:
+      - ./content/configuration/backend_configuration:/openmrs/distribution/openmrs_config
+
+  db:
+    image: mysql:8.0.45
+    ports:
+      - "${PLATFORM_DB_PORT:-3320}:3306"
+    volumes: !override
+      - platform-mysql-data:/var/lib/mysql
+      - ./database/initial-db:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  platform-mysql-data: ~
+
+networks:
+  ethiopiaemr_network:
+    name: ethioemr_platform_network

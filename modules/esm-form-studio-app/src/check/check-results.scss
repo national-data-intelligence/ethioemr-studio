@@ -1,0 +1,29 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.check {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.title {
+  @include type.type-style('heading-compact-01');
+}
+
+.issues {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-02;
+  max-height: 16rem;
+  overflow-y: auto;
+  list-style: disc;
+  padding-left: layout.$spacing-05;
+}

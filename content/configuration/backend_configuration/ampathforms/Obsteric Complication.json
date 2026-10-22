@@ -1,0 +1,322 @@
+{
+  "name": "Obstetric Complication",
+  "description": "Records obstetric complications around delivery, including eclampsia, antepartum and postpartum hemorrhage, sepsis, obstructed labor and ruptured uterus, together with HIV testing, antiretroviral treatment for mother and newborn, infant feeding choice and referral.",
+  "version": "1.0",
+  "published": true,
+  "uuid": "01edf141-625a-451f-b003-1e72b8a24911",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "readonly": true
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "isSearchable": true
+              },
+              "id": "encProvider",
+              "readonly": false
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "datasource": {
+                  "name": "location_datasource",
+                  "config": {
+                    "tag": "Login Location"
+                  }
+                }
+              },
+              "id": "encLocation",
+              "readonly": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Obstetric Complication Assessment",
+      "sections": [
+        {
+          "label": "Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Eclampsia",
+              "type": "obs",
+              "id": "eclampsia",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "d47f56e4-0f46-454f-ae6e-4ab56df67985",
+                "answers": [
+                  {
+                    "concept": "885d1f7c-9d6b-47ee-9577-4bb04fe8cdf5",
+                    "label": "Managed"
+                  },
+                  {
+                    "concept": "fa19d295-73cc-4aa5-beb7-f317aa08ce2b",
+                    "label": "Referred"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "APH",
+              "type": "obs",
+              "id": "aph",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "885d1f7c-9d6b-47ee-9577-4bb04fe8cdf5",
+                    "label": "Managed"
+                  },
+                  {
+                    "concept": "fa19d295-73cc-4aa5-beb7-f317aa08ce2b",
+                    "label": "Referred"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "PPH",
+              "type": "obs",
+              "id": "pph",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "885d1f7c-9d6b-47ee-9577-4bb04fe8cdf5",
+                    "label": "Managed"
+                  },
+                  {
+                    "concept": "fa19d295-73cc-4aa5-beb7-f317aa08ce2b",
+                    "label": "Referred"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "PROM/Sepsis",
+              "type": "obs",
+              "id": "promSepsis",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "7671f014-dc3c-493d-be34-5544ebe15225",
+                "answers": [
+                  {
+                    "concept": "885d1f7c-9d6b-47ee-9577-4bb04fe8cdf5",
+                    "label": "Managed"
+                  },
+                  {
+                    "concept": "fa19d295-73cc-4aa5-beb7-f317aa08ce2b",
+                    "label": "Referred"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Obstructed/ prolonged labor",
+              "type": "obs",
+              "id": "obstructedProlongerLabor",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "39d0bde1-3364-42b7-af25-65096e75ba49",
+                "answers": [
+                  {
+                    "concept": "885d1f7c-9d6b-47ee-9577-4bb04fe8cdf5",
+                    "label": "Managed"
+                  },
+                  {
+                    "concept": "fa19d295-73cc-4aa5-beb7-f317aa08ce2b",
+                    "label": "Referred"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Ruptured Uterus",
+              "type": "obs",
+              "id": "rupturedUterus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "32340fb1-81ea-59d1-8d0e-738e7cef9c7b",
+                "answers": [
+                  {
+                    "concept": "229efc49-7f19-4140-95ab-841171731668",
+                    "label": "Repaired"
+                  },
+                  {
+                    "concept": "159837AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hysterectomy"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HIV Counseling and testing offered",
+              "type": "obs",
+              "id": "hivCounselingAndTestingOffered",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "cee1cedc-bab2-4406-aac8-8e3fe06c3a3a",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HIV testing accepted",
+              "type": "obs",
+              "id": "hivTestingAccepted",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "a345db1c-c30d-566b-9028-370d3479a7a8",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HIV Test Result",
+              "type": "obs",
+              "id": "hivTestResult",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "a90ebc9e-53b4-4a31-bf19-c5e474efe62d",
+                "answers": [
+                  {
+                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Reactive"
+                  },
+                  {
+                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-Reactive"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "ARV treatment for mother (by type)",
+              "type": "obs",
+              "id": "arvTreatmentForMotherByType",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "8f3db9e1-fdbf-4aa3-8755-25b30ae62f3a"
+              }
+            },
+            {
+              "label": "ARV treatment for NB (by type)",
+              "type": "obs",
+              "id": "arvTreatmentForNbByType",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "1e4f3019-933d-489c-80e7-b539be072c79"
+              }
+            },
+            {
+              "label": "Feeding options",
+              "type": "obs",
+              "id": "feedingOptions",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "aee211d3-2d47-548d-8ad3-4cbdf75cbea8",
+                "answers": [
+                  {
+                    "concept": "a550e6fa-1f72-5a40-b853-837425e4ad0d",
+                    "label": "EBF"
+                  },
+                  {
+                    "concept": "1595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "RF"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Mother and newborn referred for care and sup",
+              "type": "obs",
+              "id": "motherAndNewbornReferredForCareAndSup",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "da94dba4-7d8c-4186-aa6d-a7e5a7889d39"
+              }
+            },
+            {
+              "label": "Remark",
+              "type": "obs",
+              "id": "remark",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "d3b5c439-e7ac-4e20-9b7c-ab5057a309ef"
+              }
+            },
+            {
+              "label": "Delivered by",
+              "type": "obs",
+              "id": "deliveredBy",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "c5f9623a-59c3-4d23-a236-47cb6b0563e2"
+              }
+            },
+            {
+              "label": "Signature",
+              "type": "obs",
+              "id": "signature",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "28794bbc-ad22-4d8e-a8a3-8147bdfef6cd"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}
