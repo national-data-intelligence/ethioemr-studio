@@ -3,6 +3,10 @@
 Contract: POST /v1/forms/ask as agreed with the AI service team (docs: forms-ask.schema.json, schemaVersion 1.0), so
 the AI service can take this endpoint over unchanged later.
   GET  /health         -> {"status": "ok", "model": "...", "pack": {...}}
+  POST /v1/forms/draft {"task": "draft-rule", "instruction": "...", "form": {...O3 form...}, "targetQuestionId": "..."}
+                       -> {"draft": {"kind": "rule", "expression": "...", ...}, "check": {...check-form output...}}
+                       The model drafts and check-form decides (drafting.py). A draft with Check errors is never
+                       returned: the reply is then error draft_failed_check with the findings.
   POST /v1/forms/ask   {"question": "...", "audience": "form-builder", "language": "en", "context": {...}}
                        -> {"answer": "... [K1]", "answerable": true, "citations": [...], "relatedForms": [...], ...}
                        errors -> {"error": {"code": "...", "message": "..."}}
@@ -28,6 +32,7 @@ Settings (environment variables):
   FA_MAX_TOKENS    longest answer the model may write; on the T4 time grows with every word  (default 350)
   FA_API_KEY       if set, callers must send "Authorization: Bearer <key>"   (default empty: no key)
   FA_PORT          port to listen on                                         (default 8768)
+  FA_CHECK_FORM    the command-line Check, check-form.js (needs node)         (default /srv/check-form/check-form.js)
 """
 import asyncio
 import json
@@ -43,6 +48,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 
+import drafting
 from retrieval import Pack, words
 
 PACK = Pack.from_env(os.environ.get("FA_PACK", "/srv/pack"))
@@ -114,8 +120,9 @@ async def guard(request: Request, call_next):
             return error(401, "unauthorized", "Missing or wrong API key.")
         if request.method == "POST":
             body = await request.body()
-            if len(body) > 64_000:
-                return error(413, "input_too_large", "Request body is over 64 KB.")
+            limit = 1_000_000 if request.url.path == "/v1/forms/draft" else 64_000  # a whole form can be large
+            if len(body) > limit:
+                return error(413, "input_too_large", "Request body is over %d KB." % (limit // 1000))
             try:
                 if has_patient_keys(json.loads(body or b"{}")):
                     return error(422, "patient_data_rejected", "Form questions only: patient data is not accepted.")
@@ -176,10 +183,15 @@ async def ask_llm(question, cards, findings, language):
         user += "\nCheck messages the user is asking about:\n" + "\n".join("- " + f for f in findings)
     if language == "am":
         user += "\nWrite the answer in Amharic; keep form, field and button names in English."
+    return await llm_json(SYSTEM % rules, user, ANSWER_SCHEMA)
+
+
+async def llm_json(system, user, schema, max_tokens=MAX_TOKENS):
+    """One model call whose reply Ollama holds to `schema`, so it always parses."""
     # The system prompt comes first and never changes, so Ollama can reuse its already-read copy between questions.
-    body = {"model": LLM_MODEL, "stream": False, "format": ANSWER_SCHEMA, "keep_alive": "30m",
-            "options": {"temperature": 0.1, "num_predict": MAX_TOKENS, "num_ctx": 8192},
-            "messages": [{"role": "system", "content": SYSTEM % rules}, {"role": "user", "content": user}]}
+    body = {"model": LLM_MODEL, "stream": False, "format": schema, "keep_alive": "30m",
+            "options": {"temperature": 0.1, "num_predict": max_tokens, "num_ctx": 8192},
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     async with httpx.AsyncClient(timeout=180) as client:
         r = await client.post(LLM_URL + "/api/chat", json=body)
         r.raise_for_status()
@@ -276,6 +288,46 @@ async def make_answer(req, request_id):
                                                                              top or 0, req.question[:80]), flush=True)
     return {**base, "answer": answer, "answerable": answerable, "citations": citations, "relatedForms": forms[:10],
             "rulesApplied": [r["rule_id"] for r in MUST_RULES], "warnings": warnings}
+
+
+class DraftRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    task: str = Field(..., pattern="^(add-question|fix-question|draft-rule|fix-form)$")
+    instruction: str = Field(..., min_length=3, max_length=2000)
+    form: dict
+    targetQuestionId: str | None = Field(None, max_length=200)
+    behaviour: str | None = Field(None, pattern="^(hide|calculate|warn|fail)$")
+    audience: str = Field("form-builder", pattern="^(clinician|form-builder|maintainer)$")
+    language: str = Field("en", pattern="^(en|am)$")
+
+
+@app.post("/v1/forms/draft")
+async def forms_draft(req: DraftRequest, request: Request):
+    request_id = request.headers.get("x-request-id") or uuid.uuid4().hex
+    base = {"schemaVersion": "1.0", "model": LLM_MODEL, "requestId": request_id, "disclaimer": DISCLAIMER}
+    if req.task != "draft-rule":
+        return error(501, "not_implemented", "Only the task draft-rule is available so far.")
+    if not req.targetQuestionId:
+        return error(400, "bad_request", "draft-rule needs targetQuestionId: the question the rule is for.")
+    t0 = time.time()
+    try:
+        draft, check, attempts = await drafting.draft_rule(req, llm_json)
+    except drafting.BadRequest as e:
+        return error(400, "bad_request", str(e))
+    except drafting.CheckNotRun as e:  # no Check, no draft: an unchecked rule is never shown
+        return error(503, "check_unavailable", "The form Check could not run, so no draft is shown (%s)." % e)
+    except drafting.DraftFailed as e:
+        print("form-assistant: draft %.1fs failed the Check twice q=%r" % (time.time() - t0, req.instruction[:80]),
+              flush=True)
+        return JSONResponse({"error": {"code": "draft_failed_check",
+                                       "message": "The draft did not pass the form Check after a second try."},
+                             "check": e.check, **base}, status_code=422)
+    except (httpx.HTTPError, KeyError, ValueError) as e:
+        return error(503, "llm_unavailable", "The language model did not answer: %s" % type(e).__name__)
+    print("form-assistant: draft %.1fs attempts=%d %s=%r" % (time.time() - t0, attempts, draft["behaviour"],
+                                                            draft["expression"][:80]), flush=True)
+    return {**base, "draft": draft, "check": check, "attempts": attempts, "conceptsUsed": [], "citations": [],
+            "warnings": ["retried_after_check"] if attempts > 1 else []}
 
 
 if __name__ == "__main__":

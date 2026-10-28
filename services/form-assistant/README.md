@@ -66,3 +66,54 @@ Off-topic questions refused early take about 1 second, and a repeated question a
 A repeat run of the same code on 2026-10-28 gave 96.4 % answered or refused correctly, 85.7 % a right source cited,
 49.4 % must-mention, and 8.8 s and 11.0 s. The model words its answers a little differently each run, so three
 questions changed result (two down, one up). Treat a change of two questions or less as noise.
+
+## Write rules: `/v1/forms/draft`
+
+The second endpoint writes form code instead of answering questions. It follows the `/v1/forms/draft` contract
+agreed with the AI service team. So far it does the task `draft-rule`: one show or hide rule, calculation, warning
+or hard limit for one question, from a plain instruction such as "show this only for women aged 15 to 49".
+
+```
+curl -X POST localhost:8768/v1/forms/draft -H "Content-Type: application/json" -d @request.json
+# request.json: {"task": "draft-rule", "instruction": "...", "form": {...O3 form...}, "targetQuestionId": "gestAge"}
+```
+
+How a rule is made (`drafting.py`):
+
+1. The model gets the form's questions (ids, labels, answer uuids) and the instruction, and replies in a fixed JSON
+   shape: behaviour, expression, explanation. The prompt teaches the shipped forms' own style, so Form Studio's
+   Rules window can usually edit the result as a sentence.
+2. The command-line Check (`check-form --rules-only`) checks the expression: it must compile, use only questions in
+   the form, and compare coded questions with answer uuids. The Check needs `node`, which the image includes, and
+   `check-form.js` mounted at `/srv/check-form` (`-v <folder with check-form.js>:/srv/check-form:ro`).
+3. If the Check finds errors, the model gets one more try with the findings. A rule that still fails is never
+   returned: the reply is the error `draft_failed_check` with the findings. If the Check cannot run at all, the reply
+   is `check_unavailable`, never an unchecked rule.
+
+The reply carries the rule, where it goes on the question (`field`), Form Studio's own sentence for it
+(`plainLanguage`), whether the Rules window can edit it, and the Check's full output.
+
+Measure it with `eval_drafts.py`: each test case has sample answers ("pregnant = Yes: shown; No: hidden; not yet
+answered: hidden"), and `probe_rule.mjs` runs the drafted rule on them, so "works" means the rule behaves as asked,
+not only that it compiles.
+
+```
+python eval_drafts.py drafts-golden.json http://localhost:8768 drafts.jsonl
+python gate.py drafts drafts.jsonl
+```
+
+Results on 2026-10-28, on a synthetic test form (24 cases; 8 of them written before the last prompt changes and
+never used to tune them):
+
+| Measure | 16 tuning cases | 8 held-out cases |
+|---|---|---|
+| A rule came back (passed the Check) | 100 % | 100 % |
+| Right kind (hide, calculate, warn, fail) | 100 % | 100 % |
+| Works on every sample answer | 100 % | 100 % |
+| Editable in the Rules window | 88 to 94 % | 50 to 63 % |
+| Time, median | 3.4 s | 3.8 s |
+
+The first run, before two fixes, worked on 14 of 16. "Editable" is lower on the held-out cases because the Rules
+window does not edit hard limits (red errors) at all, nor a sex condition combined with an answer, nor two tick-box
+answers in one rule; those rules still work, and Form Studio shows them as written by hand. With this
+few cases one case is 6 points, so treat the numbers as a first reading.

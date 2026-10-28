@@ -3,6 +3,7 @@
 Usage:
   python gate.py search  <pack> <qa-golden.jsonl>   # search only: about 2 minutes, no language model; every change
   python gate.py answers <report.jsonl>             # a saved eval_answers.py report: run before a release
+  python gate.py drafts  <report.jsonl>             # a saved eval_drafts.py report: written rules
 Floors sit a few points under the last accepted run. With 84 questions one question is 1.2 points, so smaller
 moves are noise; raise a floor only after a real improvement, in the same commit.
 """
@@ -39,9 +40,19 @@ def answer_scores(report):
             "p90_seconds": times[int(0.9 * (len(times) - 1))]}
 
 
+def draft_scores(report):
+    rows = [json.loads(l) for l in open(report, encoding="utf-8") if l.strip()]
+    times = sorted(r["seconds"] for r in rows)
+    return {"drafted": 100 * sum(bool(r["drafted"]) for r in rows) / len(rows),
+            "right_kind": 100 * sum(bool(r.get("behaviour_ok")) for r in rows) / len(rows),
+            "works": 100 * sum(bool(r.get("works")) for r in rows) / len(rows),
+            "p90_seconds": times[int(0.9 * (len(times) - 1))]}
+
+
 if __name__ == "__main__":
     kind = sys.argv[1]
-    scores = search_scores(sys.argv[2], sys.argv[3]) if kind == "search" else answer_scores(sys.argv[2])
+    scores = (search_scores(sys.argv[2], sys.argv[3]) if kind == "search" else
+              draft_scores(sys.argv[2]) if kind == "drafts" else answer_scores(sys.argv[2]))
     failed = False
     for name, value in scores.items():
         floor = FLOORS[kind][name]
