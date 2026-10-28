@@ -57,8 +57,62 @@ class Index:
         return out
 
 
+def card(r):
+    """The text a meaning model reads for a record: where it sits (title > section), then what it says."""
+    return " > ".join(x for x in (r.get("title"), r.get("section")) if x) + "\n" + r.get("text", "")[:1500]
+
+
+class Meaning:
+    """Meaning search (embeddings) plus a re-ranker, both small ONNX models on the CPU (fastembed).
+
+    On the 84 held-out questions (2026-10-27) keyword search alone found a right record in the top 3 for 80.5 %;
+    keywords + bge-small merged by rank, then re-ranked by MiniLM-L-6, for 92.2 %. Vectors are built once per pack
+    and kept in cache_dir, so only the first start pays for them (about 6 minutes on 8 cores).
+    """
+
+    def __init__(self, indexes, embed_model, rerank_model, cache_dir, threads=8):
+        import hashlib
+        import numpy as np
+        from fastembed import TextEmbedding
+        from fastembed.rerank.cross_encoder import TextCrossEncoder
+        self.np = np
+        self.embed = TextEmbedding(embed_model, threads=threads, cache_dir=cache_dir)
+        self.rerank = TextCrossEncoder(rerank_model, threads=threads, cache_dir=cache_dir) if rerank_model else None
+        self.vectors = {}
+        for name, idx in indexes.items():
+            digest = hashlib.sha256("\n".join(r["id"] + r.get("content_hash", r.get("text", ""))
+                                              for r in idx.records).encode()).hexdigest()[:16]
+            path = os.path.join(cache_dir, "vectors-%s-%s-%s.npy" % (embed_model.replace("/", "_"), name, digest))
+            if os.path.exists(path):
+                v = np.load(path)
+            else:
+                v = np.array(list(self.embed.embed([card(r) for r in idx.records], batch_size=64)), dtype=np.float32)
+                v /= np.linalg.norm(v, axis=1, keepdims=True)
+                np.save(path, v)
+            self.vectors[name] = v
+
+    def query_vector(self, query):
+        v = self.np.array(list(self.embed.query_embed([query]))[0], dtype=self.np.float32)
+        return v / self.np.linalg.norm(v)
+
+    def rank(self, name, idx, query, qv, keyword, k, pool, audience=None):
+        """Merge keyword and meaning rankings by rank position (RRF, k = 60), re-rank the best `pool`, keep k."""
+        dense = self.np.argsort(-(self.vectors[name] @ qv))[:30]
+        pos = {id(r): i for i, r in enumerate(idx.records)}
+        score = {}
+        for lst in ([pos[id(r)] for _, r in keyword], list(dense)):
+            for rank, i in enumerate(lst):
+                score[i] = score.get(i, 0) + 1 / (60 + rank)
+        cands = [idx.records[i] for i in sorted(score, key=score.get, reverse=True)
+                 if not audience or audience in idx.records[i].get("audience", [audience])][:pool]
+        if not self.rerank or not cands:
+            return [(score[pos[id(r)]], r) for r in cands[:k]]
+        s = list(self.rerank.rerank(query, [card(r) for r in cands]))
+        return sorted(zip(s, cands), key=lambda x: -x[0])[:k]
+
+
 class Pack:
-    def __init__(self, folder):
+    def __init__(self, folder, embed_model=None, rerank_model=None, cache_dir="/srv/cache"):
         self.folder = folder
         self.manifest = json.load(open(os.path.join(folder, "manifest.json"), encoding="utf-8"))
         by = {}
@@ -73,11 +127,30 @@ class Pack:
         self.rules = by.pop("rules", [])
         self.indexes = {c: Index(rs) for c, rs in by.items()}
         self.count = sum(len(rs) for rs in by.values()) + len(self.rules)
+        self.meaning = Meaning(self.indexes, embed_model, rerank_model, cache_dir) if embed_model else None
 
-    def search(self, query, audience=None, k_knowledge=4, k_forms=2, k_questions=2):
-        """How-to sections first, then a few whole forms and form questions; each list ranked by its own index."""
+    @classmethod
+    def from_env(cls, folder):
+        """The pack as the service builds it, so the service, the scorers and the gate all measure the same search."""
+        return cls(folder, os.environ.get("FA_EMBED_MODEL", "BAAI/bge-small-en-v1.5") or None,
+                   os.environ.get("FA_RERANK_MODEL", "Xenova/ms-marco-MiniLM-L-6-v2") or None,
+                   os.environ.get("FA_CACHE", "/srv/cache"))
+
+    # How many records each list sends to the model, and how many candidates the re-ranker reads for it.
+    SPLIT = (("form-knowledge", 4, 20), ("forms", 2, 10), ("questions", 2, 10))
+
+    def search(self, query, audience=None):
+        """How-to sections first, then a few whole forms and form questions; each list ranked by its own index.
+        Returns (score, record) pairs; with a re-ranker the score is its relevance score (higher is closer)."""
         hits = []
-        for name, k in (("form-knowledge", k_knowledge), ("forms", k_forms), ("questions", k_questions)):
-            if name in self.indexes and k:
-                hits += self.indexes[name].search(query, k, audience)
+        qv = self.meaning.query_vector(query) if self.meaning else None
+        for name, k, pool in self.SPLIT:
+            idx = self.indexes.get(name)
+            if not idx:
+                continue
+            if self.meaning:
+                keyword = idx.search(query, 30, audience)
+                hits += self.meaning.rank(name, idx, query, qv, keyword, k, pool, audience)
+            else:
+                hits += idx.search(query, k, audience)
         return hits

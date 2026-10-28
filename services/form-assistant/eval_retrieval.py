@@ -1,7 +1,8 @@
 """Retrieval score on the held-out Q&A set: is an expected record among the top k results?
 
 Usage: python eval_retrieval.py <pack folder> <qa-golden.jsonl>
-Only answerable cases count (the others have no right record to find).
+Only answerable cases count (the others have no right record to find). Search is built as the service builds it
+(FA_EMBED_MODEL, FA_RERANK_MODEL, FA_CACHE); set both models empty to score keyword search alone.
 """
 import json
 import re
@@ -21,7 +22,7 @@ def hit(expected, rid):
 
 
 if __name__ == "__main__":
-    pack = Pack(sys.argv[1])
+    pack = Pack.from_env(sys.argv[1])
     cases = [json.loads(l) for l in open(sys.argv[2], encoding="utf-8") if l.strip()]
     cases = [c for c in cases if c["expected"].get("answerable") and c["expected"].get("anyOfRecordIds")]
     t0 = time.time()

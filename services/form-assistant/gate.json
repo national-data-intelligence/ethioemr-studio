@@ -1,0 +1,4 @@
+{
+  "search":  {"search_top3": 88.0, "search_all8": 94.0},
+  "answers": {"answered_when_should": 93.0, "refused_when_should": 85.0, "right_source_cited": 83.0, "p90_seconds": 15.0}
+}

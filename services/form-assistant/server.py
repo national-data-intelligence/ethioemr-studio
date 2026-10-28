@@ -8,7 +8,8 @@ the AI service can take this endpoint over unchanged later.
                        errors -> {"error": {"code": "...", "message": "..."}}
 
 How an answer is made:
-  1. Keyword search (retrieval.py) picks up to 8 records: how-to sections, whole forms, form questions.
+  1. Search (retrieval.py) picks up to 8 records: how-to sections, whole forms, form questions. Keyword and meaning
+     search are merged, then a re-ranker orders the candidates; all of it runs on the CPU.
   2. The model gets only those records, numbered K1..K8, plus the pack's "must" rules, and answers in JSON.
   3. Code keeps only [K#] markers that point at a record it sent, and lists exactly those as citations. An answer
      the model marks unanswerable, or one left with no valid marker, comes back with answerable=false.
@@ -16,17 +17,25 @@ Form knowledge only: no clinical guidelines, and no patient data (requests with 
 
 Settings (environment variables):
   FA_PACK          knowledge pack folder (manifest.json + records/*.jsonl)   (default /srv/pack)
+  FA_EMBED_MODEL   meaning-search model, CPU; empty = keyword search only    (default BAAI/bge-small-en-v1.5)
+  FA_RERANK_MODEL  re-ranker, CPU; empty = no re-ranking                     (default Xenova/ms-marco-MiniLM-L-6-v2)
+  FA_CACHE         folder for downloaded models and pack vectors (keep it on a volume)  (default /srv/cache)
   OLLAMA_URL       the shared Ollama server                                  (default http://172.16.0.4:11434)
   LLM_MODEL        model name                                                (default qwen2.5:14b)
+  FA_MIN_SCORE     refuse before calling the model when the best re-ranker score is below this; empty = off.
+                   -6 sits under every answerable test question (lowest -4.0) and above the clearly off-topic
+                   ones (-6.9 to -8.4)                                     (default -6)
   FA_MAX_TOKENS    longest answer the model may write; on the T4 time grows with every word  (default 350)
   FA_API_KEY       if set, callers must send "Authorization: Bearer <key>"   (default empty: no key)
   FA_PORT          port to listen on                                         (default 8768)
 """
+import asyncio
 import json
 import os
 import re
 import time
 import uuid
+from collections import OrderedDict
 
 import httpx
 from fastapi import FastAPI, Request
@@ -36,10 +45,12 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from retrieval import Pack, words
 
-PACK = Pack(os.environ.get("FA_PACK", "/srv/pack"))
+PACK = Pack.from_env(os.environ.get("FA_PACK", "/srv/pack"))
 LLM_URL = os.environ.get("OLLAMA_URL", "http://172.16.0.4:11434").rstrip("/")
 LLM_MODEL = os.environ.get("LLM_MODEL", "qwen2.5:14b")
 MAX_TOKENS = int(os.environ.get("FA_MAX_TOKENS", "350"))
+# Below this re-ranker score the closest record is too far from the question: refuse without calling the model.
+MIN_SCORE = float(os.environ.get("FA_MIN_SCORE", "-6")) if os.environ.get("FA_MIN_SCORE", "-6") != "" else None
 # Ollama holds the model to this shape while it writes, so the reply always parses. Each sentence carries its own
 # source numbers: the model cannot leave citations out, and code can drop any sentence without a real source.
 # The model writes in this order: the sentences first, then its judgement on whether they answer the question.
@@ -178,17 +189,40 @@ async def ask_llm(question, cards, findings, language):
     return json.loads(d["message"]["content"])
 
 
+# The same question under the same pack gets the same answer, so a repeat is answered from memory, with no model call.
+CACHE, CACHE_MAX = OrderedDict(), 500
+
+
 @app.post("/v1/forms/ask")
 async def forms_ask(req: AskRequest, request: Request):
     request_id = request.headers.get("x-request-id") or uuid.uuid4().hex
+    key = (" ".join(words(req.question)), req.audience, req.language, req.maxCitations,
+           tuple(req.context.checkFindings or []) if req.context else ())
+    if key in CACHE:
+        CACHE.move_to_end(key)
+        cached = CACHE[key]
+        return {**cached, "requestId": request_id, "warnings": cached["warnings"] + ["cached"]}
+    result = await make_answer(req, request_id)
+    if isinstance(result, dict):  # an error response is never kept
+        CACHE[key] = result
+        if len(CACHE) > CACHE_MAX:
+            CACHE.popitem(last=False)
+    return result
+
+
+async def make_answer(req, request_id):
     t0 = time.time()
-    query = req.question + " " + " ".join((req.context.checkFindings or []) if req.context else [])
-    hits = [r for _, r in PACK.search(query, req.audience)]
     base = {"schemaVersion": "1.0", "model": LLM_MODEL, "requestId": request_id, "disclaimer": DISCLAIMER}
     if PATIENT_QUESTION.search(req.question):
         return {**base, "answer": PATIENT_REFUSAL, "answerable": False, "citations": [], "relatedForms": [],
                 "warnings": ["patient_question_refused"]}
-    if not hits:
+    query = req.question + " " + " ".join((req.context.checkFindings or []) if req.context else [])
+    # Search takes about a second of CPU: run it on a worker thread so other requests are not held up meanwhile.
+    scored = await asyncio.to_thread(PACK.search, query, req.audience)
+    hits = [r for _, r in scored]
+    top = max((sc for sc, _ in scored), default=None)  # the re-ranker's best score: how close the closest record is
+    if not hits or (MIN_SCORE is not None and top is not None and top < MIN_SCORE):
+        print("form-assistant: ask %.1fs early refusal top=%s q=%r" % (time.time() - t0, top, req.question[:80]), flush=True)
         return {**base, "answer": "The Form Studio knowledge base has nothing on this question.", "answerable": False,
                 "citations": [], "relatedForms": [], "warnings": ["no_sources_found"]}
     try:
@@ -238,8 +272,8 @@ async def forms_ask(req: AskRequest, request: Request):
         if r.get("form_uuid") and r["form_uuid"] not in seen:
             seen.add(r["form_uuid"])
             forms.append({"formUuid": r["form_uuid"], "formName": r.get("form_name") or r.get("title", "")})
-    print("form-assistant: ask %.1fs answerable=%s cites=%s q=%r" % (time.time() - t0, answerable, used,
-                                                                     req.question[:80]), flush=True)
+    print("form-assistant: ask %.1fs answerable=%s cites=%s top=%.2f q=%r" % (time.time() - t0, answerable, used,
+                                                                             top or 0, req.question[:80]), flush=True)
     return {**base, "answer": answer, "answerable": answerable, "citations": citations, "relatedForms": forms[:10],
             "rulesApplied": [r["rule_id"] for r in MUST_RULES], "warnings": warnings}
 
