@@ -23,8 +23,8 @@ No patient data is accepted, and nothing is written anywhere: the service only r
 
 ```
 docker build -t ethioemr-form-assistant:dev services/form-assistant
-docker run -d --name form-assistant-dev -p 127.0.0.1:8768:8768 \
-  -v <pack folder>:/srv/pack:ro ethioemr-form-assistant:dev
+docker run -d --name form-assistant-dev -p 127.0.0.1:8768:8768 --cpus 8 \
+  -v fa-cache:/srv/cache -v <pack folder>:/srv/pack:ro ethioemr-form-assistant:dev
 curl localhost:8768/health
 curl -X POST localhost:8768/v1/forms/ask -H "Content-Type: application/json" \
   -d '{"question": "How do I start a new form from a paper form?"}'
