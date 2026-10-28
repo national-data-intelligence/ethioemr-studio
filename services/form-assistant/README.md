@@ -62,3 +62,7 @@ Results on the 84 questions (77 answerable, 7 not):
 | Time per answer, median and slowest 10 % | 7.8 s, 10.1 s | 8.9 s, 11.9 s |
 
 Off-topic questions refused early take about 1 second, and a repeated question about 0.02 seconds.
+
+A repeat run of the same code on 2026-10-28 gave 96.4 % answered or refused correctly, 85.7 % a right source cited,
+49.4 % must-mention, and 8.8 s and 11.0 s. The model words its answers a little differently each run, so three
+questions changed result (two down, one up). Treat a change of two questions or less as noise.
