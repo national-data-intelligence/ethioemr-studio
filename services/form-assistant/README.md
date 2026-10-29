@@ -4,6 +4,9 @@ Answers Form Studio questions ("why won't this form save?", "which forms record 
 knowledge pack, with a source for every sentence. It follows the `/v1/forms/ask` contract agreed with the AI service
 team (schemaVersion 1.0), so that service can take the endpoint over unchanged.
 
+Taking this service forward? Start with `HANDOVER.md`: what works, what is outside git and how to get it, and what
+to build next.
+
 ## How an answer is made
 
 1. Search picks up to 8 records from the pack: 4 how-to sections, 2 whole forms, 2 form questions. Keyword search
