@@ -41,13 +41,14 @@ Check cannot run, the caller gets `503 check_unavailable`, never an unchecked dr
 
 ## What is not in this repository, and how to get it
 
-The service needs three things that live outside git. Ask Abenezer for them.
+The service needs three things that live outside git. The test sets are shared on the dev server; ask Abenezer
+for the other two.
 
 | Thing | Why it is not in git | Where it is now |
 |---|---|---|
 | The Form Studio knowledge pack (13,470 records: 1,435 how-to sections, 368 forms, 11,656 questions) | Large generated data | Dev server `~/work/knowledge/fs-knowledge-pack-2026-10-22/` (Abenezer's user). Mount it at `/srv/pack` |
 | The command-line Check, `check-form.js` (0.1.1) | Built from Form Studio's own Check; kept with the Form Studio tools for now | Dev server `~/work/tools/check-form/`. Mount it at `/srv/check-form` |
-| The test sets: `qa-golden.jsonl` (84 questions), `drafts-golden.json` (16), `drafts-holdout.json` (8) | Held out, so the prompts are not tuned to the answers | Dev server `~/work/knowledge/` |
+| The test sets: `qa-golden.jsonl` (84 questions), `drafts-golden.json` (16), `drafts-holdout.json` (8) | Held out, so the prompts are not tuned to the answers | Dev server `/opt/form-assistant-tests/`, readable by the `docker` group. Keep them out of git and out of prompts |
 
 ## Run it
 
